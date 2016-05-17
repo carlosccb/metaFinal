@@ -1,5 +1,5 @@
-#ifndef __SOL_GENERATOR_MOCHILA_HPP__
-#define __SOL_GENERATOR_MOCHILA_HPP__
+#ifndef __GENERATOR_MSP_HPP__
+#define __GENERATOR_MSP_HPP__
 
 #include <vector>
 #include <cstdlib>
@@ -11,7 +11,7 @@
 using namespace std;
 
 
-class SolGeneratorMochila{
+class generatorMSP{
 
 
 	public:
@@ -24,17 +24,9 @@ class SolGeneratorMochila{
 
 		----------------------------------------------------- */
 
-		SolucionMochila randomSolutionGenerator(unsigned int objetos) {
-			SolucionMochila solucion(objetos);
+		SolutionMSP randomSolutionGenerator(unsigned int objetos) {
 
-/*
-			for(unsigned int i = 0; i < objetos; i++)
-				solucion.setSolucion(i, false);
-
-			for(unsigned int i = 0; i < objetos; i++)
-				if (rand()%2 == 1)
-				 solucion.setSolucion(i, true);
-*/
+			SolutionMSP solucion(objetos);
 
 
 			int incluidos = rand() % objetos;
