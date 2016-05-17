@@ -15,3 +15,14 @@
 
 
 ------------------------------------------------------------------------------------*/
+
+
+void busquedaAleatoria();
+
+void busquedaLocal();
+
+void enfriamientoSimulado();
+
+void GRASP();	//La funcion del GRASP se llama exactamente igual
+
+void algoritmoGenetico();
