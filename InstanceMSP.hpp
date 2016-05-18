@@ -1,5 +1,5 @@
-#ifndef __INSTANCE_KP_HPP__
-#define __INSTANCE_KP_HPP__
+#ifndef __INSTANCE_MSP_HPP__
+#define __INSTANCE_MSP_HPP__
 
 #include <fstream>
 #include <iostream>
@@ -8,22 +8,22 @@
 #include <string>
 #include <vector>
 
-#include "../lib/Instance.hpp"
-#include "../lib/Miscelanea.hpp"
+#include "Instance.hpp"
+#include "Miscelanea.hpp"
 #include "SolucionMochila.hpp"
 
-class InstanceKP : public Instance {
+class InstanceMSP : public Instance {
 	private:
 		int _capacity_line;
 
 	public:
-		InstanceKP() {}
+		InstanceMSP() {}
 		//Valores del constructor adaptados a los archivos csv de esta practica
-		InstanceKP(std::string file_name, int header_lines=5, int capacity_line=2, int length_line=1, char separator=',', int end_lines=2)
+		InstanceMSP(std::string file_name, int header_lines=5, int capacity_line=2, int length_line=1, char separator=',', int end_lines=2)
 			: Instance(file_name, header_lines, length_line, separator, end_lines), _capacity_line(capacity_line)
 		{}
 
-		~InstanceKP()
+		~InstanceMSP()
 		{
 			if(_file.is_open())
 				_file.close();
@@ -43,12 +43,12 @@ class InstanceKP : public Instance {
 		}
 
 		//Funcion que devuelve la bondad de una solucion
-		int getAptitude(SolucionMochila &solution, const int &KPSize, vector <problem_element> &info){
+		int getAptitude(SolucionMochila &solution, const int &MSPSize, vector <problem_element> &info){
 
 
 			int totalSize = solution.pesoSolucion(info);	//Peso de los elementos escogidos
 
-			if(totalSize <= KPSize)
+			if(totalSize <= MSPSize)
 
 				return solution.beneficioSolucion(info);	//Beneficio de los elementos escogidos
 
@@ -71,7 +71,7 @@ class InstanceKP : public Instance {
 		  int id = 1;	//Identificador del numero de ejecucion del programa
 		  string line;
 
-		  ifstream fr("KP_Fitness&Time.txt");
+		  ifstream fr("MSP_Fitness&Time.txt");
 
 			//Contamos cual ejecucion del programa es esta
 			if(fr.is_open()){
@@ -85,7 +85,7 @@ class InstanceKP : public Instance {
 			fr.close();
 
 
-		  ofstream fs("KP_soluciones.txt", std::ofstream::app);	//Abrimos el flujo de salida al fichero
+		  ofstream fs("MSP_soluciones.txt", std::ofstream::app);	//Abrimos el flujo de salida al fichero
 
 
 			//Escribimos los resultados de esta ejecucion
@@ -103,7 +103,7 @@ class InstanceKP : public Instance {
 
 			fs.close();
 
-                  fs.open("KP_Fitness&Time.txt", std::ofstream::app);
+                  fs.open("MSP_Fitness&Time.txt", std::ofstream::app);
                   if (id != 1) fs << endl;
                    fs << id << " " << inicial.getFitness() << " " << best_fitness << " " <<  tiempo <<  " " << iteraciones;
                   fs.close();
@@ -118,7 +118,7 @@ class InstanceKP : public Instance {
 		  string line;
 		  ofstream fs;
 
-			fs.open("KP_Iteraciones.txt", std::ofstream::app);
+			fs.open("MSP_Iteraciones.txt", std::ofstream::app);
 
 			fs << it << " " << best_global.getFitness() << " " << best_actual.getFitness() << endl;
 
@@ -133,7 +133,7 @@ class InstanceKP : public Instance {
 		  string line;
 		  ofstream fs;
 
-		      fs.open("KP_Fitness&Time.txt", std::ofstream::app);
+		      fs.open("MSP_Fitness&Time.txt", std::ofstream::app);
 		      if (iteraciones != 1) fs << endl;
 		       fs << iteraciones << " " << inicial.getFitness() << " " << best_fitness << " " <<  tiempo <<  " " << endl;
 		      fs.close();

@@ -1,5 +1,5 @@
-#ifndef		__GENETIC_ALGORITHM_KP__
-#define		__GENETIC_ALGORITHM_KP__
+#ifndef		__GENETIC_ALGORITHM_MSP__
+#define		__GENETIC_ALGORITHM_MSP__
 
 
 #include <cstdlib>
@@ -7,13 +7,13 @@
 #include <vector>
 #include <ctime>
 
-#include "../lib/Miscelanea.hpp"
+#include "Miscelanea.hpp"
 
 #include "SolucionMochila.hpp"
 #include "SolGeneratorMochila.hpp"
-#include "neighborOperatorKP.hpp"
-#include "neighborExploratorKP.hpp"
-#include "localSearchKP.hpp"
+#include "neighborOperatorMSP.hpp"
+#include "neighborExploratorMSP.hpp"
+#include "localSearchMSP.hpp"
 
 #include <iostream>
 
@@ -24,7 +24,7 @@ using namespace std;
 
 
 
-class geneticAlgorithmKP{
+class geneticAlgorithmMSP{
 
 
 
@@ -32,24 +32,24 @@ class geneticAlgorithmKP{
 
 		vector <SolucionMochila> _population;
 		vector <problem_element> _info;
-		int _KPSize;
+		int _MSPSize;
 
 	public:
 
 
-		geneticAlgorithmKP(const vector <problem_element> &info, const int &KPSize){
+		geneticAlgorithmMSP(const vector <problem_element> &info, const int &KPSize){
 
-			_KPSize = KPSize;
+			_MSPSize = KPSize;
 			_info = info;
 		};
 
-		~geneticAlgorithmKP(){};
+		~geneticAlgorithmMSP(){};
 
 
 
 		/*-----------------------------------------------------------------------
 
-			Funcion que implementa el algoritmo genetico para el KP
+			Funcion que implementa el algoritmo genetico para el MSP
 
 			El tamaño de la poblacion siempre debe ser par para no complicar en exceso
 
@@ -60,7 +60,7 @@ class geneticAlgorithmKP{
 
 
 		  SolucionMochila bestSolution;
-		  InstanceKP instancia;
+		  InstanceMSP instancia;
 		  int contador = 1;		//Variable con el numero de iteraciones
 
 
@@ -136,7 +136,7 @@ class geneticAlgorithmKP{
 
 					valid = true;
 					newIndividual = solGenerator.randomSolutionGenerator(_info.size());
-					newIndividual.setAptitude(_KPSize, _info);
+					newIndividual.setAptitude(_MSPSize, _info);
 
 					//Comprobamos que este lo suficientemente separado del resto de individuos
 					for(int j = 0; j < auxiliarPopulation.size(); j++){
@@ -385,7 +385,7 @@ class geneticAlgorithmKP{
 			}
 
 			hijo.setSolucion(solucion);
-			hijo.setAptitude(_KPSize, _info);
+			hijo.setAptitude(_MSPSize, _info);
 			naturalOrder.push_back(hijo);
 
 		  return naturalOrder;

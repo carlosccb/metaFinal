@@ -1,18 +1,18 @@
-#ifndef		__GRASP_EXPLORATOR_KP__
-#define		__GRASP_EXPLORATOR_KP__
+#ifndef		__GRASP_EXPLORATOR_MSP__
+#define		__GRASP_EXPLORATOR_MSP__
 
 
 #include <cstdlib>
 #include <cmath>
 #include <vector>
 
-#include "../lib/Miscelanea.hpp"
+#include "Miscelanea.hpp"
 
 #include "SolucionMochila.hpp"
 #include "SolGeneratorMochila.hpp"
-#include "neighborOperatorKP.hpp"
-#include "neighborExploratorKP.hpp"
-#include "localSearchKP.hpp"
+#include "neighborOperatorMSP.hpp"
+#include "neighborExploratorMSP.hpp"
+#include "localSearchMSP.hpp"
 
 #include <iostream>
 
@@ -22,20 +22,20 @@ using namespace std;
 
 
 
-class GRASPExploratorKP{
+class GRASPExploratorMSP{
 
 
 
 	private:
 
-		localSearchKP _busquedaLocal;
+		localSearchMSP _busquedaLocal;
 
 
 	public:
 
 
-		GRASPExploratorKP(){};
-		GRASPExploratorKP(localSearchKP &busquedaLocal){
+		GRASPExploratorMSP(){};
+		GRASPExploratorMSP(localSearchKP &busquedaLocal){
 
 			_busquedaLocal = busquedaLocal;
 		}
@@ -98,7 +98,7 @@ class GRASPExploratorKP{
 			}
 
 
-			solucionFinal.setAptitude(_busquedaLocal.getOperator().getKPSize(), info);
+			solucionFinal.setAptitude(_busquedaLocal.getOperator().getMSPSize(), info);
 
 		  return solucionFinal;
 		}

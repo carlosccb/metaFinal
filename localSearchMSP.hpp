@@ -1,20 +1,20 @@
-#ifndef		__LOCAL_SEARCH_KP__
-#define		__LOCAL_SEARCH_KP__
+#ifndef		__LOCAL_SEARCH_MSP__
+#define		__LOCAL_SEARCH_MSP__
 
 
 #include <vector>
 
-#include "../lib/Miscelanea.hpp"
+#include "Miscelanea.hpp"
 
-#include "neighborOperatorKP.hpp"
-#include "neighborExploratorKP.hpp"
+#include "neighborOperatorMSP.hpp"
+#include "neighborExploratorMSP.hpp"
 #include "SolucionMochila.hpp"
 
 
 using namespace std;
 
 
-class localSearchKP{
+class localSearchMSP{
 
 
 	private:
@@ -22,18 +22,18 @@ class localSearchKP{
 		double _bestFitness = 0;
 		SolucionMochila _bestSolution;
 
-		neighborOperatorKP _operador;
+		neighborOperatorMSP _operador;
 
-		bestImprovementKP _bestExplo;
-		firstImprovementKP _firstExplo;
+		bestImprovementMSP _bestExplo;
+		firstImprovementMSP _firstExplo;
 		bool isBestExplorator;
 
 
 	public:
 
 		//Constructores
-		localSearchKP(){};
-		localSearchKP(neighborOperatorKP &operador, firstImprovementKP &explorador){
+		localSearchMSP(){};
+		localSearchMSP(neighborOperatorKP &operador, firstImprovementKP &explorador){
 
 			_operador = operador;
 			_firstExplo = explorador;
@@ -41,7 +41,7 @@ class localSearchKP{
 			isBestExplorator = false;
 		}
 
-		localSearchKP(neighborOperatorKP &operador, bestImprovementKP &explorador){
+		localSearchMSP(neighborOperatorKP &operador, bestImprovementKP &explorador){
 
 			_operador = operador;
 			_bestExplo = explorador;
@@ -51,7 +51,7 @@ class localSearchKP{
 
 
 		//Sobrecarga operador igual
-		localSearchKP & operator=(const localSearchKP &s){
+		localSearchMSP & operator=(const localSearchKP &s){
 
 			if(this != &s){
 
@@ -74,10 +74,10 @@ class localSearchKP{
 
 		//Observadores
 		SolucionMochila getSolution() const {return _bestSolution;};
-		neighborOperatorKP getOperator() const {return _operador;};
+		neighborOperatorMSP getOperator() const {return _operador;};
 
-		bestImprovementKP getExploratorBest() const {return _bestExplo;}
-		firstImprovementKP getExploratorFirst() const {return _firstExplo;}
+		bestImprovementMSP getExploratorBest() const {return _bestExplo;}
+		firstImprovementMSP getExploratorFirst() const {return _firstExplo;}
 		bool exploratorType() const {return isBestExplorator;}
 
 

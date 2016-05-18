@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../lib/Miscelanea.hpp"
+#include "Miscelanea.hpp"
 
 using namespace std;
 

@@ -1,35 +1,35 @@
-#ifndef		__NEIGHBOR_EXPLORATOR_KP__
-#define		__NEIGHBOR_EXPLORATOR_KP__
+#ifndef		__NEIGHBOR_EXPLORATOR_MSP__
+#define		__NEIGHBOR_EXPLORATOR_MSP__
 
 
 #include <vector>
 
-#include "../lib/Miscelanea.hpp"
+#include "Miscelanea.hpp"
 
-#include "neighborOperatorKP.hpp"
+#include "neighborOperatorMSP.hpp"
 
 using namespace std;
 
 
-class neighborExploratorKP{
+class neighborExploratorMSP{
 
 
 	private:
 
-		neighborOperatorKP _operador;
+		neighborOperatorMSP _operador;
 
 
 	public:
 
 		//Constructores
-		neighborExploratorKP(){};
-		neighborExploratorKP(const neighborOperatorKP &operador){
+		neighborExploratorMSP(){};
+		neighborExploratorMSP(const neighborOperatorMSP &operador){
 
 			_operador = operador;
 
 		}
 
-		neighborExploratorKP & operator=(const neighborExploratorKP &s){
+		neighborExploratorMSP & operator=(const neighborExploratorMSP &s){
 
 			if(this != &s){
 
@@ -41,10 +41,10 @@ class neighborExploratorKP{
 
 
 		//Modificadores
-		void setOperator(neighborOperatorKP &operador){_operador = operador;};
+		void setOperator(neighborOperatorMSP &operador){_operador = operador;};
 
 		//Observadores
-		neighborOperatorKP getOperator() const {return _operador;};
+		neighborOperatorMSP getOperator() const {return _operador;};
 
 };
 
@@ -53,15 +53,15 @@ class neighborExploratorKP{
 
 
 
-class firstImprovementKP: public neighborExploratorKP{
+class firstImprovementMSP: public neighborExploratorMSP{
 
 
 
 	public:
 
 		//Constructores
-		firstImprovementKP(){};
-		firstImprovementKP(neighborOperatorKP &operador): neighborExploratorKP(operador){};
+		firstImprovementMSP(){};
+		firstImprovementMSP(neighborOperatorMSP &operador): neighborExploratorMSP(operador){};
 
 
 
@@ -101,15 +101,15 @@ class firstImprovementKP: public neighborExploratorKP{
 
 
 
-class bestImprovementKP: public neighborExploratorKP{
+class bestImprovementMSP: public neighborExploratorMSP{
 
 
 
 	public:
 
 		//Constructores
-		bestImprovementKP(){};
-		bestImprovementKP(neighborOperatorKP &operador): neighborExploratorKP(operador){};
+		bestImprovementMSP(){};
+		bestImprovementMSP(neighborOperatorMSP &operador): neighborExploratorMSP(operador){};
 
 
 

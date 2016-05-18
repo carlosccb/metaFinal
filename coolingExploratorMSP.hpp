@@ -1,15 +1,15 @@
-#ifndef		__COOLING_EXPLORATOR_KP__
-#define		__COOLING_EXPLORATOR_KP__
+#ifndef		__COOLING_EXPLORATOR_MSP__
+#define		__COOLING_EXPLORATOR_MSP__
 
 
 #include <cstdlib>
 #include <cmath>
 #include <vector>
 
-#include "../lib/Miscelanea.hpp"
+#include "Miscelanea.hpp"
 
 #include "SolucionMochila.hpp"
-#include "neighborOperatorKP.hpp"
+#include "neighborOperatorMSP.hpp"
 #include <iostream>
 
 
@@ -17,20 +17,20 @@ using namespace std;
 
 
 
-class coolingExploratorKP{
+class coolingExploratorMSP{
 
 
 	private:
 
-		neighborOperatorKP _operador;
+		neighborOperatorMSP _operador;
 		double _temperature;		//Hay que darle una temperatura inicial
 
 
 	public:
 
 		//Constructores
-		coolingExploratorKP(){};
-		coolingExploratorKP(neighborOperatorKP &operador){
+		coolingExploratorMSP(){};
+		coolingExploratorMSP(neighborOperatorKP &operador){
 
 			_operador = operador;
 
@@ -38,7 +38,7 @@ class coolingExploratorKP{
 
 
 		//Sobrecarga operador igual
-		coolingExploratorKP & operator=(const coolingExploratorKP &s){
+		coolingExploratorMSP & operator=(const coolingExploratorKP &s){
 
 			if(this != &s){
 
@@ -49,10 +49,10 @@ class coolingExploratorKP{
 		};
 
 		//Modificadores
-		void setOperator(neighborOperatorKP &operador){_operador = operador;};
+		void setOperator(neighborOperatorMSP &operador){_operador = operador;};
 
 		//Observadores
-		neighborOperatorKP getOperator() const {return _operador;};
+		neighborOperatorMSP getOperator() const {return _operador;};
 
 
 		//Funciones pequeñas
@@ -70,7 +70,7 @@ class coolingExploratorKP{
 				int pos1 = random() % info.size();
 
 				SolucionMochila original = solGenerator.randomSolutionGenerator(info.size());
-				original.setAptitude(_operador.getKPSize(), info);
+				original.setAptitude(_operador.getMSPSize(), info);
 				double fitness1 = original.getFitness();
 
 				SolucionMochila vecino = getOperator().generateNeighbor(original, pos1);
@@ -119,7 +119,7 @@ class coolingExploratorKP{
 
 		//Funciones tochas
 
-		SolucionMochila enfriamientoSimuladoKP(const vector <problem_element> &info, SolucionMochila &initialSolution){
+		SolucionMochila enfriamientoSimuladoMSP(const vector <problem_element> &info, SolucionMochila &initialSolution){
 
 
 			temperatureRestart(info);

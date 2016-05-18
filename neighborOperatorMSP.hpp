@@ -1,10 +1,10 @@
-#ifndef		__NEIGHBOR_OPERATOR_KP__
-#define		__NEIGHBOR_OPERATOR_KP__
+#ifndef		__NEIGHBOR_OPERATOR_MSP__
+#define		__NEIGHBOR_OPERATOR_MSP__
 
 #include <vector>
 #include <cmath>
 
-#include "../lib/Miscelanea.hpp"
+#include "Miscelanea.hpp"
 
 #include "SolucionMochila.hpp"
 
@@ -12,35 +12,35 @@
 using namespace std;
 
 
-class neighborOperatorKP{
+class neighborOperatorMSP{
 
 
 	private:
 
-		int _KPSize;						//Tamaño de la mochila
+		int _MSPSize;						//Tamaño de la mochila
 		vector <problem_element> _info;		//Informacion de cada elemento de la mochila
 
 	public:
 
 		//Constructor
-		neighborOperatorKP(){};
-		neighborOperatorKP(const int &KPSize, const vector <problem_element> &info){
+		neighborOperatorMSP(){};
+		neighborOperatorMSP(const int &KPSize, const vector <problem_element> &info){
 
-			_KPSize = KPSize;
+			_MSPSize = KPSize;
 			_info = info;
 		};
 
 		//Observadores
 		vector <problem_element> getInfo() const {return _info;};
-		int getKPSize() const {return _KPSize;};
+		int getMSPSize() const {return _KPSize;};
 
 		//Sobrecarga operador =
-		neighborOperatorKP & operator=(const neighborOperatorKP &s){
+		neighborOperatorMSP & operator=(const neighborOperatorKP &s){
 
 			if(this != &s){
 
 				this->_info = s.getInfo();
-				this->_KPSize = s.getKPSize();
+				this->_MSPSize = s.getKPSize();
 			}
 
 		  return *this;
@@ -67,7 +67,7 @@ class neighborOperatorKP{
 
 			SolucionMochila solucion(initialSolution);
 			solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));
-			solucion.recalcularFitness(pos, _info, _KPSize);
+			solucion.recalcularFitness(pos, _info, _MSPSize);
 
 		  return solucion;
 		}
