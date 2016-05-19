@@ -37,12 +37,12 @@ class generatorMSP{
 				while(true){
 
 					pos = rand() % objetos;
-					if(solucion.getSolucion(pos) == false)
+					if(solucion.getSolution(pos) == false)
 						break;
 
 				}
 
-				solucion.setSolucion(pos, true);
+				solucion.setSolution(pos, true);
 			}
 
 

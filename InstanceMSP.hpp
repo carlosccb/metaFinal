@@ -10,7 +10,7 @@
 
 #include "Instance.hpp"
 #include "Miscelanea.hpp"
-#include "SolucionMochila.hpp"
+#include "SolutionMSP.hpp"
 
 class InstanceMSP : public Instance {
 	private:
@@ -43,7 +43,7 @@ class InstanceMSP : public Instance {
 		}
 
 		//Funcion que devuelve la bondad de una solucion
-		int getAptitude(SolucionMochila &solution, const int &MSPSize, vector <problem_element> &info){
+		int getAptitude(SolutionMSP &solution, const int &MSPSize, vector <problem_element> &info){
 
 
 			int totalSize = solution.pesoSolucion(info);	//Peso de los elementos escogidos
@@ -65,7 +65,7 @@ class InstanceMSP : public Instance {
 
 
 		//Funcion que almacena en un fichero una serie de datos de salida del programa
-		void saveResults(const SolucionMochila &inicial, const double &best_fitness, const SolucionMochila &best_solution, double &tiempo, int iteraciones = 0){
+		void saveResults(const SolutionMSP &inicial, const double &best_fitness, const SolutionMSP &best_solution, double &tiempo, int iteraciones = 0){
 
 
 		  int id = 1;	//Identificador del numero de ejecucion del programa
@@ -90,11 +90,11 @@ class InstanceMSP : public Instance {
 
 			//Escribimos los resultados de esta ejecucion
 			fs << "Ejecución " << id << ":"<< endl;
-                        for (int i = 0; i < best_solution.getSolucion().size(); i++){
+                        for (int i = 0; i < best_solution.getSolution().size(); i++){
                              fs << i << " ";
-                               if (best_solution.getSolucion(i) == true){ fs << "Si " << 1 << " ";}
+                               if (best_solution.getSolution(i) == true){ fs << "Si " << 1 << " ";}
                                 else { fs << "No " << 0 << " ";}
-                               if (inicial.getSolucion(i) == true){ fs << "Si " << 1 << endl;}
+                               if (inicial.getSolution(i) == true){ fs << "Si " << 1 << endl;}
                                 else {fs << "No " << 0 << endl;}
 
                         }
@@ -112,7 +112,7 @@ class InstanceMSP : public Instance {
 
 
 
-		void saveResults(const int &it, const SolucionMochila &best_global, const SolucionMochila &best_actual){
+		void saveResults(const int &it, const SolutionMSP &best_global, const SolutionMSP &best_actual){
 
 
 		  string line;
@@ -128,7 +128,7 @@ class InstanceMSP : public Instance {
 
 
 		//Funcion que almacena en un fichero una serie de datos de salida del programa
-		void simpleSaveResults(const SolucionMochila &inicial, const double &best_fitness, double &tiempo, int iteraciones) {
+		void simpleSaveResults(const SolutionMSP &inicial, const double &best_fitness, double &tiempo, int iteraciones) {
 
 		  string line;
 		  ofstream fs;

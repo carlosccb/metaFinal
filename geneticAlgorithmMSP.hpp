@@ -9,8 +9,8 @@
 
 #include "Miscelanea.hpp"
 
-#include "SolucionMochila.hpp"
-#include "SolGeneratorMochila.hpp"
+#include "SolutionMSP.hpp"
+#include "SolGeneratorMSP.hpp"
 #include "neighborOperatorMSP.hpp"
 #include "neighborExploratorMSP.hpp"
 #include "localSearchMSP.hpp"
@@ -30,16 +30,16 @@ class geneticAlgorithmMSP{
 
 	private:
 
-		vector <SolucionMochila> _population;
+		vector <SolutionMSP> _population;
 		vector <problem_element> _info;
 		int _MSPSize;
 
 	public:
 
 
-		geneticAlgorithmMSP(const vector <problem_element> &info, const int &KPSize){
+		geneticAlgorithmMSP(const vector <problem_element> &info, const int &MSPSize){
 
-			_MSPSize = KPSize;
+			_MSPSize = MSPSize;
 			_info = info;
 		};
 
@@ -55,11 +55,11 @@ class geneticAlgorithmMSP{
 
 		------------------------------------------------------------------------*/
 
-		SolucionMochila GA(){
+		SolutionMSP GA(){
 
 
 
-		  SolucionMochila bestSolution;
+		  SolutionMSP bestSolution;
 		  InstanceMSP instancia;
 		  int contador = 1;		//Variable con el numero de iteraciones
 
@@ -78,7 +78,7 @@ class geneticAlgorithmMSP{
 			while(contador < 100000 && tiempo < (1 * hora)){
 
 
-			  vector <SolucionMochila> auxiliarPopulation;
+			  vector <SolutionMSP> auxiliarPopulation;
 
 				instancia.saveResults(contador, bestSolution, _population[_population.size() - 1]);
 
@@ -120,13 +120,13 @@ class geneticAlgorithmMSP{
 
 		------------------------------------------------------------------------*/
 
-		vector <SolucionMochila> initializePopulation(const int &popSize){
+		vector <SolutionMSP> initializePopulation(const int &popSize){
 
 
-		  vector <SolucionMochila> auxiliarPopulation;
-		  SolGeneratorMochila solGenerator;
+		  vector <SolutionMSP> auxiliarPopulation;
+		  SolGeneratorMSP solGenerator;
 
-		  SolucionMochila newIndividual;
+		  SolutionMSP newIndividual;
 
 			for(int i = 0; i < popSize; i++){
 
@@ -161,19 +161,19 @@ class geneticAlgorithmMSP{
 
 
 		//Funcion que devulve la distancia de hamming entre dos soluciones
-		int distanciaHamming(const SolucionMochila &sol1, const SolucionMochila &sol2){
+		int distanciaHamming(const SolutionMSP &sol1, const SolutionMSP &sol2){
 
 		  int distHamming = 0;
 
-			if(sol1.getSolucion().size() != sol2.getSolucion().size()){
+			if(sol1.getSolution().size() != sol2.getSolution().size()){
 
 				cout << endl << "Error. El tamaño de los vectores solucion no es similar" << endl << endl;
 				exit(0);
 			}
 
-			for(int i = 0; i < sol1.getSolucion().size(); i++){
+			for(int i = 0; i < sol1.getSolution().size(); i++){
 
-				if(sol1.getSolucion(i) != sol2.getSolucion(i))
+				if(sol1.getSolution(i) != sol2.getSolution(i))
 					distHamming++;
 			}
 
@@ -191,7 +191,7 @@ class geneticAlgorithmMSP{
 
 		------------------------------------------------------------------------*/
 
-		void evaluatePopulation(vector <SolucionMochila> &population){
+		void evaluatePopulation(vector <SolutionMSP> &population){
 
 
 		  unsigned int left = 0, pos = 0, seed = rand();
@@ -221,7 +221,7 @@ class geneticAlgorithmMSP{
 			            if (right >= len)
 			            	break;
 
-		              SolucionMochila temp = population[right];
+		              SolutionMSP temp = population[right];
 
 			            population[right] = population[len];
 			            population[len] = temp;
@@ -249,11 +249,11 @@ class geneticAlgorithmMSP{
 
 		------------------------------------------------------------------------*/
 
-		void evolvePopulation(vector <SolucionMochila> &newPopulation){
+		void evolvePopulation(vector <SolutionMSP> &newPopulation){
 
 
-		  SolucionMochila pA, pB;
-		  vector <SolucionMochila> subPopulation;
+		  SolutionMSP pA, pB;
+		  vector <SolutionMSP> subPopulation;
 
 			selectParents(pA, pB);
 
@@ -280,11 +280,11 @@ class geneticAlgorithmMSP{
 
 		------------------------------------------------------------------------*/
 
-		void selectParents(SolucionMochila &pA, SolucionMochila &pB){
+		void selectParents(SolutionMSP &pA, SolutionMSP &pB){
 
 
 
-		  vector <SolucionMochila> potentialParents;
+		  vector <SolutionMSP> potentialParents;
 		  vector <int> aux;
 		  int numAux;
 
@@ -356,35 +356,35 @@ class geneticAlgorithmMSP{
 		------------------------------------------------------------------------*/
 
 
-		vector <SolucionMochila> geneticOperator(const SolucionMochila &pA, const SolucionMochila &pB){
+		vector <SolutionMSP> geneticOperator(const SolutionMSP &pA, const SolutionMSP &pB){
 
-		  vector <SolucionMochila> naturalOrder;
+		  vector <SolutionMSP> naturalOrder;
 		  vector <bool> solucion;
-		  SolucionMochila hijo;
+		  SolutionMSP hijo;
 		  int numAux;
 
 			naturalOrder.push_back(pA);
 			naturalOrder.push_back(pB);
 
-			for(int i = 0; i < pA.getSolucion().size(); i++){
+			for(int i = 0; i < pA.getSolution().size(); i++){
 
-				if(pA.getSolucion(i) == pB.getSolucion(i))
-					solucion.push_back(pA.getSolucion(i));
+				if(pA.getSolution(i) == pB.getSolution(i))
+					solucion.push_back(pA.getSolution(i));
 
 				else{
 
 					numAux = rand() % 2;
 
 					if(numAux == 0)
-						solucion.push_back(pA.getSolucion(i));
+						solucion.push_back(pA.getSolution(i));
 
 					else
-						solucion.push_back(pB.getSolucion(i));
+						solucion.push_back(pB.getSolution(i));
 
 				}
 			}
 
-			hijo.setSolucion(solucion);
+			hijo.setSolution(solucion);
 			hijo.setAptitude(_MSPSize, _info);
 			naturalOrder.push_back(hijo);
 
@@ -395,7 +395,7 @@ class geneticAlgorithmMSP{
 
 
 		//Funcion que escoge entre los dos mejores individuos despues de un cruce
-		void selectIndividuals(vector <SolucionMochila> &naturalOrder){
+		void selectIndividuals(vector <SolutionMSP> &naturalOrder){
 
 
 			evaluatePopulation(naturalOrder);

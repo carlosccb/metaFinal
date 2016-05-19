@@ -8,7 +8,7 @@
 
 #include "neighborOperatorMSP.hpp"
 #include "neighborExploratorMSP.hpp"
-#include "solutionMSP.hpp"
+#include "SolutionMSP.hpp"
 
 
 using namespace std;
@@ -20,7 +20,7 @@ class localSearchMSP{
 	private:
 
 		double _bestFitness = 0;
-		solutionMSP _bestSolution;
+		SolutionMSP _bestSolution;
 
 		neighborOperatorMSP _operador;
 
@@ -70,11 +70,11 @@ class localSearchMSP{
 
 
 		//Modificadores
-		void setSolution(solutionMSP &bestSolution){_bestSolution = bestSolution;};
+		void setSolution(SolutionMSP &bestSolution){_bestSolution = bestSolution;};
 
 
 		//Observadores
-		solutionMSP getSolution() const {return _bestSolution;};
+		SolutionMSP getSolution() const {return _bestSolution;};
 		neighborOperatorMSP getOperator() const {return _operador;};
 
 		bestImprovementMSP getExploratorBest() const {return _bestExplo;}
@@ -83,12 +83,12 @@ class localSearchMSP{
 
 
 		//Metodo que devuelve el optimo local ¿Y su valor de fitness?
-		int localOptimum(const solutionMSP &initialSolution, solutionMSP &optimumSolution, double &optimumFitness){
+		int localOptimum(const SolutionMSP &initialSolution, SolutionMSP &optimumSolution, double &optimumFitness){
 
 
 		  int iteraciones = 1000, contador = 0;		//Cuenta el numero de veces que el optimo no varia
 		  double actualFitness;
-		  solutionMSP actualSolution;
+		  SolutionMSP actualSolution;
 
 
 			_bestSolution = initialSolution;

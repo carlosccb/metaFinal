@@ -8,7 +8,7 @@
 
 #include "Miscelanea.hpp"
 
-#include "solutionMSP.hpp"
+#include "SolutionMSP.hpp"
 #include "neighborOperatorMSP.hpp"
 #include <iostream>
 
@@ -62,18 +62,18 @@ class coolingExploratorMSP{
 		void temperatureRestart(const int &problemSize){
 
 		  double media = 0.0;
-		  SolGeneratorMochila solGenerator;
+		  SolGeneratorMSP solGenerator;
 
 			for(unsigned int i = 0; i < TAM_TORNEO; i++){
 
 
 				int pos1 = random() % problemSize;
 
-				solutionMSP original = solGenerator.randomSolutionGenerator(problemSize);
+				SolutionMSP original = solGenerator.randomSolutionGenerator(problemSize);
 				original.setAptitude(_operador.getClauses());
 				double fitness1 = original.getFitness();
 
-				solutionMSP vecino = getOperator().generateNeighbor(original, pos1);
+				SolutionMSP vecino = getOperator().generateNeighbor(original, pos1);
 				double fitness2 = vecino.getFitness();
 
 
@@ -119,13 +119,13 @@ class coolingExploratorMSP{
 
 		//Funciones tochas
 
-		solutionMSP enfriamientoSimuladoMSP(const int &problemSize, solutionMSP &initialSolution){
+		SolutionMSP enfriamientoSimuladoMSP(const int &problemSize, SolutionMSP &initialSolution){
 
 
 			temperatureRestart(problemSize);
 
 		  double actualFitness, newFitness, bestFitness;
-		  solutionMSP bestSolution, actualSolution, newSolution;
+		  SolutionMSP bestSolution, actualSolution, newSolution;
 
 
 			actualSolution = bestSolution = initialSolution;
@@ -136,7 +136,7 @@ class coolingExploratorMSP{
 
 //				cout << "Iteracion: " << k << endl;
 
-				int pos1 = random() % initialSolution.getSolucion().size();
+				int pos1 = random() % initialSolution.getSolution().size();
 				newSolution = getOperator().generateNeighbor(actualSolution, pos1);
 				newFitness = newSolution.getFitness();
 

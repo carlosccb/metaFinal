@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class solutionMSP{
+class SolutionMSP{
 
 	private:
 
@@ -18,9 +18,7 @@ class solutionMSP{
 	public:
 
 		//Constructor
-		solutionMSP(){};
-		solutionMSP(int objetos=0){
-
+		SolutionMSP(int objetos=0) {
 			for (int i = 0; i < objetos; i++)
 				_solution.push_back(false);
 		}
@@ -52,7 +50,7 @@ class solutionMSP{
 
 
 		//Sobrecarga Operador =
-		solutionMSP & operator=(const solutionMSP &s){
+		SolutionMSP & operator=(const SolutionMSP &s){
 
 			if(this != &s){
 

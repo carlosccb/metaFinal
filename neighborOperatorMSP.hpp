@@ -6,7 +6,7 @@
 
 #include "Miscelanea.hpp"
 
-#include "solutionMSP.hpp"
+#include "SolutionMSP.hpp"
 
 
 using namespace std;
@@ -41,13 +41,13 @@ class neighborOperatorMSP{
 
 /*
 		//Metodo que genera un vecino de una solucion, teniendo en cuenta unos parametros
-		solutionMSP generateNeighbor(solutionMSP &initialSolution, vector<int> &parametros){
+		SolutionMSP generateNeighbor(SolutionMSP &initialSolution, vector<int> &parametros){
 
 		int i;
-		solutionMSP solucion(initialSolution);
+		SolutionMSP solucion(initialSolution);
 
 		for (i = 0; i < parametros.size(); i++){
-			solucion.setSolucion(parametros[i], abs(solucion.getSolucion(parametros[i]) - 1));
+			solucion.setSolution(parametros[i], abs(solucion.getSolution(parametros[i]) - 1));
 		}
 
 
@@ -56,10 +56,10 @@ class neighborOperatorMSP{
 */
 
 		//Metodo que genera un vecino, invirtiendo un unico bit de una solucion dada
-		solutionMSP generateNeighbor(const solutionMSP &initialSolution, int pos){
+		SolutionMSP generateNeighbor(const SolutionMSP &initialSolution, int pos){
 
-			solutionMSP solucion(initialSolution);
-			solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));
+			SolutionMSP solucion(initialSolution);
+			solucion.setSolution(pos, abs(solucion.getSolution(pos) - 1));
 			solucion.setAptitude(_clauses);
 
 		  return solucion;

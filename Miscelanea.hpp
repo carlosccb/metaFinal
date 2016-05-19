@@ -10,6 +10,16 @@ struct problem_element {
 	int clausula1; 
 	int clausula2; 
 	int clausula3;
+
+	/***********************************************************/
+	/* --------------- TODO -----------------------------------*/
+	/*  ATENCION: ESTO ESTA PARA QUITAR ERRORES
+	 * NO FUNCIONA ASI. NO HAY DOS MIEMBROS EN ESTA ESTRUCTURA */
+	int a;
+	int b;
+
+	/***********************************************************/
+
 };
 
 void printVect(const std::vector<int> &v, std::string separator="", bool endLine=true);

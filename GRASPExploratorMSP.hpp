@@ -8,8 +8,8 @@
 
 #include "Miscelanea.hpp"
 
-#include "SolucionMochila.hpp"
-#include "SolGeneratorMochila.hpp"
+#include "SolutionMSP.hpp"
+#include "SolGeneratorMSP.hpp"
 #include "neighborOperatorMSP.hpp"
 #include "neighborExploratorMSP.hpp"
 #include "localSearchMSP.hpp"
@@ -35,7 +35,7 @@ class GRASPExploratorMSP{
 
 
 		GRASPExploratorMSP(){};
-		GRASPExploratorMSP(localSearchKP &busquedaLocal){
+		GRASPExploratorMSP(localSearchMSP &busquedaLocal){
 
 			_busquedaLocal = busquedaLocal;
 		}
@@ -64,11 +64,11 @@ class GRASPExploratorMSP{
 
 
 
-		SolucionMochila greedyConstructor(const vector <problem_element> &info){
+		SolutionMSP greedyConstructor(const vector <problem_element> &info){
 
 
 
-			SolucionMochila solucionFinal(info.size());
+			SolutionMSP solucionFinal(info.size());
 			vector <int> aux;
 			int numAux, i = 0;
 
@@ -84,13 +84,13 @@ class GRASPExploratorMSP{
 
 						numAux = rand() % info.size();
 
-					} while(solucionFinal.getSolucion(numAux));
+					} while(solucionFinal.getSolution(numAux));
 					aux.push_back(numAux);		//Introducimos en la lista de candidatos un elemento aleatorio que aun no este en la lista
 				}
 
 
 				int posMejor = mejorCandidato(info, aux);
-				solucionFinal.setSolucion(posMejor, true);
+				solucionFinal.setSolution(posMejor, true);
 
 				aux.clear();
 
@@ -105,10 +105,10 @@ class GRASPExploratorMSP{
 
 
 
-		SolucionMochila GRASP(const vector <problem_element> &info){
+		SolutionMSP GRASP(const vector <problem_element> &info){
 
 
-			SolucionMochila actualSolution, currentSolution, bestSolution = greedyConstructor(info);
+			SolutionMSP actualSolution, currentSolution, bestSolution = greedyConstructor(info);
 			double actualFitness, bestFitness = bestSolution.getFitness();
 
 

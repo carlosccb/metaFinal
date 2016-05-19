@@ -66,11 +66,11 @@ class firstImprovementMSP: public neighborExploratorMSP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		solutionMSP explorateNeighborhood(const solutionMSP &initialSolution){
+		SolutionMSP explorateNeighborhood(const SolutionMSP &initialSolution){
 
 
 		  double actualFitness, bestFitness;
-		  solutionMSP bestSolution, actualSolution;
+		  SolutionMSP bestSolution, actualSolution;
 
 
 			bestSolution = initialSolution;
@@ -114,10 +114,10 @@ class bestImprovementMSP: public neighborExploratorMSP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		solutionMSP explorateNeighborhood(const solutionMSP &initialSolution){
+		SolutionMSP explorateNeighborhood(const SolutionMSP &initialSolution){
 
 		  double actualFitness, bestFitness;
-		  solutionMSP bestSolution, actualSolution;
+		  SolutionMSP bestSolution, actualSolution;
 
 			bestSolution = initialSolution;
 			bestFitness = bestSolution.getFitness();
