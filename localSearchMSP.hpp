@@ -8,7 +8,7 @@
 
 #include "neighborOperatorMSP.hpp"
 #include "neighborExploratorMSP.hpp"
-#include "SolucionMochila.hpp"
+#include "solutionMSP.hpp"
 
 
 using namespace std;
@@ -20,7 +20,7 @@ class localSearchMSP{
 	private:
 
 		double _bestFitness = 0;
-		SolucionMochila _bestSolution;
+		solutionMSP _bestSolution;
 
 		neighborOperatorMSP _operador;
 
@@ -33,7 +33,7 @@ class localSearchMSP{
 
 		//Constructores
 		localSearchMSP(){};
-		localSearchMSP(neighborOperatorKP &operador, firstImprovementKP &explorador){
+		localSearchMSP(neighborOperatorMSP &operador, firstImprovementMSP &explorador){
 
 			_operador = operador;
 			_firstExplo = explorador;
@@ -41,7 +41,8 @@ class localSearchMSP{
 			isBestExplorator = false;
 		}
 
-		localSearchMSP(neighborOperatorKP &operador, bestImprovementKP &explorador){
+
+		localSearchMSP(neighborOperatorMSP &operador, bestImprovementMSP &explorador){
 
 			_operador = operador;
 			_bestExplo = explorador;
@@ -51,7 +52,7 @@ class localSearchMSP{
 
 
 		//Sobrecarga operador igual
-		localSearchMSP & operator=(const localSearchKP &s){
+		localSearchMSP & operator=(const localSearchMSP &s){
 
 			if(this != &s){
 
@@ -69,11 +70,11 @@ class localSearchMSP{
 
 
 		//Modificadores
-		void setSolution(SolucionMochila &bestSolution){_bestSolution = bestSolution;};
+		void setSolution(solutionMSP &bestSolution){_bestSolution = bestSolution;};
 
 
 		//Observadores
-		SolucionMochila getSolution() const {return _bestSolution;};
+		solutionMSP getSolution() const {return _bestSolution;};
 		neighborOperatorMSP getOperator() const {return _operador;};
 
 		bestImprovementMSP getExploratorBest() const {return _bestExplo;}
@@ -82,12 +83,12 @@ class localSearchMSP{
 
 
 		//Metodo que devuelve el optimo local ¿Y su valor de fitness?
-		int localOptimum(const SolucionMochila &initialSolution, SolucionMochila &optimumSolution, double &optimumFitness){
+		int localOptimum(const solutionMSP &initialSolution, solutionMSP &optimumSolution, double &optimumFitness){
 
 
 		  int iteraciones = 1000, contador = 0;		//Cuenta el numero de veces que el optimo no varia
 		  double actualFitness;
-		  SolucionMochila actualSolution;
+		  solutionMSP actualSolution;
 
 
 			_bestSolution = initialSolution;
@@ -139,7 +140,7 @@ class localSearchMSP{
 			optimumSolution = _bestSolution;
 			optimumFitness = _bestFitness;
 
-                        return 1000-iteraciones; //para saber cuantas iteraciones hemos realizado
+		  return 1000 - iteraciones; 	//para saber cuantas iteraciones hemos realizado
 		}
 
 

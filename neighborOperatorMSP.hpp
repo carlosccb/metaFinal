@@ -6,7 +6,7 @@
 
 #include "Miscelanea.hpp"
 
-#include "SolucionMochila.hpp"
+#include "solutionMSP.hpp"
 
 
 using namespace std;
@@ -17,41 +17,34 @@ class neighborOperatorMSP{
 
 	private:
 
-		int _MSPSize;						//Tamaño de la mochila
-		vector <problem_element> _info;		//Informacion de cada elemento de la mochila
+		vector < vector <int> > _clauses;		//Clausulas de la instancia
 
 	public:
 
 		//Constructor
 		neighborOperatorMSP(){};
-		neighborOperatorMSP(const int &KPSize, const vector <problem_element> &info){
-
-			_MSPSize = KPSize;
-			_info = info;
-		};
+		neighborOperatorMSP(const vector < vector <int> > &clauses){_clauses = clauses;};
 
 		//Observadores
-		vector <problem_element> getInfo() const {return _info;};
-		int getMSPSize() const {return _KPSize;};
+		vector < vector <int> > getClauses() const {return _clauses;};
 
 		//Sobrecarga operador =
-		neighborOperatorMSP & operator=(const neighborOperatorKP &s){
+		neighborOperatorMSP & operator=(const neighborOperatorMSP &s){
 
-			if(this != &s){
+			if(this != &s)
 
-				this->_info = s.getInfo();
-				this->_MSPSize = s.getKPSize();
-			}
+				this->_clauses = s.getClauses();
+
 
 		  return *this;
 		};
 
 /*
 		//Metodo que genera un vecino de una solucion, teniendo en cuenta unos parametros
-		SolucionMochila generateNeighbor(SolucionMochila &initialSolution, vector<int> &parametros){
+		solutionMSP generateNeighbor(solutionMSP &initialSolution, vector<int> &parametros){
 
 		int i;
-		SolucionMochila solucion(initialSolution);
+		solutionMSP solucion(initialSolution);
 
 		for (i = 0; i < parametros.size(); i++){
 			solucion.setSolucion(parametros[i], abs(solucion.getSolucion(parametros[i]) - 1));
@@ -63,11 +56,11 @@ class neighborOperatorMSP{
 */
 
 		//Metodo que genera un vecino, invirtiendo un unico bit de una solucion dada
-		SolucionMochila generateNeighbor(const SolucionMochila &initialSolution, int pos){
+		solutionMSP generateNeighbor(const solutionMSP &initialSolution, int pos){
 
-			SolucionMochila solucion(initialSolution);
+			solutionMSP solucion(initialSolution);
 			solucion.setSolucion(pos, abs(solucion.getSolucion(pos) - 1));
-			solucion.recalcularFitness(pos, _info, _MSPSize);
+			solucion.setAptitude(_clauses);
 
 		  return solucion;
 		}

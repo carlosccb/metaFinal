@@ -8,9 +8,11 @@
 
 #include "Miscelanea.hpp"
 
-#include "SolucionMochila.hpp"
+#include "solutionMSP.hpp"
 #include "neighborOperatorMSP.hpp"
 #include <iostream>
+
+#define TAM_TORNEO 5
 
 
 using namespace std;
@@ -30,7 +32,7 @@ class coolingExploratorMSP{
 
 		//Constructores
 		coolingExploratorMSP(){};
-		coolingExploratorMSP(neighborOperatorKP &operador){
+		coolingExploratorMSP(neighborOperatorMSP &operador){
 
 			_operador = operador;
 
@@ -38,7 +40,7 @@ class coolingExploratorMSP{
 
 
 		//Sobrecarga operador igual
-		coolingExploratorMSP & operator=(const coolingExploratorKP &s){
+		coolingExploratorMSP & operator=(const coolingExploratorMSP &s){
 
 			if(this != &s){
 
@@ -57,23 +59,21 @@ class coolingExploratorMSP{
 
 		//Funciones pequeñas
 
-		void temperatureRestart(const vector <problem_element> &info){
-
-
+		void temperatureRestart(const int &problemSize){
 
 		  double media = 0.0;
 		  SolGeneratorMochila solGenerator;
 
-			for(unsigned int i = 0; i < 5; i++){
+			for(unsigned int i = 0; i < TAM_TORNEO; i++){
 
 
-				int pos1 = random() % info.size();
+				int pos1 = random() % problemSize;
 
-				SolucionMochila original = solGenerator.randomSolutionGenerator(info.size());
-				original.setAptitude(_operador.getMSPSize(), info);
+				solutionMSP original = solGenerator.randomSolutionGenerator(problemSize);
+				original.setAptitude(_operador.getClauses());
 				double fitness1 = original.getFitness();
 
-				SolucionMochila vecino = getOperator().generateNeighbor(original, pos1);
+				solutionMSP vecino = getOperator().generateNeighbor(original, pos1);
 				double fitness2 = vecino.getFitness();
 
 
@@ -119,13 +119,13 @@ class coolingExploratorMSP{
 
 		//Funciones tochas
 
-		SolucionMochila enfriamientoSimuladoMSP(const vector <problem_element> &info, SolucionMochila &initialSolution){
+		solutionMSP enfriamientoSimuladoMSP(const int &problemSize, solutionMSP &initialSolution){
 
 
-			temperatureRestart(info);
+			temperatureRestart(problemSize);
 
 		  double actualFitness, newFitness, bestFitness;
-		  SolucionMochila bestSolution, actualSolution, newSolution;
+		  solutionMSP bestSolution, actualSolution, newSolution;
 
 
 			actualSolution = bestSolution = initialSolution;

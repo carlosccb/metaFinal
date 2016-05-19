@@ -66,18 +66,18 @@ class firstImprovementMSP: public neighborExploratorMSP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionMochila explorateNeighborhood(const SolucionMochila &initialSolution){
+		solutionMSP explorateNeighborhood(const solutionMSP &initialSolution){
 
 
 		  double actualFitness, bestFitness;
-		  SolucionMochila bestSolution, actualSolution;
+		  solutionMSP bestSolution, actualSolution;
 
 
 			bestSolution = initialSolution;
 			bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < getOperator().getInfo().size(); i++){
+			for(int i = 0; i < initialSolution.getSolution().size(); i++){
 
 
 				actualSolution = getOperator().generateNeighbor(initialSolution, i);
@@ -92,7 +92,7 @@ class firstImprovementMSP: public neighborExploratorMSP{
 
 
 			return initialSolution;			//El optimo sigue siendo el mismo
-                        }
+		}
 };
 
 
@@ -114,16 +114,16 @@ class bestImprovementMSP: public neighborExploratorMSP{
 
 
 		//Metodo que explora el vecindario en funcion de la estrategia (best o first)
-		SolucionMochila explorateNeighborhood(const SolucionMochila &initialSolution){
+		solutionMSP explorateNeighborhood(const solutionMSP &initialSolution){
 
 		  double actualFitness, bestFitness;
-		  SolucionMochila bestSolution, actualSolution;
+		  solutionMSP bestSolution, actualSolution;
 
 			bestSolution = initialSolution;
 			bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < getOperator().getInfo().size(); i++){
+			for(int i = 0; i < initialSolution.getSolution().size(); i++){
 
 
 				actualSolution = getOperator().generateNeighbor(initialSolution, i);
