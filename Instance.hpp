@@ -20,8 +20,6 @@ class Instance {
 		fstream _file;
 
 		string _file_name;
-		vector<string> _header;		//Stores all the header lines of a given instance
-		int _header_lines;
 
 		char _separator;	//value separator
 
@@ -31,11 +29,10 @@ class Instance {
 		Instance(){};
 
 
-		Instance(const string &file_name, char separator = ' ', int header_lines = 3){
+		Instance(const string &file_name, char separator = ' '){
 
 			_separator = separator;
 			_file_name = file_name;
-			_header_lines = header_lines;
 		}
 
 
@@ -47,7 +44,7 @@ class Instance {
 
 
 		//Funcion para leer una instancia determinada de el fichero csv
-		bool load_instance(vector<problem_element> &instance){
+		bool load_instance(vector< vector <int> > &clauses){
 
 			_file.open(_file_name);
 
@@ -64,46 +61,65 @@ class Instance {
 
 
 
-		//Si store esta a true se guarda el contenido de la cabecera en el vector _header
-		bool header(bool store = false){
+		//Loads the current instance pointed by the file pointer
+		vector < vector <int> > load() {
 
+		  vector < vector <int> > instance;
+		  vector <int> aux;
+		  string value;
+		  int cont = 0;	
 
-			if(not _file.is_open()){
-
-				std::cerr << "El fichero esta cerrado." << endl;
-				return false;
+			if(not _file.is_open()) {
+				std::cerr << "El fichero esta cerrado." << std::endl;
+				exit(-1);
 			}
 
-			for(unsigned int i = 0; i < _header_lines; i++) {
 
-			  string line;
+			header();	//Nos saltamos la cabecera
 
-				getline(_file, line);
 
-				if(store)
-					_header.push_back(line);
-/*
-				if(i == _length_line) {
+			while(getline(_file, value, _separator)) {
 
-					const std::string c_line = line;
-					regex rgx(".* (\\d+) *$");
-					smatch match;
+				//Obnetemos las diferentes variables de las clausulas
+				while(stoi(value) != 0){
 
-					if (regex_search(c_line.begin(), c_line.end(), match, rgx))
-						_instance_length = stoi(match[1]);
-
-					else {
-
-						std::cerr << "No se encontro longitud de la instancia en la cabecera del fichero." << endl;
-						exit(-1);
-					}
+					aux.push_back( stoi(value) )
+					getline(_file, value, _separator);
 				}
-*/
+
+				//getline(_file, value, '\n');	//Necesario para pasar a la siguiente linea ??
+
+				instance.push_back(aux);
 			}
+
+			return instance;
 		}
 
 
 
+
+		//Si store esta a true se guarda el contenido de la cabecera en el vector _header
+		void header() {
+
+			if(not _file.is_open()) {
+
+				std::cerr << "El fichero esta cerrado." << std::endl;
+				return false;
+			}
+
+		  string line;
+		  char c;
+
+			//Extraemos todas las lineas introductorias de la instancia
+			while(c != 'c'){
+
+				getline(_file, line, '\n');
+				c = line[0];
+			}
+
+			getline(_file, line, '\n');	//Nos saltamos la linea que empieza por 'p'
+
+		}
 
 
 
