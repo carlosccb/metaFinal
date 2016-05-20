@@ -10,53 +10,103 @@
 
 #include "Miscelanea.hpp"
 
+using namespace std;
+
+
 class Instance {
-	protected:
-		std::fstream _file;
 
-		std::string _file_name;
-		unsigned int _header_lines;
-		//Line that contains the length of one specific instance
-		unsigned int _length_line;
-		unsigned int _instance_length;
-		//value separator
-		char _separator;
-		//Number of lines between two instances
-		unsigned int _end_lines;
+	private:
 
-		//Stores all the header lines of a given instance
-		std::vector<std::string> _header;
+		fstream _file;
+
+		string _file_name;
+		vector<string> _header;		//Stores all the header lines of a given instance
+		int _header_lines;
+
+		char _separator;	//value separator
+
 
 	public:
-		Instance() {}
-		Instance(std::string file_name, unsigned int header_lines, unsigned int length_line, char separator, unsigned int end_lines = 0) 
-			: _file_name(file_name), _header_lines(header_lines), _length_line(length_line), _end_lines(end_lines)
-		{
+
+		Instance(){};
+
+
+		Instance(const string &file_name, char separator = ' ', int header_lines = 3){
+
 			_separator = separator;
+			_file_name = file_name;
+			_header_lines = header_lines;
 		}
 
-		~Instance() {
+
+		~Instance(){
+
 			if(_file.is_open())
 				_file.close();
 		}
 
+
 		//Funcion para leer una instancia determinada de el fichero csv
-		bool load_instance(std::vector<problem_element> &instance, int desired_instance=1);
+		bool load_instance(vector<problem_element> &instance){
 
-		std::vector<std::string> getHeader();
-		std::string getHeader(unsigned int n);
+			_file.open(_file_name);
 
-	//Estas funciones solo son accesibles desde dentro de la clase o de clases que hereden
-	protected:
+			if(not _file.is_open()) {
+
+				std::cerr << "El fichero no se pudo abrir." << std::endl;
+				return false;
+			}
+
+			instance = load();
+
+		  return true;
+		}
+
+
+
 		//Si store esta a true se guarda el contenido de la cabecera en el vector _header
-		bool header(bool store=false);
+		bool header(bool store = false){
 
 
-		//Skips n instances
-		bool skip(unsigned int n);
+			if(not _file.is_open()){
 
-		//Loads the current instance pointed by the file pointer
-		std::vector<problem_element> load();
+				std::cerr << "El fichero esta cerrado." << endl;
+				return false;
+			}
+
+			for(unsigned int i = 0; i < _header_lines; i++) {
+
+			  string line;
+
+				getline(_file, line);
+
+				if(store)
+					_header.push_back(line);
+/*
+				if(i == _length_line) {
+
+					const std::string c_line = line;
+					regex rgx(".* (\\d+) *$");
+					smatch match;
+
+					if (regex_search(c_line.begin(), c_line.end(), match, rgx))
+						_instance_length = stoi(match[1]);
+
+					else {
+
+						std::cerr << "No se encontro longitud de la instancia en la cabecera del fichero." << endl;
+						exit(-1);
+					}
+				}
+*/
+			}
+		}
+
+
+
+
+
+
 };
 
 #endif
