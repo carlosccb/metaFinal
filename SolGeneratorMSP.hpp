@@ -16,25 +16,18 @@ class SolGeneratorMSP{
 
 	public:
 
+
 		/* ----------------------------------------------------
 
-			Funcion que genera una nueva solucion aleatoria 
+			Funcion que genera una nueva solucion aleatoria
 		decidiendo el numero de elementos que se incluiran en la
 		mochila, y despues en que posiciones
 
 		----------------------------------------------------- */
 
 		SolutionMSP randomSolutionGenerator(unsigned int objetos) {
+
 			SolutionMSP solucion(objetos);
-
-/*
-			for(unsigned int i = 0; i < objetos; i++)
-				solucion.setSolution(i, false);
-
-			for(unsigned int i = 0; i < objetos; i++)
-				if (rand()%2 == 1)
-				 solucion.setSolution(i, true);
-*/
 
 
 			int incluidos = rand() % objetos;
@@ -56,7 +49,7 @@ class SolGeneratorMSP{
 
 			return solucion;
 		}
-		
+
 
 };
 
