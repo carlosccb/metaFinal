@@ -54,7 +54,7 @@ class Instance {
 				return false;
 			}
 
-			instance = load();
+			clauses = load();
 
 		  return true;
 		}
@@ -108,7 +108,7 @@ class Instance {
 			}
 
 		  string line;
-		  char c;
+		  char c = '';
 
 			//Extraemos todas las lineas introductorias de la instancia
 			while(c != 'c'){
