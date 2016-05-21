@@ -90,7 +90,7 @@ class SolutionMSP{
 						break;
 					}
 
-					else if(! _solution[numVar] && ! clauseVar){
+					else if(! _solution[numVar] && clauseVar){
 
 						valid = false;
 						break;
