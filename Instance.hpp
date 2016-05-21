@@ -20,8 +20,10 @@ class Instance {
 		fstream _file;
 
 		string _file_name;
-
 		char _separator;	//value separator
+
+		int _var_number;
+		int _cla_number;
 
 
 	public:
@@ -41,6 +43,10 @@ class Instance {
 			if(_file.is_open())
 				_file.close();
 		}
+
+
+		int getVariableNumber(){return _var_number;};
+		int getClauseNumber(){return _cla_number;}
 
 
 		//Funcion para leer una instancia determinada de el fichero csv
@@ -117,8 +123,17 @@ class Instance {
 				c = line[0];
 			}
 
-			getline(_file, line, '\n');	//Nos saltamos la linea que empieza por 'p'
 
+			//Obtenemos el tamaño del problema de la linea que comienza por 'p'
+
+			getline(_file, line, _separator);	// 'p'
+			getline(_file, line, _separator);	// "cnf"
+
+			getline(_file, line, _separator);
+			_var_number = stoi(line);			//Obtenemos el numero de variables
+
+			getline(_file, line, '\n');
+			_cla_number = stoi(line);			//Obtenemos el numero de clausulas
 		}
 
 
