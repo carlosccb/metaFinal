@@ -76,7 +76,7 @@ class Instance {
 		  int cont = 0;	
 
 			if(not _file.is_open()) {
-				std::cerr << "El fichero esta cerrado." << std::endl;
+				std::cerr << "El fichero esta cerrado." << endl;
 				exit(-1);
 			}
 
@@ -89,11 +89,11 @@ class Instance {
 				//Obnetemos las diferentes variables de las clausulas
 				while(stoi(value) != 0){
 
-					aux.push_back( stoi(value) )
+					aux.push_back( stoi(value) );
 					getline(_file, value, _separator);
 				}
 
-				//getline(_file, value, '\n');	//Necesario para pasar a la siguiente linea ??
+				getline(_file, value, '\n');	//Necesario para pasar a la siguiente linea ??
 
 				instance.push_back(aux);
 			}
@@ -109,7 +109,7 @@ class Instance {
 
 			if(not _file.is_open()) {
 
-				std::cerr << "El fichero esta cerrado." << std::endl;
+				std::cerr << "El fichero esta cerrado." << endl;
 				return false;
 			}
 
@@ -117,16 +117,20 @@ class Instance {
 		  char c = '';
 
 			//Extraemos todas las lineas introductorias de la instancia
-			while(c != 'c'){
+
+			getline(_file, line, _separator);
+			c = line[0];
+			while(c == 'c'){
 
 				getline(_file, line, '\n');
+				getline(_file, line, _separator);
 				c = line[0];
 			}
 
 
 			//Obtenemos el tamaño del problema de la linea que comienza por 'p'
 
-			getline(_file, line, _separator);	// 'p'
+//			getline(_file, line, _separator);	// 'p'
 			getline(_file, line, _separator);	// "cnf"
 
 			getline(_file, line, _separator);
