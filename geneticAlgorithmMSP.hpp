@@ -31,16 +31,16 @@ class geneticAlgorithmMSP{
 	private:
 
 		vector <SolutionMSP> _population;
-		vector <problem_element> _info;
-		int _MSPSize;
+		vector < vector <int> > _clauses;
+		int _solutionSize;
 
 	public:
 
 
-		geneticAlgorithmMSP(const vector <problem_element> &info, const int &MSPSize){
+		geneticAlgorithmMSP(const vector < vector <int> > &clauses, const int &solutionSize){
 
-			_MSPSize = MSPSize;
-			_info = info;
+			_solutionSize = solutionSize;
+			_clauses = clauses;
 		};
 
 		~geneticAlgorithmMSP(){};
@@ -135,14 +135,14 @@ class geneticAlgorithmMSP{
 				while(! valid){
 
 					valid = true;
-					newIndividual = solGenerator.randomSolutionGenerator(_info.size());
-					newIndividual.setAptitude(_MSPSize, _info);
+					newIndividual = solGenerator.randomSolutionGenerator(_MSPSize);
+					newIndividual.setAptitude(_clauses);
 
 					//Comprobamos que este lo suficientemente separado del resto de individuos
 					for(int j = 0; j < auxiliarPopulation.size(); j++){
 
 						//Comprobamos si la distancia de Hamming es mayor que L/4
-						if( distanciaHamming(auxiliarPopulation[j], newIndividual) < (_info.size() / 4) ){
+						if( distanciaHamming(auxiliarPopulation[j], newIndividual) < (_solutionSize / 4) ){
 
 							valid = false;
 							break;
@@ -385,7 +385,7 @@ class geneticAlgorithmMSP{
 			}
 
 			hijo.setSolution(solucion);
-			hijo.setAptitude(_MSPSize, _info);
+			hijo.setAptitude(_clauses);
 			naturalOrder.push_back(hijo);
 
 		  return naturalOrder;

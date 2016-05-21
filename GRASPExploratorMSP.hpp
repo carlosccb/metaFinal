@@ -35,7 +35,7 @@ class GRASPExploratorMSP{
 
 
 		GRASPExploratorMSP(){};
-		GRASPExploratorMSP(localSearchMSP &busquedaLocal){
+		GRASPExploratorMSP(const localSearchMSP &busquedaLocal){
 
 			_busquedaLocal = busquedaLocal;
 		}

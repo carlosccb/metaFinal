@@ -136,7 +136,7 @@ class coolingExploratorMSP{
 
 //				cout << "Iteracion: " << k << endl;
 
-				int pos1 = random() % initialSolution.getSolution().size();
+				int pos1 = random() % problemSize;
 				newSolution = getOperator().generateNeighbor(actualSolution, pos1);
 				newFitness = newSolution.getFitness();
 
