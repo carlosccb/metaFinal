@@ -25,7 +25,7 @@ class SolGeneratorMSP{
 
 		----------------------------------------------------- */
 
-		SolutionMSP randomSolutionGenerator(unsigned int objetos) {
+		SolutionMSP randomSolutionGenerator(const int &objetos) {
 
 			SolutionMSP solucion(objetos);
 
@@ -49,6 +49,48 @@ class SolGeneratorMSP{
 
 			return solucion;
 		}
+
+
+
+
+		/* ----------------------------------------------------
+
+			Funcion que genera una porcion de una solucion
+		aleatoria, desde un punto a otro, manteniendo el resto
+		de la solucion generada a false
+
+		----------------------------------------------------- */
+
+		SolutionMSP randomSolutionGenerator(const int &objetos, int p1, int p2) {
+
+			SolutionMSP solucion(objetos);
+
+			int dif = p2 - p1;
+
+			//Creamos la solucion aleatoria parcial
+			int incluidos = rand() % dif;
+			int pos;
+
+			for (int i = 0; i < incluidos; i++){
+
+				while(true){
+
+					pos = rand() % (p1 + dif);
+					if(solucion.getSolution(pos) == false)
+						break;
+
+				}
+
+				solucion.setSolution(pos, true);
+			}
+
+
+			return solucion;
+		}
+
+
+
+
 
 
 };

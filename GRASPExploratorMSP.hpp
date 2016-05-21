@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-
+#define GP 4	//Numero de subsoluciones a generar para generar una solucion
 
 using namespace std;
 
@@ -41,20 +41,19 @@ class GRASPExploratorMSP{
 		}
 
 
-		int mejorCandidato(const vector <problem_element> &info, vector <int> &candidatos){
+		int mejorCandidato(const vector < vector <int> > &clauses, vector <SolutionMSP> &candidatos){
 
 
-			int posMejor = candidatos[0];
-			double ratioMejor = info[candidatos[0]].a / info[candidatos[0]].b;		//beneficio / peso
+			int posMejor = 0;
+			int fitnessMejor = candidatos[0].getFitness();
 
 			for(int i = 1; i < candidatos.size(); i++){
 
 
-				double ratioActual = info[candidatos[i]].a / info[candidatos[i]].b;
-				if( ratioActual > ratioMejor ){
+				if( candidatos[i].getFitness() > fitnessMejor ){
 
-					posMejor = candidatos[i];
-					ratioMejor = ratioActual;
+					posMejor = i;
+					fitnessMejor = candidatos[i].getFitness();
 				}
 
 			}
@@ -64,33 +63,39 @@ class GRASPExploratorMSP{
 
 
 
-		SolutionMSP greedyConstructor(const vector <problem_element> &info){
+		SolutionMSP greedyConstructor(const int &problemSize){
 
 
 
-			SolutionMSP solucionFinal(info.size());
-			vector <int> aux;
-			int numAux, i = 0;
+			SolutionMSP solucionFinal(problemSize), randomSol;
+			vector <SolutionMSP> aux;
+
+			SolGeneratorMSP g;
+
+			int pos1, pos2, i = 0;
 
 
-			//Obtenemos el resto de elementos mediante un Greedy con una lista de elemntos aleatorios
-			while(i < (info.size() / 10)){
+			//Creamos la solucion aleatoria en i partes	----> Pseudo GREEDY
+			while(i < (problemSize / GP)){
+
+				pos1 = i * (problemSize / GP);
+				pos2 = (i + 1) * (problemSize / GP);
+
+				while(aux.size() < 10){	//Creamos una lista con 10 subsoluciones
 
 
-				while(aux.size() < 10){	//Creamos una lista con 10 elementos aun no escogidos
-
-
-					do{
-
-						numAux = rand() % info.size();
-
-					} while(solucionFinal.getSolution(numAux));
-					aux.push_back(numAux);		//Introducimos en la lista de candidatos un elemento aleatorio que aun no este en la lista
+					randomSol = g.randomSolutionGenerator(problemSize, pos1, pos2);
+					randomSol.setAptitude(_busquedaLocal.getOperator().getClauses());
+					aux.push_back(randomSol);
 				}
 
 
-				int posMejor = mejorCandidato(info, aux);
-				solucionFinal.setSolution(posMejor, true);
+				int posMejor = mejorCandidato(_busquedaLocal.getOperator().getClauses(), aux);
+
+				for(int j = pos1; j < pos2; j++)
+
+					solucionFinal.setSolution(j, aux[posMejor].getSolution(j));
+
 
 				aux.clear();
 
@@ -98,24 +103,24 @@ class GRASPExploratorMSP{
 			}
 
 
-			solucionFinal.setAptitude(_busquedaLocal.getOperator().getMSPSize(), info);
+			solucionFinal.setAptitude(_busquedaLocal.getOperator().getClauses());
 
 		  return solucionFinal;
 		}
 
 
 
-		SolutionMSP GRASP(const vector <problem_element> &info){
+		SolutionMSP GRASP(const int &problemSize){
 
 
-			SolutionMSP actualSolution, currentSolution, bestSolution = greedyConstructor(info);
+			SolutionMSP actualSolution, currentSolution, bestSolution = greedyConstructor(problemSize);
 			double actualFitness, bestFitness = bestSolution.getFitness();
 
 
 			for(int i = 0; i < 100; i++){
 
 //				cout << "Iteracion: " << i << endl;
-				currentSolution = greedyConstructor(info);
+				currentSolution = greedyConstructor(problemSize);
 				_busquedaLocal.localOptimum(currentSolution, actualSolution, actualFitness);
 
 				if(actualFitness > bestFitness){
