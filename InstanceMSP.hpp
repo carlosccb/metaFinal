@@ -12,55 +12,25 @@
 #include "Miscelanea.hpp"
 #include "SolutionMSP.hpp"
 
+using namespace std;
+
 class InstanceMSP : public Instance {
+
 	private:
+
 		int _capacity_line;
 
 	public:
-		InstanceMSP() {}
-		//Valores del constructor adaptados a los archivos csv de esta practica
-		InstanceMSP(std::string file_name, int header_lines=5, int capacity_line=2, int length_line=1, char separator=',', int end_lines=2)
-			: Instance(file_name, header_lines, length_line, separator, end_lines), _capacity_line(capacity_line)
-		{}
 
-		~InstanceMSP()
-		{
+		InstanceMSP() {}
+
+		//Valores del constructor adaptados a los archivos csv de esta practica
+		InstanceMSP(string file_name): Instance(file_name){};
+
+		~InstanceMSP(){
+
 			if(_file.is_open())
 				_file.close();
-		}
-
-		unsigned int getCapacity() {
-			int capacity;
-			const std::string c_line = getHeader(_capacity_line);
-			std::regex rgx(".* (\\d+) *$");
-			std::smatch match;
-			if (std::regex_search(c_line.begin(), c_line.end(), match, rgx))
-				capacity = std::stoi(match[1]);
-			else
-				capacity = -1;
-
-			return capacity;
-		}
-
-		//Funcion que devuelve la bondad de una solucion
-		int getAptitude(SolutionMSP &solution, const int &MSPSize, vector <problem_element> &info){
-
-
-			int totalSize = solution.pesoSolucion(info);	//Peso de los elementos escogidos
-
-			if(totalSize <= MSPSize)
-
-				return solution.beneficioSolucion(info);	//Beneficio de los elementos escogidos
-
-
-			else{
-
-				int beneSol = solution.beneficioSolucion(info);
-				int beneMax = solution.beneficioMaximo(info);
-
-				return (beneSol - beneMax);
-			}
-
 		}
 
 
