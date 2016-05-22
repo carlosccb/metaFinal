@@ -27,12 +27,6 @@ class InstanceMSP : public Instance {
 		//Valores del constructor adaptados a los archivos csv de esta practica
 		InstanceMSP(string file_name): Instance(file_name){};
 
-		~InstanceMSP(){
-
-			if(_file.is_open())
-				_file.close();
-		}
-
 
 		//Funcion que almacena en un fichero una serie de datos de salida del programa
 		void saveResults(const SolutionMSP &inicial, const double &best_fitness, const SolutionMSP &best_solution, double &tiempo, int iteraciones = 0){

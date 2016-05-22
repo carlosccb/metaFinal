@@ -96,6 +96,7 @@ class Instance {
 				getline(_file, value, '\n');	//Necesario para pasar a la siguiente linea ??
 
 				instance.push_back(aux);
+				aux.clear();
 			}
 
 			return instance;
@@ -110,11 +111,11 @@ class Instance {
 			if(not _file.is_open()) {
 
 				std::cerr << "El fichero esta cerrado." << endl;
-				return false;
+				return;
 			}
 
 		  string line;
-		  char c = '';
+		  char c = ' ';
 
 			//Extraemos todas las lineas introductorias de la instancia
 

@@ -17,7 +17,68 @@
 ------------------------------------------------------------------------------------*/
 
 
-void busquedaAleatoria();
+void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar, const int &numCla){
+
+
+  SolutionMSP bestSolution, currentSolution;
+  SolGeneratorMSP g;
+  int bestFitness, currentFitness;
+
+
+	//Llevamos a cabo el metodo
+	bestSolution = g.randomSolutionGenerator(numVar);
+	bestSolution.setAptitude(clauses);
+	bestFitness = bestSolution.getFitness();
+
+	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
+
+	cout << "bestFitness = " << bestFitness << endl;
+
+	for(int i = 0; i < 100; i++){
+
+		currentSolution = g.randomSolutionGenerator(numVar);
+		currentSolution.setAptitude(clauses);
+		currentFitness = currentSolution.getFitness();
+
+/*
+		cout << "currentFitness = " << currentFitness << "----> ";
+		for(int i = 0; i < numVar; i++){
+
+
+			cout << currentSolution.getSolution(i) << " ";
+
+		}
+
+		cout << endl;
+*/
+
+		if(currentFitness > bestFitness){
+
+			bestSolution = currentSolution;
+			bestFitness = currentFitness;
+		}
+
+	}
+
+
+	//Guardamos / imprimimos los resultados obtenidos
+
+	cout << "bestFitness = " << bestFitness << endl;
+
+/*
+	cout << "bestSolution: " << endl;
+	for(int i = 0; i < numVar; i++){
+
+
+		cout << bestSolution.getSolution(i) << " ";
+
+	}
+
+	cout << endl;
+*/
+
+
+}
 
 void busquedaLocal();
 
