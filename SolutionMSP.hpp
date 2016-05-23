@@ -1,6 +1,7 @@
 #ifndef __SOLUTIONMSP__
 #define __SOLUTIONMSP__
 
+#include <cassert>
 #include <vector>
 
 #include "Miscelanea.hpp"
@@ -12,6 +13,7 @@ class SolutionMSP{
 	private:
 
 		vector <bool> _solution;
+		vector<int> _instance;
 		int _fitness;
 
 
@@ -19,8 +21,17 @@ class SolutionMSP{
 
 		//Constructor
 		SolutionMSP(int objetos=0) {
-			for (int i = 0; i < objetos; i++)
-				_solution.push_back(false);
+			_solution = vector<bool>(objetos, false);
+		}
+
+		SolutionMSP(vector<int> instance, int objetos=0) {
+			if(not objetos)
+				assert(instance.size() == objetos);
+			else
+				objetos = instance.size();
+
+			_solution = vector<bool>(objetos, false);
+			_instance = instance;
 		}
 
 		//Observadores
