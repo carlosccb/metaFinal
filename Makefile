@@ -19,5 +19,8 @@ debug: all
 optimize: FLAGS := $(FLAGS) -O3
 optimize: all
 
+uco: CC = g++
+uco: all
+
 clean:
 	rm main
