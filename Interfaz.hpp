@@ -12,7 +12,6 @@ using namespace std;
 class Interfaz {
 
 	private:
-
 		int opt;
 		string fileName;
 		
@@ -21,12 +20,11 @@ class Interfaz {
 		
 
 	public:
-
 		Interfaz() {}
 		~Interfaz() {}
 
 		//Observadores
-		string getFileName(){ return fileName;};
+		string getFileName() {return fileName;};
 
 		int getVariablesNumber() {return _variables;}
 		int getClausesNumber() {return _clauses;}
@@ -34,7 +32,6 @@ class Interfaz {
 		int option_menu() {
 
 			do {
-
 				cout << "\n\n";
 				cout << "¿Que metaheuristica deseas ejecutar?: " << endl << endl;
 
@@ -53,20 +50,17 @@ class Interfaz {
 
 			cout << endl << "__________________________" << endl << endl;
 
-		  return opt;
+			return opt;
 
 		}
 
 		int getOpt() {return opt;}
 
-
-		vector < vector <int> > read_instance(){
-
-		  vector <vector <int> > inst_v;
-		  bool ret = false;
+		vector<vector<int>> read_instance() {
+			vector<vector<int>> inst_v;
+			bool ret = false;
 
 			while(not ret) {
-
 				//Obtenemos el nombre del fichero
 				string fileName;
 				cout << "Introduzca el nombre del fichero: ";
@@ -82,9 +76,7 @@ class Interfaz {
 
 				if(not ret)
 					std::cerr << "ERROR: El fichero no se pudo abrir.\n";
-
 			}
-
 
 			return inst_v;
 		}
