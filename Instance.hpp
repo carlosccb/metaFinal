@@ -87,9 +87,9 @@ class Instance {
 			while(getline(_file, value, _separator)) {
 
 				//Obnetemos las diferentes variables de las clausulas
-				while(stoi(value) != 0){
+				while(atoi(value.c_str()) != 0){
 
-					aux.push_back( stoi(value) );
+					aux.push_back( atoi(value.c_str()) );
 					getline(_file, value, _separator);
 				}
 
@@ -135,10 +135,10 @@ class Instance {
 			getline(_file, line, _separator);	// "cnf"
 
 			getline(_file, line, _separator);
-			_var_number = stoi(line);			//Obtenemos el numero de variables
+			_var_number = atoi(line.c_str());			//Obtenemos el numero de variables
 
 			getline(_file, line, '\n');
-			_cla_number = stoi(line);			//Obtenemos el numero de clausulas
+			_cla_number = atoi(line.c_str());			//Obtenemos el numero de clausulas
 		}
 
 
