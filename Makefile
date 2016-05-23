@@ -24,3 +24,7 @@ uco: all
 
 clean:
 	rm main
+	if [ -w main.dSYM ]; then rm -r main.dSYM; fi;
+
+update: clean
+update: all
