@@ -16,7 +16,6 @@ using namespace std;
 class Instance {
 
 	private:
-
 		fstream _file;
 
 		string _file_name;
@@ -27,35 +26,27 @@ class Instance {
 
 
 	public:
-
 		Instance(){};
 
-
-		Instance(const string &file_name, char separator = ' '){
-
+		Instance(const string &file_name, char separator = ' ') {
 			_separator = separator;
 			_file_name = file_name;
 		}
 
-
 		~Instance(){
-
 			if(_file.is_open())
 				_file.close();
 		}
 
-
-		int getVariableNumber(){return _var_number;};
-		int getClauseNumber(){return _cla_number;}
+		int getVariableNumber() {return _var_number;};
+		int getClauseNumber() {return _cla_number;}
 
 
 		//Funcion para leer una instancia determinada de el fichero csv
-		bool load_instance(vector< vector <int> > &clauses){
-
+		bool load_instance(vector<vector<int>> &clauses){
 			_file.open(_file_name);
 
 			if(not _file.is_open()) {
-
 				std::cerr << "El fichero no se pudo abrir." << std::endl;
 				return false;
 			}
@@ -68,9 +59,9 @@ class Instance {
 
 
 		//Loads the current instance pointed by the file pointer
-		vector < vector <int> > load() {
+		vector<vector<int>> load() {
 
-		  vector < vector <int> > instance;
+		  vector<vector<int>> instance;
 		  vector <int> aux;
 		  string value;
 		  int cont = 0;	
