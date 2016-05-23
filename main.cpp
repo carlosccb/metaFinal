@@ -36,6 +36,10 @@ int main() {
 				busquedaAleatoria(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 
 			break;
+
+			case 0:
+				cout << "Saliendo" << endl << endl;
+				break;
 		}
 	} while (opcion);
 
