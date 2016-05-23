@@ -56,11 +56,8 @@ class Instance {
 		  return true;
 		}
 
-
-
 		//Loads the current instance pointed by the file pointer
 		vector<vector<int>> load() {
-
 		  vector<vector<int>> instance;
 		  vector <int> aux;
 		  string value;
@@ -76,10 +73,8 @@ class Instance {
 
 
 			while(getline(_file, value, _separator)) {
-
 				//Obnetemos las diferentes variables de las clausulas
 				while(atoi(value.c_str()) != 0){
-
 					aux.push_back( atoi(value.c_str()) );
 					getline(_file, value, _separator);
 				}
