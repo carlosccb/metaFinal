@@ -18,35 +18,26 @@
 
 using namespace std;
 
-
-
 int main() {
-	
 
-  Interfaz interfaz;
+	Interfaz interfaz;
 
-  vector < vector <int> > clauses;
-  int opcion;
+	vector<vector<int>> clauses;
+	int opcion;
 
+	do {
+		opcion = interfaz.option_menu();
+		if(opcion)
+			clauses = interfaz.read_instance();
 
-	opcion = interfaz.option_menu();
-	clauses = interfaz.read_instance();
+		switch(opcion){
+			case 1:
+				cout << "cl: " << clauses.size() << " | var num: " << interfaz.getVariablesNumber() << " | clauses num: " << interfaz.getClausesNumber() << endl;
+				busquedaAleatoria(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 
-
-	switch(opcion){
-
-
-		case 1:
-
-			busquedaAleatoria(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
-
-		break;
-
-
-
-
-
-	}
+			break;
+		}
+	} while (opcion);
 
 
 	return 0;
