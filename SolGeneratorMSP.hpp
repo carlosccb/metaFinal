@@ -26,21 +26,17 @@ class SolGeneratorMSP{
 		----------------------------------------------------- */
 
 		SolutionMSP randomSolutionGenerator(const int &objetos) {
-
 			SolutionMSP solucion(objetos);
-
 
 			int incluidos = rand() % objetos;
 			int pos;
 
-			for (int i = 0; i < incluidos; i++){
+			for(int i = 0; i < incluidos; i++) {
 
-				while(true){
-
+				while(true) {
 					pos = rand() % objetos;
 					if(solucion.getSolution(pos) == false)
 						break;
-
 				}
 
 				solucion.setSolution(pos, true);
@@ -51,6 +47,15 @@ class SolGeneratorMSP{
 		}
 
 
+		void randomSolutionGenerator(SolutionMSP &solution) {
+			int objetos = solution.getSolution().size() - 1;
+			int incluidos = rand()%objetos;
+
+			for(unsigned int i = 0; i < incluidos; i++) {
+				int pos = rand()%objetos;
+				solution.setSolution(pos, true);
+			}
+		}
 
 
 		/* ----------------------------------------------------
