@@ -1,4 +1,5 @@
-
+#ifndef __FUNCIONES_HPP__
+#define __FUNCIONES_HPP__
 
 /*------------------------------------------------------------------------------------
 
@@ -87,3 +88,5 @@ void enfriamientoSimulado();
 void GRASP();	//La funcion del GRASP se llama exactamente igual
 
 void algoritmoGenetico();
+
+#endif
