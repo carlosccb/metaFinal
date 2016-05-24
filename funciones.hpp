@@ -35,7 +35,7 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 
 	cout << "bestFitness = " << bestFitness << endl;
 
-	for(int i = 0; i < 100; i++){
+	for(int i = 0; i < 10000; i++){
 
 		currentSolution = g.randomSolutionGenerator(numVar);
 		currentSolution.setAptitude(clauses);

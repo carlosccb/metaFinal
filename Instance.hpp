@@ -58,32 +58,32 @@ class Instance {
 
 		//Loads the current instance pointed by the file pointer
 		vector<vector<int>> load() {
+
 		  vector<vector<int>> instance;
 		  vector <int> aux;
-		  string value;
-		  int cont = 0;	
-
-			if(not _file.is_open()) {
-				std::cerr << "El fichero esta cerrado." << endl;
-				exit(-1);
-			}
+		  string line;
+		  int num;	
 
 
 			header();	//Nos saltamos la cabecera
 
+			//Cargamos la instancia
+			while(getline(_file, line)){
 
-			while(getline(_file, value, _separator)) {
-				//Obnetemos las diferentes variables de las clausulas
-				while(atoi(value.c_str()) != 0){
-					aux.push_back( atoi(value.c_str()) );
-					getline(_file, value, _separator);
+			  istringstream isaux(line);
+
+				isaux >> num;
+				while(num != 0){
+
+					aux.push_back(num);
+					isaux >> num;
 				}
-
-				getline(_file, value, '\n');	//Necesario para pasar a la siguiente linea ??
 
 				instance.push_back(aux);
 				aux.clear();
 			}
+
+
 
 			return instance;
 		}
@@ -100,31 +100,29 @@ class Instance {
 				return;
 			}
 
-		  string line;
-		  char c = ' ';
+		  string line, p;
 
-			//Extraemos todas las lineas introductorias de la instancia
+			//Leemos las lineas con comentarios
+			getline(_file, line);
+			while(line[0] == 'c')
+				getline(_file, line);
 
-			getline(_file, line, _separator);
-			c = line[0];
-			while(c == 'c'){
 
-				getline(_file, line, '\n');
-				getline(_file, line, _separator);
-				c = line[0];
+			//Llegamos a la linea con p
+			if(line[0] != 'p'){
+
+				cout << endl << "¡¿Que cojones esta pasando?!" << endl << endl;
+				exit(0);
 			}
 
+		  istringstream isnumbers(line);
 
-			//Obtenemos el tamaño del problema de la linea que comienza por 'p'
+			isnumbers >> p;	//p
+			isnumbers >> p;	//cnf
 
-//			getline(_file, line, _separator);	// 'p'
-			getline(_file, line, _separator);	// "cnf"
+			isnumbers >> _var_number;
+			isnumbers >> _cla_number;
 
-			getline(_file, line, _separator);
-			_var_number = atoi(line.c_str());			//Obtenemos el numero de variables
-
-			getline(_file, line, '\n');
-			_cla_number = atoi(line.c_str());			//Obtenemos el numero de clausulas
 		}
 
 

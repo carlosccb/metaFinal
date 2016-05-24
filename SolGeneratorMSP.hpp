@@ -26,8 +26,8 @@ class SolGeneratorMSP{
 		----------------------------------------------------- */
 
 		SolutionMSP randomSolutionGenerator(const int &objetos) {
+
 			SolutionMSP solucion(objetos);
-			cout << "obj: " << objetos << std::endl;
 			int incluidos = rand() % objetos;
 			int pos;
 
@@ -38,7 +38,7 @@ class SolGeneratorMSP{
 					if(solucion.getSolution(pos) == false)
 						break;
 				}
-				std::cout << "len: " << objetos << " | pos: " << pos << std::endl;
+
 				solucion.setSolution(pos, true);
 			}
 

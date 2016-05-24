@@ -26,21 +26,27 @@ int main() {
 	int opcion;
 
 	do {
+
 		opcion = interfaz.option_menu();
+
 		if(opcion)
 			clauses = interfaz.read_instance();
 
 		switch(opcion){
+
 			case 1:
-				cout << "cl: " << clauses.size() << " | var num: " << interfaz.getVariablesNumber() << " | clauses num: " << interfaz.getClausesNumber() << endl;
+				
 				busquedaAleatoria(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 
 			break;
 
 			case 0:
+			
 				cout << "Saliendo" << endl << endl;
-				break;
+
+			break;
 		}
+
 	} while (opcion);
 
 
