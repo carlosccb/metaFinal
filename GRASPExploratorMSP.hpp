@@ -121,7 +121,8 @@ class GRASPExploratorMSP{
 
 //				cout << "Iteracion: " << i << endl;
 				currentSolution = greedyConstructor(problemSize);
-				_busquedaLocal.localOptimum(currentSolution, actualSolution, actualFitness);
+				actualSolution = _busquedaLocal.localOptimum(currentSolution);
+				actualFitness = actualSolution.getFitness();
 
 				if(actualFitness > bestFitness){
 

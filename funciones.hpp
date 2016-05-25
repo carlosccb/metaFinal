@@ -32,8 +32,7 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 	bestFitness = bestSolution.getFitness();
 
 	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
-
-	cout << "bestFitness = " << bestFitness << endl;
+	cout << "bestFitness (Inicio): " << bestFitness << endl;
 
 	for(int i = 0; i < 10000; i++){
 
@@ -41,17 +40,6 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 		currentSolution.setAptitude(clauses);
 		currentFitness = currentSolution.getFitness();
 
-/*
-		cout << "currentFitness = " << currentFitness << "----> ";
-		for(int i = 0; i < numVar; i++){
-
-
-			cout << currentSolution.getSolution(i) << " ";
-
-		}
-
-		cout << endl;
-*/
 
 		if(currentFitness > bestFitness){
 
@@ -59,29 +47,62 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 			bestFitness = currentFitness;
 		}
 
+		cout << "bestFitness (Iteracion " << i << "): " << bestFitness << " | currentFitness --> " << currentFitness << endl;
+
+
 	}
 
 
 	//Guardamos / imprimimos los resultados obtenidos
 
-	cout << "bestFitness = " << bestFitness << endl;
-
-/*
-	cout << "bestSolution: " << endl;
-	for(int i = 0; i < numVar; i++){
-
-
-		cout << bestSolution.getSolution(i) << " ";
-
-	}
-
-	cout << endl;
-*/
-
+	cout << "bestFitness (Final): " << bestFitness << endl;
 
 }
 
-void busquedaLocal();
+
+
+
+
+void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
+
+
+  SolutionMSP currentSolution, bestSolution;
+  int currentFitness, bestFitness;
+  SolGeneratorMSP g;
+
+
+	bestSolution = g.randomSolutionGenerator(numVar);
+	bestSolution.setAptitude(LS.getClauses());
+	bestFitness = bestSolution.getFitness();
+
+	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
+	cout << "bestFitness (Inicio): " << bestFitness << endl;
+
+	for(int i = 0; i < 1000; i++){
+
+		//Generamos la solucion aleatoria
+		currentSolution = g.randomSolutionGenerator(numVar);
+		currentSolution.setAptitude(LS.getClauses());
+
+		//Aplicamos la busqueda local a dicha solucion
+		currentSolution = LS.localOptimum(currentSolution);
+		currentFitness = currentSolution.getFitness();
+
+
+		if(currentFitness > bestFitness){
+
+			bestSolution = currentSolution;
+			bestFitness = currentFitness;
+		}
+
+		cout << "bestFitness (Iteracion " << i << "): " << bestFitness << " | currentFitness --> " << currentFitness << endl;
+
+
+	}
+
+	cout << "bestFitness (Final): " << bestFitness << endl;
+
+}
 
 void enfriamientoSimulado();
 

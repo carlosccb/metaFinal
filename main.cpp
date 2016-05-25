@@ -42,6 +42,35 @@ int main() {
 
 			break;
 
+			case 2:
+
+				//Se ha elegido primera mejora
+				if(interfaz.getOptLS() == 1){
+
+				  neighborOperatorMSP operador(clauses);
+				  firstImprovementMSP explorador(operador);
+				  localSearchMSP LS(operador, explorador);
+
+					busquedaLocal(LS, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
+
+				}
+
+				//Se ha escogido mejor mejora
+				else{
+
+
+
+
+				  neighborOperatorMSP operador(clauses);
+				  bestImprovementMSP explorador(operador);
+				  localSearchMSP LS(operador, explorador);
+
+					busquedaLocal(LS, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
+
+				}
+
+			break;
+
 			case 0:
 			
 				cout << "Saliendo" << endl << endl;

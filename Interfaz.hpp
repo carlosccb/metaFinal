@@ -12,7 +12,9 @@ using namespace std;
 class Interfaz {
 
 	private:
+
 		int opt;
+		int optLS;
 		string fileName;
 		
 		int _variables;
@@ -50,11 +52,32 @@ class Interfaz {
 
 			cout << endl << "__________________________" << endl << endl;
 
+
+			if(opt == 2){
+
+
+				cout << "¿Que estrategia de busqueda deseas llevar a cabo?:" << endl << endl;
+
+				do{
+
+					cout << "  1. Primera Mejora" << endl;
+					cout << "  2. Mejor Mejora" << endl << endl;
+
+					cout << "Opcion: ";
+					cin >> optLS;
+
+				} while(1 > optLS || optLS > 2);
+
+				cout << endl << "__________________________" << endl << endl;
+
+			}
+
 			return opt;
 
 		}
 
 		int getOpt() {return opt;}
+		int getOptLS() {return optLS;}
 
 		vector<vector<int>> read_instance() {
 			vector<vector<int>> inst_v;

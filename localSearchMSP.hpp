@@ -19,8 +19,6 @@ class localSearchMSP{
 
 	private:
 
-		double _bestFitness = 0;
-		SolutionMSP _bestSolution;
 
 		neighborOperatorMSP _operador;
 
@@ -57,7 +55,6 @@ class localSearchMSP{
 			if(this != &s){
 
 				this->_operador = s.getOperator();
-				this->_bestSolution = s.getSolution();
 				this->_bestExplo = s.getExploratorBest();
 				this->_firstExplo = s.getExploratorFirst();
 
@@ -69,13 +66,10 @@ class localSearchMSP{
 
 
 
-		//Modificadores
-		void setSolution(SolutionMSP &bestSolution){_bestSolution = bestSolution;};
-
 
 		//Observadores
-		SolutionMSP getSolution() const {return _bestSolution;};
 		neighborOperatorMSP getOperator() const {return _operador;};
+		vector <vector<int>> getClauses() const {return _operador.getClauses();};
 
 		bestImprovementMSP getExploratorBest() const {return _bestExplo;}
 		firstImprovementMSP getExploratorFirst() const {return _firstExplo;}
@@ -83,27 +77,28 @@ class localSearchMSP{
 
 
 		//Metodo que devuelve el optimo local ¿Y su valor de fitness?
-		int localOptimum(const SolutionMSP &initialSolution, SolutionMSP &optimumSolution, double &optimumFitness){
+		SolutionMSP localOptimum(const SolutionMSP &initialSolution){
 
 
 		  int iteraciones = 1000, contador = 0;		//Cuenta el numero de veces que el optimo no varia
-		  double actualFitness;
-		  SolutionMSP actualSolution;
+		  double actualFitness, bestFitness;
+		  SolutionMSP actualSolution, bestSolution;
 
 
-			_bestSolution = initialSolution;
+			bestSolution = initialSolution;
+			bestFitness = bestSolution.getFitness();
 
 			while(contador < 2){
 
 
 				if(! isBestExplorator)
 
-					actualSolution = _firstExplo.explorateNeighborhood(_bestSolution);
+					actualSolution = _firstExplo.explorateNeighborhood(bestSolution);
 
 
 				else
 
-					actualSolution = _bestExplo.explorateNeighborhood(_bestSolution);
+					actualSolution = _bestExplo.explorateNeighborhood(bestSolution);
 
 
 
@@ -117,30 +112,24 @@ class localSearchMSP{
 
 																							*/
 
-				if(_bestFitness == actualFitness)
+				if(bestFitness == actualFitness)
 
 					contador++;
 
 
 				else{
 
-					_bestFitness = actualFitness;
-					_bestSolution = actualSolution;
+					bestFitness = actualFitness;
+					bestSolution = actualSolution;
 
 					contador = 0;
 				}
 
 
-				iteraciones--;
 			}
 
 
-
-			//Al ser clase, podemos hacer esto fuera de la funcion con los observadores
-			optimumSolution = _bestSolution;
-			optimumFitness = _bestFitness;
-
-		  return 1000 - iteraciones; 	//para saber cuantas iteraciones hemos realizado
+		  return bestSolution;
 		}
 
 
