@@ -25,6 +25,8 @@ int main() {
 	vector<vector<int>> clauses;
 	int opcion;
 
+	srand(time(NULL));
+
 	do {
 
 		opcion = interfaz.option_menu();
