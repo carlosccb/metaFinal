@@ -60,6 +60,12 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 }
 
 
+/*------------------------------------------------------------------------------------
+
+
+	Funcion que ejecuta la busqueda local e imprime y guarda los resultados obtenidos
+
+------------------------------------------------------------------------------------*/
 
 
 
@@ -104,7 +110,44 @@ void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
 
 }
 
-void enfriamientoSimulado();
+
+
+
+/*------------------------------------------------------------------------------------
+
+
+	Funcion que ejecuta el enfriamiento simulado e imprime y guarda los resultados 
+	obtenidos en un fichero de texto
+
+------------------------------------------------------------------------------------*/
+
+
+void enfriamientoSimulado(const vector <vector <int> > &clauses, const int &numVar, const int &numCla){
+
+
+  neighborOperatorMSP operador(clauses);
+  SolGeneratorMSP g;
+
+  SolutionMSP initialSolution, finalSolution;
+
+
+	initialSolution = g.randomSolutionGenerator(numVar);
+	initialSolution.setAptitude(clauses);
+
+
+	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
+	cout << "bestFitness (Inicio): " << initialSolution.getFitness() << endl;
+
+
+  coolingExploratorMSP SA(operador);
+
+	finalSolution = SA.enfriamientoSimuladoMSP(numVar, initialSolution);
+
+	cout << "bestFitness (Final): " << finalSolution.getFitness() << endl;
+
+
+
+}
 
 void GRASP();	//La funcion del GRASP se llama exactamente igual
 

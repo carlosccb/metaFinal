@@ -59,8 +59,6 @@ int main() {
 				else{
 
 
-
-
 				  neighborOperatorMSP operador(clauses);
 				  bestImprovementMSP explorador(operador);
 				  localSearchMSP LS(operador, explorador);
@@ -68,6 +66,12 @@ int main() {
 					busquedaLocal(LS, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 
 				}
+
+			break;
+
+			case 3:
+
+				enfriamientoSimulado(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 
 			break;
 

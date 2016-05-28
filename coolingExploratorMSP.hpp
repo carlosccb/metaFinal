@@ -62,19 +62,19 @@ class coolingExploratorMSP{
 		void temperatureRestart(const int &problemSize){
 
 		  double media = 0.0;
-		  SolGeneratorMSP solGenerator;
+		  SolGeneratorMSP g;
 
 			for(unsigned int i = 0; i < TAM_TORNEO; i++){
 
 
 				int pos1 = random() % problemSize;
 
-				SolutionMSP original = solGenerator.randomSolutionGenerator(problemSize);
+				SolutionMSP original = g.randomSolutionGenerator(problemSize);
 				original.setAptitude(_operador.getClauses());
-				double fitness1 = original.getFitness();
+				int fitness1 = original.getFitness();
 
 				SolutionMSP vecino = getOperator().generateNeighbor(original, pos1);
-				double fitness2 = vecino.getFitness();
+				int fitness2 = vecino.getFitness();
 
 
 				media += fabs(fitness2 - fitness1);
@@ -90,11 +90,11 @@ class coolingExploratorMSP{
 
 
 			//La constante de enfriamiento geometrica debe estar entre 0.5 y 0.99
-			_temperature = 0.7 * _temperature;
+			_temperature = 0.99 * _temperature;
 		}
 
 
-		bool accept(const double &actualFitness, const double &newFitness){
+		bool accept(const int &actualFitness, const int &newFitness){
 
 
 			//Tener en mente el tipo de optimizacion a la hora de implementar esta funcion
@@ -102,8 +102,8 @@ class coolingExploratorMSP{
 			if(newFitness > actualFitness)
 				return true;
 
-			double incE = actualFitness - newFitness;
-			double k = 1;	//De donde carajo sale esta constante ????????
+			int incE = actualFitness - newFitness;
+			int k = 1;	//De donde carajo sale esta constante ????????
 
 			if(exp(-incE/(k * _temperature)) > 0.5)		//0.5 puede ser cambiado (Es el limite para probabilidades binarias)
 				return true;
@@ -124,7 +124,7 @@ class coolingExploratorMSP{
 
 			temperatureRestart(problemSize);
 
-		  double actualFitness, newFitness, bestFitness;
+		  int actualFitness, newFitness, bestFitness;
 		  SolutionMSP bestSolution, actualSolution, newSolution;
 
 
@@ -132,7 +132,7 @@ class coolingExploratorMSP{
 			actualFitness = bestFitness = bestSolution.getFitness();
 
 
-			for(unsigned int k = 0; k < 100000; k++){
+			for(unsigned int k = 0; k < 1000; k++){
 
 //				cout << "Iteracion: " << k << endl;
 
@@ -155,6 +155,9 @@ class coolingExploratorMSP{
 					actualSolution = newSolution;
 					actualFitness = newFitness;
 				}
+
+				cout << "bestFitness (Iteracion " << k << "): " << bestFitness << " | currentFitness --> " << actualFitness << endl;
+
 
 
 				coolingDown();	//Descendemos la temperatura
