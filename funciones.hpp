@@ -149,7 +149,28 @@ void enfriamientoSimulado(const vector <vector <int> > &clauses, const int &numV
 
 }
 
-void GRASP();	//La funcion del GRASP se llama exactamente igual
+void GRASPexplorator(const vector <vector <int> > &clauses, const int &numVar, const int &numCla){
+
+
+  neighborOperatorMSP operador(clauses);
+  firstImprovementMSP explorador(operador);
+  localSearchMSP LS(operador, explorador);
+
+  SolutionMSP initialSolution, finalSolution;
+
+
+	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
+//	cout << "bestFitness (Inicio): " << initialSolution.getFitness() << endl;
+
+
+  GRASPExploratorMSP G(LS);
+
+	finalSolution = G.GRASP(numVar);
+
+	cout << "bestFitness (Final): " << finalSolution.getFitness() << endl;
+
+
+}
 
 void algoritmoGenetico();
 

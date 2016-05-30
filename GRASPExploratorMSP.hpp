@@ -76,22 +76,29 @@ class GRASPExploratorMSP{
 
 
 			//Creamos la solucion aleatoria en i partes	----> Pseudo GREEDY
-			while(i < (problemSize / GP)){
+			while(i < GP){
 
-				pos1 = i * (problemSize / GP);
-				pos2 = (i + 1) * (problemSize / GP);
+				//Declaramos los bordes de la subsolucion
+				pos1 = i * (problemSize / GP) + 1;
+
+				if( (i + 1) == GP )
+					pos2 = (i + 1) * (problemSize / GP);
+				else
+					pos2 = problemSize;		//Por zhi acaso
+
 
 				while(aux.size() < 10){	//Creamos una lista con 10 subsoluciones
 
 
 					randomSol = g.randomSolutionGenerator(problemSize, pos1, pos2);
-					randomSol.setAptitude(_busquedaLocal.getOperator().getClauses());
+					randomSol.setAptitude(_busquedaLocal.getOperator().getClauses(), pos1, pos2);
 					aux.push_back(randomSol);
 				}
 
 
 				int posMejor = mejorCandidato(_busquedaLocal.getOperator().getClauses(), aux);
 
+				//Añade la porcion de solucion a la solucion final
 				for(int j = pos1; j < pos2; j++)
 
 					solucionFinal.setSolution(j, aux[posMejor].getSolution(j));
@@ -114,7 +121,7 @@ class GRASPExploratorMSP{
 
 
 			SolutionMSP actualSolution, currentSolution, bestSolution = greedyConstructor(problemSize);
-			double actualFitness, bestFitness = bestSolution.getFitness();
+			int actualFitness, bestFitness = bestSolution.getFitness();
 
 
 			for(int i = 0; i < 100; i++){

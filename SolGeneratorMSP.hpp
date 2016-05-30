@@ -66,7 +66,7 @@ class SolGeneratorMSP{
 
 		----------------------------------------------------- */
 
-		SolutionMSP randomSolutionGenerator(const int &objetos, int p1, int p2) {
+		SolutionMSP randomSolutionGenerator(const int &objetos, const int &p1, const int &p2) {
 
 			SolutionMSP solucion(objetos);
 
