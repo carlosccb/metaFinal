@@ -9,6 +9,8 @@
 #include "localSearchMSP.hpp"
 #include "coolingExploratorMSP.hpp"
 #include "GRASPExploratorMSP.hpp"
+#include "TabuSearch.hpp"
+#include "TabuNeighExplorator.hpp"
 //#include "geneticAlgorithmMSP.hpp"
 
 #include "funciones.hpp"
@@ -74,6 +76,10 @@ int main() {
 				enfriamientoSimulado(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 
 			break;
+
+			case 4:
+				cout << " ESTO NO ESTA IMPLEMENTADO" << endl;
+				break;
 
 			case 0:
 			
