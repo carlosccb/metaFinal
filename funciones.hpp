@@ -1,6 +1,18 @@
 #ifndef __FUNCIONES_HPP__
 #define __FUNCIONES_HPP__
 
+#include "SolutionMSP.hpp"
+#include "SolGeneratorMSP.hpp"
+#include "neighborOperatorMSP.hpp"
+#include "neighborExploratorMSP.hpp"
+#include "localSearchMSP.hpp"
+#include "coolingExploratorMSP.hpp"
+#include "GRASPExploratorMSP.hpp"
+#include "TabuSearch.hpp"
+#include "TabuNeighExplorator.hpp"
+#include "TabuSearch.hpp"
+//#include "geneticAlgorithmMSP.hpp"
+
 /*------------------------------------------------------------------------------------
 
 
@@ -174,6 +186,7 @@ void GRASPexplorator(const vector <vector <int> > &clauses, const int &numVar, c
 
 void TabuSearchMain(const vector <vector <int> > &clauses, const int &numVar, const int &numCla){
 	cout << "NO HASE NADA NO MAS WEY" << endl;
+
 }
 
 void algoritmoGenetico();
