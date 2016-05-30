@@ -172,6 +172,10 @@ void GRASPexplorator(const vector <vector <int> > &clauses, const int &numVar, c
 
 }
 
+void TabuSearchMain(const vector <vector <int> > &clauses, const int &numVar, const int &numCla){
+	cout << "NO HASE NADA NO MAS WEY" << endl;
+}
+
 void algoritmoGenetico();
 
 #endif
