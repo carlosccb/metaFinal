@@ -7,23 +7,23 @@
 #include <list>
 #include <vector>
 
-#include "NeighOperator.hpp"
-#include "NeighExplorator.hpp"
+#include "neighborOperatorMSP.hpp"
+#include "neighborExploratorMSP.hpp"
 
 #include "Miscelanea.hpp"
 
-template<class ProblemSolution, class Codification>
-class TabuNeighExplorator : public NeighExplorator<ProblemSolution, Codification> {
+class TabuNeighExplorator {
 	private:
+		neighborOperatorMSP *_neighOperator;
 		int _memorySize;
-		std::list<Codification> _shortTermMemory;
+		std::list<bool> _shortTermMemory;
 
 	public:
-		TabuNeighExplorator(NeighOperator<ProblemSolution> *neighOperator, bool maximize=true) : NeighExplorator<ProblemSolution, Codification>(neighOperator, maximize)  {}
+		TabuNeighExplorator(neighborOperatorMSP*neighOperator) {}
 		~TabuNeighExplorator() {}
 
-	std::list<Codification> difference(std::list<Codification> &v1, std::list<Codification> &v2) {
-		std::list<Codification> v3;
+	std::list<bool> difference(std::list<bool> &v1, std::list<bool> &v2) {
+		std::list<bool> v3;
 
 		//List has it's own sort function, it doesn't work with the std's one
 		v1.sort();
@@ -34,8 +34,8 @@ class TabuNeighExplorator : public NeighExplorator<ProblemSolution, Codification
 		return v3;
 	}
 
-	std::list<Codification> notExplored(int size) {
-		std::list<Codification> range(size);
+	std::list<bool> notExplored(int size) {
+		std::list<bool> range(size);
 		std::iota(range.begin(), range.end(), 0);
 
 		return difference(range, _shortTermMemory);
@@ -59,24 +59,24 @@ class TabuNeighExplorator : public NeighExplorator<ProblemSolution, Codification
 	   first fitness from a real solution, because I can't compare with the original one, so I modify the
 	   bestCurrent to hold a non-used permutation
 	*/
-	ProblemSolution exploreNg(ProblemSolution &sol) {
+	SolutionMSP exploreNg(SolutionMSP &sol) {
 		//If this is the first time this class is used the memory's length is set to a third of the solution
 		if(_shortTermMemory.empty())
 			_memorySize = sol.getSolution().size() / 3;
 
-		ProblemSolution bestCurrent = sol;
+		SolutionMSP bestCurrent = sol;
 		auto soltsNotExplored = notExplored(sol.getSolution().size());
 		int last = soltsNotExplored.back();
 		int changed = last;
 		soltsNotExplored.pop_back();
-		NeighExplorator<ProblemSolution, Codification>::_neighOperator->apply(bestCurrent, last);
+		_neighOperator->generateNeighbor(bestCurrent, last);
 
 		for(auto i: soltsNotExplored) {
-			ProblemSolution aux = sol;
+			SolutionMSP aux = sol;
 
-			/*NeighExplorator<ProblemSolution, Codification>::*/this->_neighOperator->apply(aux, i);
+			this->_neighOperator->generateNeighbor(aux, i);
 
-			if(this->compare_fn(aux.getFitness(), bestCurrent.getFitness())) {
+			if(aux.getFitness() >  bestCurrent.getFitness()) {
 				changed = i;
 				bestCurrent = aux;
 			}

@@ -1,37 +1,37 @@
 #ifndef __TABUSEARCH_HPP__
 #define __TABUSEARCH_HPP__
 
-#include "NeighOperator.hpp"
-#include "NeighExplorator.hpp"
+#include "neighborOperatorMSP.hpp"
+#include "neighborExploratorMSP.hpp"
 
-#include "DataFile.hpp"
+//#include "DataFile.hpp"
 
-#include "Metaheuristic.hpp"
+//#include "Metaheuristic.hpp"
 
 #include <list>
 #include <set>
 #include <vector>
 
-template<class ProblemSolution, class Codification>
-class TabuSearch : public Metaheuristic<ProblemSolution, Codification> {
+class TabuSearch {
 	private:
+		neighborExploratorMSP *explorator;
 		//Memories
-		//std::list<ProblemSolution> mdTermMemory;
-		//std::list<ProblemSolution> lngTermMemory;
+		//std::list mdTermMemory;
+		//std::list lngTermMemory;
 
 	public:
-		TabuSearch(NeighExplorator<ProblemSolution, Codification> &exp) : Metaheuristic<ProblemSolution, Codification>(exp) {}
-		TabuSearch(NeighExplorator<ProblemSolution, Codification> &exp, NeighOperator<ProblemSolution> &neighOp) : Metaheuristic<ProblemSolution, Codification>(exp, neighOp) {}
+		TabuSearch(neighborExploratorMSP &exp) {explorator = &exp;}
+		//TabuSearch(neighborExploratorMSP &exp, neighborOperatorMSP &neighOp) {}
 		~TabuSearch() {}
 
-		void setOperator(NeighOperator<ProblemSolution> &nOperator) {this->neighOperator = &nOperator;}
+		//void setOperator(neighborOperatorMSP &nOperator) {this->_neighOperator = &nOperator;}
 
 		//Explores the current neighbourhood with the explorator with which the class was instantiated
-		ProblemSolution apply(ProblemSolution &initialSol) {
-			ProblemSolution currSol = initialSol;
-			ProblemSolution bestRet = currSol;
-			//ProblemSolution  = auxSol;
-			std::list<std::vector<Codification>> mdTermMemory;
+		SolutionMSP apply(SolutionMSP &initialSol) {
+			SolutionMSP currSol = initialSol;
+			SolutionMSP bestRet = currSol;
+			//SolutionMSP  = auxSol;
+			std::list<std::vector<bool>> mdTermMemory;
 			//string fileName = "data-tabuSearch.txt"
 			//DataFile tabuSearch(fileName);
 			//The stop condition in this case is the generation of 100.000 solutions
@@ -44,7 +44,7 @@ class TabuSearch : public Metaheuristic<ProblemSolution, Codification> {
 				//std::cout << "i: " << i << std::endl;
 				//std::cout << " Trying with fitness: " << auxSol.getFitness() << std::endl;
 				std::cout << i << ": " << std::endl;
-				currSol = this->explorator->exploreNg(currSol);
+				currSol = this->explorator->explorateNeighborhood(currSol);
 
 				std::cout << " Best Tabu Neighbor has fitness: " << currSol.getFitness() << " || Current best has: " << bestRet.getFitness();
 				//<<std::endl;
