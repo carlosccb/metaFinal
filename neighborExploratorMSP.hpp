@@ -46,6 +46,7 @@ class neighborExploratorMSP{
 		//Observadores
 		neighborOperatorMSP getOperator() const {return _operador;};
 
+		virtual SolutionMSP explorateNeighborhood(const SolutionMSP &initialSolution) = 0;
 };
 
 
