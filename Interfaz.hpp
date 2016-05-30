@@ -41,8 +41,9 @@ class Interfaz {
 				cout << "  1. Busqueda Aleatoria" << endl;
 				cout << "  2. Busqueda Local" << endl;
 				cout << "  3. Enfriamiento Simulado" << endl;
-				cout << "  4. GRASP" << endl;
-				cout << "  5. Algoritmo Genetico" << endl;
+				cout << "  4. Busqueda Tabu" << endl;
+				cout << "  5. GRASP" << endl;
+				cout << "  6. Algoritmo Genetico" << endl;
 
 				cout << endl << "Opcion: ";
 				cin >> opt;

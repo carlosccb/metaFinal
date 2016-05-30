@@ -81,6 +81,11 @@ int main() {
 				cout << " ESTO NO ESTA IMPLEMENTADO" << endl;
 				break;
 
+			case 5:
+				GRASPexplorator(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
+				break;
+;
+
 			case 0:
 			
 				cout << "Saliendo" << endl << endl;
