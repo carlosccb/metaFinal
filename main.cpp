@@ -78,7 +78,6 @@ int main() {
 			break;
 
 			case 4:
-				cout << " ESTO NO ESTA IMPLEMENTADO" << endl;
 				TabuSearchMain(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 				break;
 
