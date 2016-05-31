@@ -3,6 +3,7 @@
 
 #include "neighborOperatorMSP.hpp"
 #include "neighborExploratorMSP.hpp"
+#include "TabuNeighExplorator.hpp"
 
 //#include "DataFile.hpp"
 
@@ -14,14 +15,16 @@
 
 class TabuSearch {
 	private:
-		neighborExploratorMSP *explorator;
+		neighborOperatorMSP *_neighOp;
+		TabuNeighExplorator *_explorator;
 		//Memories
 		//std::list mdTermMemory;
 		//std::list lngTermMemory;
 
 	public:
-		TabuSearch(neighborExploratorMSP &exp) {explorator = &exp;}
-		//TabuSearch(neighborExploratorMSP &exp, neighborOperatorMSP &neighOp) {}
+		TabuSearch(TabuNeighExplorator &exp) {_explorator = &exp;}
+		TabuSearch(TabuNeighExplorator &exp, neighborOperatorMSP &neighOp) {_neighOp = &neighOp; _explorator = &exp;}
+		TabuSearch(neighborOperatorMSP &neighOp, TabuNeighExplorator &exp) {_neighOp = &neighOp; _explorator = &exp;}
 		~TabuSearch() {}
 
 		//void setOperator(neighborOperatorMSP &nOperator) {this->_neighOperator = &nOperator;}
@@ -29,31 +32,29 @@ class TabuSearch {
 		//Explores the current neighbourhood with the explorator with which the class was instantiated
 		SolutionMSP apply(SolutionMSP &initialSol) {
 			SolutionMSP currSol = initialSol;
+			SoutionMSP nextIter = initialSol;
 			SolutionMSP bestRet = currSol;
-			//SolutionMSP  = auxSol;
+
 			std::list<std::vector<bool>> mdTermMemory;
-			//string fileName = "data-tabuSearch.txt"
-			//DataFile tabuSearch(fileName);
-			//The stop condition in this case is the generation of 100.000 solutions
-			/*
-				Si en la memoria a corto plazo guardo las soluciones actuales vecinas generadas me haría falta
-				 guardarlas si en el explorador pruebo todo el vecindario
-				Las soluciones se prueban de manera iterativa o aleatoria, tendría mas sentido iter si voy a explorar todo el vecindario
-			*/
-			for(unsigned int i = 0; i < 100000; i++) {
-				//std::cout << "i: " << i << std::endl;
+
+			currSol.setAptitude(_neighOp->getClauses());
+			std::cout << "The initial solution has a fitness of " << currSol.getFitness()  << endl;
+				cout << endl;
+
+			for(unsigned int i = 0; i < 100'000; i++) {
 				//std::cout << " Trying with fitness: " << auxSol.getFitness() << std::endl;
 				std::cout << i << ": " << std::endl;
-				currSol = this->explorator->explorateNeighborhood(currSol);
+				currSol = this->_explorator->exploreNg(currSol);
+
+				currSol.setAptitude(_neighOp->getClauses());
 
 				std::cout << " Best Tabu Neighbor has fitness: " << currSol.getFitness() << " || Current best has: " << bestRet.getFitness();
-				//<<std::endl;
 
-				//printVect(currSol.getSolution());
 				if(currSol.getFitness() > bestRet.getFitness()) {
 					bestRet = currSol;
 					std::cout << " ||| => Found a better one: " << bestRet.getFitness();
 				}
+				cout << endl;
 
 				auto pos = std::find(mdTermMemory.begin(), mdTermMemory.end(), currSol.getSolution());
 				if(pos == mdTermMemory.end())
