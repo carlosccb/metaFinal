@@ -17,19 +17,27 @@ class TabuNeighExplorator {
 		neighborOperatorMSP *_neighOperator;
 		int _memorySize;
 		std::list<int> _shortTermMemory;
+		std::list<int> _visitedSolts;
 
 	public:
 		TabuNeighExplorator(neighborOperatorMSP *neighOperator) {_neighOperator = neighOperator;}
 		~TabuNeighExplorator() {}
 
-	std::list<int> difference(std::list<int> &v1, std::list<int> &v2) {
-		std::list<int> v3;
+	std::list<int> set_diff(const list<int> &v1, const list<int> &v2) {
+		list<int> v3;
+		bool insert = true;
 
-		//List has it's own sort function, it doesn't work with the std's one
-		v1.sort();
-		v2.sort();
-
-		std::set_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), std::back_inserter(v3));
+		for(auto i: v1) {
+			for(auto j: v2) {
+				if(i == j) {
+					insert = false;
+					break;
+				}
+			}
+			if(insert)
+				v3.push_back(i);
+			insert = true;
+		}
 
 		return v3;
 	}
@@ -38,18 +46,26 @@ class TabuNeighExplorator {
 		std::list<int> range(size);
 		std::iota(range.begin(), range.end(), 0);
 
-		return difference(range, _shortTermMemory);
+		return set_diff(range, _shortTermMemory);
 	}
 
 	bool insertMemory(int &val) {
+		//Si el elemento ya esta en la memoria ha habido un error, se devuelve false
+		auto pos = std::find(_shortTermMemory.begin(), _shortTermMemory.end(), val);
+		if(pos != _shortTermMemory.end())
+			return false;
+
 		if(_shortTermMemory.size() == _memorySize)
 			_shortTermMemory.pop_front();
 
-		auto pos = std::find(_shortTermMemory.begin(), _shortTermMemory.end(), val);
-		if(pos == _shortTermMemory.end())
-			_shortTermMemory.push_back(val);
-		else
-			return false;
+		_shortTermMemory.push_back(val);
+
+		/*	DEBUG INFO
+			cout << "stm len: " << _shortTermMemory.size() << endl;
+			cout << "=========== STM ============" << endl;
+			printArray(_shortTermMemory, ",");
+			cout << "============================" << endl;
+		*/
 
 		return true;
 	}
@@ -83,13 +99,15 @@ class TabuNeighExplorator {
 
 			//Si es mejor que la anterior, guardo la actual
 			if(aux.getFitness() >  bestCurrent.getFitness()) {
+				/*
 				if(not insertMemory(changed)) {
 					cout << "Mi logica no funciona bien" << endl;
 					exit(1);
 				}
+				*/
 
 				changed = i;
-				cout << "Mejor solucion en la posicion " << i << endl;
+//				cout << "Mejor solucion en la posicion " << i << endl;
 				bestCurrent = aux;
 			}
 		}
@@ -99,7 +117,9 @@ class TabuNeighExplorator {
 			exit(1);
 		}
 
-		cout << "Changed element " << changed << endl;
+		/*	DEBUG INFO
+			cout << "Changed element " << changed << endl;
+		*/
 
 		//std::cout << " || " << changed << " || shrtmem size: " << _shortTermMemory.size() << " || ";// << std::endl;
 		//printVect(sol.getSolution(), ",", false);

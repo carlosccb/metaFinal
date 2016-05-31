@@ -27,7 +27,7 @@ class TabuSearch {
 		TabuSearch(neighborOperatorMSP &neighOp, TabuNeighExplorator &exp) {_neighOp = &neighOp; _explorator = &exp;}
 		~TabuSearch() {}
 
-		//void setOperator(neighborOperatorMSP &nOperator) {this->_neighOperator = &nOperator;}
+		void setOperator(neighborOperatorMSP &nOperator) {_neighOp = &nOperator;}
 
 		//Explores the current neighbourhood with the explorator with which the class was instantiated
 		SolutionMSP apply(SolutionMSP &initialSol) {
@@ -38,39 +38,32 @@ class TabuSearch {
 			std::list<std::vector<bool>> mdTermMemory;
 
 			currSol.setAptitude(_neighOp->getClauses());
-			std::cout << "The initial solution has a fitness of " << currSol.getFitness()  << endl;
+			/* DEBUG INFO
+				std::cout << "The initial solution has a fitness of " << currSol.getFitness()  << endl;
 				cout << endl;
+			*/
 
 			for(unsigned int i = 0; i < 100'000; i++) {
-				//std::cout << " Trying with fitness: " << auxSol.getFitness() << std::endl;
 				std::cout << i << ": " << std::endl;
-				currSol = this->_explorator->exploreNg(currSol);
+
+				currSol = _explorator->exploreNg(currSol);
 
 				currSol.setAptitude(_neighOp->getClauses());
-
-				std::cout << " Best Tabu Neighbor has fitness: " << currSol.getFitness() << " || Current best has: " << bestRet.getFitness();
+				bestRet.setAptitude(_neighOp->getClauses());
+				std::cout << " Best Tabu Neighbour has fitness: " << currSol.getFitness() << " || Overall best has: " << bestRet.getFitness();
 
 				if(currSol.getFitness() > bestRet.getFitness()) {
 					bestRet = currSol;
-					std::cout << " ||| => Found a better one: " << bestRet.getFitness();
+					//std::cout << " ||| => Found a better one: " << bestRet.getFitness();
 				}
-				cout << endl;
 
-				auto pos = std::find(mdTermMemory.begin(), mdTermMemory.end(), currSol.getSolution());
-				if(pos == mdTermMemory.end())
-					mdTermMemory.push_back(currSol.getSolution());
-				else {
-					std::cout << "\nThis solution has already been found\n";
-					exit(1);
-				}
+				cout << endl;
 
 				std::cout << std::endl;
 			}
 
 			return bestRet;
 		}
-
-//________________________________________________________________________________________
 
 };
 
