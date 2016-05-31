@@ -56,8 +56,7 @@ class neighborOperatorMSP{
 */
 
 		//Metodo que genera un vecino, invirtiendo un unico bit de una solucion dada
-		SolutionMSP generateNeighbor(const SolutionMSP &initialSolution, int pos){
-
+		SolutionMSP generateNeighbor(const SolutionMSP &initialSolution, int pos) {
 			SolutionMSP solucion(initialSolution);
 			solucion.setSolution(pos, abs(solucion.getSolution(pos) - 1));
 			solucion.setAptitude(_clauses);
