@@ -17,7 +17,6 @@ class TabuNeighExplorator {
 		neighborOperatorMSP *_neighOperator;
 		int _memorySize;
 		std::list<int> _shortTermMemory;
-		std::list<int> _visitedSolts;
 
 	public:
 		TabuNeighExplorator(neighborOperatorMSP *neighOperator) {_neighOperator = neighOperator;}
@@ -51,21 +50,13 @@ class TabuNeighExplorator {
 
 	bool insertMemory(int &val) {
 		//Si el elemento ya esta en la memoria ha habido un error, se devuelve false
-		auto pos = std::find(_shortTermMemory.begin(), _shortTermMemory.end(), val);
-		if(pos != _shortTermMemory.end())
+		if(std::find(_shortTermMemory.begin(), _shortTermMemory.end(), val) != _shortTermMemory.end())
 			return false;
 
 		if(_shortTermMemory.size() == _memorySize)
 			_shortTermMemory.pop_front();
 
 		_shortTermMemory.push_back(val);
-
-		/*	DEBUG INFO
-			cout << "stm len: " << _shortTermMemory.size() << endl;
-			cout << "=========== STM ============" << endl;
-			printArray(_shortTermMemory, ",");
-			cout << "============================" << endl;
-		*/
 
 		return true;
 	}
@@ -91,23 +82,16 @@ class TabuNeighExplorator {
 		bestCurrent = _neighOperator->generateNeighbor(bestCurrent, changed);
 
 		//Recorro el resto de soluciones no exploradas
+		SolutionMSP aux;
 		for(auto i: soltsNotExplored) {
-			SolutionMSP aux = sol;
+			aux = sol;
 
 			//Guardo el resultado de cambiar una solucion no explorada
 			aux = this->_neighOperator->generateNeighbor(aux, i);
 
 			//Si es mejor que la anterior, guardo la actual
 			if(aux.getFitness() >  bestCurrent.getFitness()) {
-				/*
-				if(not insertMemory(changed)) {
-					cout << "Mi logica no funciona bien" << endl;
-					exit(1);
-				}
-				*/
-
 				changed = i;
-//				cout << "Mejor solucion en la posicion " << i << endl;
 				bestCurrent = aux;
 			}
 		}
@@ -116,14 +100,6 @@ class TabuNeighExplorator {
 			cout << "elemento ya insertado en memoria" << endl;
 			exit(1);
 		}
-
-		/*	DEBUG INFO
-			cout << "Changed element " << changed << endl;
-		*/
-
-		//std::cout << " || " << changed << " || shrtmem size: " << _shortTermMemory.size() << " || ";// << std::endl;
-		//printVect(sol.getSolution(), ",", false);
-		//std::cout << " || " << std::endl;
 
 		return bestCurrent;
 	}

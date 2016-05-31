@@ -7,8 +7,6 @@
 
 //#include "DataFile.hpp"
 
-//#include "Metaheuristic.hpp"
-
 #include <list>
 #include <set>
 #include <vector>
@@ -17,9 +15,6 @@ class TabuSearch {
 	private:
 		neighborOperatorMSP *_neighOp;
 		TabuNeighExplorator *_explorator;
-		//Memories
-		//std::list mdTermMemory;
-		//std::list lngTermMemory;
 
 	public:
 		TabuSearch(TabuNeighExplorator &exp) {_explorator = &exp;}
@@ -32,10 +27,7 @@ class TabuSearch {
 		//Explores the current neighbourhood with the explorator with which the class was instantiated
 		SolutionMSP apply(SolutionMSP &initialSol) {
 			SolutionMSP currSol = initialSol;
-			SolutionMSP nextIter = initialSol;
 			SolutionMSP bestRet = currSol;
-
-			std::list<std::vector<bool>> mdTermMemory;
 
 			currSol.setAptitude(_neighOp->getClauses());
 			/* DEBUG INFO
@@ -43,28 +35,22 @@ class TabuSearch {
 				cout << endl;
 			*/
 
-			for(unsigned int i = 0; i < 100'000; i++) {
-				std::cout << i << ": " << std::endl;
+			for(unsigned int i = 0; i < 1'000; i++) {
+				std::cout << i << ": ";
 
 				currSol = _explorator->exploreNg(currSol);
 
 				currSol.setAptitude(_neighOp->getClauses());
-				bestRet.setAptitude(_neighOp->getClauses());
-				std::cout << " Best Tabu Neighbour has fitness: " << currSol.getFitness() << " || Overall best has: " << bestRet.getFitness();
+				std::cout << "Best Tabu Neighbour has fitness: " << currSol.getFitness() << " || Overall best has: " << bestRet.getFitness() << endl;
 
 				if(currSol.getFitness() > bestRet.getFitness()) {
 					bestRet = currSol;
-					//std::cout << " ||| => Found a better one: " << bestRet.getFitness();
+					bestRet.setAptitude(_neighOp->getClauses());
 				}
-
-				cout << endl;
-
-				std::cout << std::endl;
 			}
 
 			return bestRet;
 		}
-
 };
 
 #endif
