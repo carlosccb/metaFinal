@@ -16,14 +16,14 @@ class TabuNeighExplorator {
 	private:
 		neighborOperatorMSP *_neighOperator;
 		int _memorySize;
-		std::list<bool> _shortTermMemory;
+		std::list<int> _shortTermMemory;
 
 	public:
-		TabuNeighExplorator(neighborOperatorMSP*neighOperator) {}
+		TabuNeighExplorator(neighborOperatorMSP *neighOperator) {_neighOperator = neighOperator;}
 		~TabuNeighExplorator() {}
 
-	std::list<bool> difference(std::list<bool> &v1, std::list<bool> &v2) {
-		std::list<bool> v3;
+	std::list<int> difference(std::list<int> &v1, std::list<int> &v2) {
+		std::list<int> v3;
 
 		//List has it's own sort function, it doesn't work with the std's one
 		v1.sort();
@@ -34,8 +34,8 @@ class TabuNeighExplorator {
 		return v3;
 	}
 
-	std::list<bool> notExplored(int size) {
-		std::list<bool> range(size);
+	std::list<int> notExplored(int size) {
+		std::list<int> range(size);
 		std::iota(range.begin(), range.end(), 0);
 
 		return difference(range, _shortTermMemory);
@@ -65,25 +65,41 @@ class TabuNeighExplorator {
 			_memorySize = sol.getSolution().size() / 3;
 
 		SolutionMSP bestCurrent = sol;
-		auto soltsNotExplored = notExplored(sol.getSolution().size());
-		int last = soltsNotExplored.back();
-		int changed = last;
-		soltsNotExplored.pop_back();
-		_neighOperator->generateNeighbor(bestCurrent, last);
 
+		//Genero el conjunto de vecinos aun no usados
+		auto soltsNotExplored = notExplored(sol.getSolution().size());
+
+		//Saco el ultimo elemento del conjunto de no usados y lo elimino
+		int changed = soltsNotExplored.back();
+		soltsNotExplored.pop_back();
+		bestCurrent = _neighOperator->generateNeighbor(bestCurrent, changed);
+
+		//Recorro el resto de soluciones no exploradas
 		for(auto i: soltsNotExplored) {
 			SolutionMSP aux = sol;
 
-			this->_neighOperator->generateNeighbor(aux, i);
+			//Guardo el resultado de cambiar una solucion no explorada
+			aux = this->_neighOperator->generateNeighbor(aux, i);
 
+			//Si es mejor que la anterior, guardo la actual
 			if(aux.getFitness() >  bestCurrent.getFitness()) {
+				if(not insertMemory(changed)) {
+					cout << "Mi logica no funciona bien" << endl;
+					exit(1);
+				}
+
 				changed = i;
+				cout << "Mejor solucion en la posicion " << i << endl;
 				bestCurrent = aux;
 			}
 		}
 
-		if(not insertMemory(changed))
+		if(not insertMemory(changed)) {
+			cout << "elemento ya insertado en memoria" << endl;
 			exit(1);
+		}
+
+		cout << "Changed element " << changed << endl;
 
 		//std::cout << " || " << changed << " || shrtmem size: " << _shortTermMemory.size() << " || ";// << std::endl;
 		//printVect(sol.getSolution(), ",", false);
