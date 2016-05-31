@@ -32,7 +32,7 @@ class TabuSearch {
 		//Explores the current neighbourhood with the explorator with which the class was instantiated
 		SolutionMSP apply(SolutionMSP &initialSol) {
 			SolutionMSP currSol = initialSol;
-			SoutionMSP nextIter = initialSol;
+			SolutionMSP nextIter = initialSol;
 			SolutionMSP bestRet = currSol;
 
 			std::list<std::vector<bool>> mdTermMemory;
