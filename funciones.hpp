@@ -185,20 +185,20 @@ void GRASPexplorator(const vector <vector <int> > &clauses, const int &numVar, c
 }
 
 void TabuSearchMain(const vector <vector <int> > &clauses, const int &numVar, const int &numCla){
-
-
 	neighborOperatorMSP operador(clauses);
 	firstImprovementMSP explorador(operador);
-	TabuSearch TS(operador, explorador);
-	SolGeneratorMSP g;
+	TabuNeighExplorator ts_exp(&operador);
+	TabuSearch TS(operador, ts_exp);
+	SolGeneratorMSP randSolGen;
 
 	SolutionMSP initialSolution, finalSolution;
 
+	//initialSolution.setAptitude(clauses);
 
 	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
-	cout << "bestFitness (Inicio): " << initialSolution.getFitness() << endl;
+	//cout << "bestFitness (Inicio): " << initialSolution.getFitness() << endl;
 
-	initialSolution = g.randomSolutionGenerator(numVar);
+	initialSolution = randSolGen.randomSolutionGenerator(numVar);
 	initialSolution.setAptitude(clauses);
 
 	finalSolution = TS.apply(initialSolution);
