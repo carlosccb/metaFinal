@@ -41,25 +41,44 @@ class GRASPExploratorMSP{
 		}
 
 
-		int mejorCandidato(const vector < vector <int> > &clauses, vector <SolutionMSP> &candidatos){
+
+		/*
+
+			Funcion que obtiene el caracter de una variable observando como se
+			comporta en las clausulas en las que aparece. 
+
+			Para ello almacenara el numero de veces que es positiva la variable
+			en las clausulas, y el numero de veces que esta es negativa
+
+																				*/
+
+		vector <vector <int>> variableProbabilities(const int &problemSize, const vector <vector <int>> &clauses){
 
 
-			int posMejor = 0;
-			int fitnessMejor = candidatos[0].getFitness();
+		  vector <vector <int>> p(problemSize, vector<int>(2,0));
+		  int varNum;
 
-			for(int i = 1; i < candidatos.size(); i++){
+			for(int i = 0; i < clauses.size(); i++){
+				for(int j = 0; j < clauses[i].size(); j++){
 
+					varNum = abs(clauses[i][j]) - 1;
 
-				if( candidatos[i].getFitness() > fitnessMejor ){
+					if(clauses[i][j] > 0)
 
-					posMejor = i;
-					fitnessMejor = candidatos[i].getFitness();
+						p[varNum][0]++;		//Valores positivos
+
+					else
+
+						p[varNum][1]++;		//Valores Negativos
+
 				}
 
 			}
 
-		  return posMejor;
+
+		  return p;
 		}
+
 
 
 
@@ -67,46 +86,22 @@ class GRASPExploratorMSP{
 
 
 
-			SolutionMSP solucionFinal(problemSize), randomSol;
-			vector <SolutionMSP> aux;
+			SolutionMSP solucionFinal(problemSize);
 
-			SolGeneratorMSP g;
-
-			int pos1, pos2, i = 0;
-
-
-			//Creamos la solucion aleatoria en i partes	----> Pseudo GREEDY
-			while(i < GP){
-
-				//Declaramos los bordes de la subsolucion
-				pos1 = i * (problemSize / GP) + 1;
-
-				if( (i + 1) == GP )
-					pos2 = (i + 1) * (problemSize / GP);
-				else
-					pos2 = problemSize;		//Por zhi acaso
+			bool fBool;
+			int pos1, pos2;
+			vector <vector <int>> prob;		//Matriz de n * 2
 
 
-				while(aux.size() < 10){	//Creamos una lista con 10 subsoluciones
+			prob = variableProbabilities(problemSize, _busquedaLocal.getOperator().getClauses());
+
+			for(int i = 0; i < problemSize; i++){
 
 
-					randomSol = g.randomSolutionGenerator(problemSize, pos1, pos2);
-					randomSol.setAptitude(_busquedaLocal.getOperator().getClauses(), pos1, pos2);
-					aux.push_back(randomSol);
-				}
+				fBool = rand() % (prob[i][0] + prob[i][1]) < prob[i][0];
 
+				solucionFinal.setSolution(i, fBool);
 
-				int posMejor = mejorCandidato(_busquedaLocal.getOperator().getClauses(), aux);
-
-				//Añade la porcion de solucion a la solucion final
-				for(int j = pos1; j < pos2; j++)
-
-					solucionFinal.setSolution(j, aux[posMejor].getSolution(j));
-
-
-				aux.clear();
-
-				i++;
 			}
 
 
@@ -124,7 +119,7 @@ class GRASPExploratorMSP{
 			int actualFitness, bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < 100; i++){
+			for(int i = 0; i < 1000; i++){
 
 //				cout << "Iteracion: " << i << endl;
 				currentSolution = greedyConstructor(problemSize);
@@ -136,6 +131,8 @@ class GRASPExploratorMSP{
 					bestSolution = actualSolution;
 					bestFitness = actualFitness;
 				}
+
+				cout << "bestFitness (Iteracion " << i << "): " << bestFitness << " | currentFitness --> " << currentSolution.getFitness() << endl;
 			}
 
 		  return bestSolution;
