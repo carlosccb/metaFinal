@@ -80,11 +80,13 @@ class SolutionMSP{
 		  int contador = 0, numVar;
 		  bool clauseVar, valid;
 
+
 			for(int i = 0; i < clauses.size(); i++){
+
+				valid = true;
 
 				for(int j = 0; j < clauses[i].size(); j++){
 
-					valid = true;
 					numVar = abs(clauses[i][j]) - 1;
 
 					//Comprobamos si la variable de la clausula es positiva o negativa
@@ -117,6 +119,7 @@ class SolutionMSP{
 
 
 			_fitness = contador;
+
 		}
 
 
