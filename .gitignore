@@ -2,4 +2,5 @@
 *.o
 *.swp
 main
+main_auto
 *dSYM
