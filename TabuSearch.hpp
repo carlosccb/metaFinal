@@ -36,12 +36,15 @@ class TabuSearch {
 			*/
 
 			for(unsigned int i = 0; i < 1'000; i++) {
-				std::cout << i << ": ";
-
 				currSol = _explorator->exploreNg(currSol);
 
 				currSol.setAptitude(_neighOp->getClauses());
+				#ifdef DATA_AUTOMATIZATION
+				std::cout << i << " " << currSol.getFitness() << " " << bestRet.getFitness() << endl;
+				#else
+				std::cout << i << ": ";
 				std::cout << "Best Tabu Neighbour has fitness: " << currSol.getFitness() << " || Overall best has: " << bestRet.getFitness() << endl;
+				#endif
 
 				if(currSol.getFitness() > bestRet.getFitness()) {
 					bestRet = currSol;
