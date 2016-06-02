@@ -106,6 +106,26 @@ class Interfaz {
 		}
 
 
+		vector<vector<int>> read_instance(string fileName) {
+			vector<vector<int>> inst_v;
+			bool ret = false;
+
+			while(not ret) {
+				//Cargamos la instancia
+				InstanceMSP inst(fileName);
+				ret = inst.load_instance(inst_v);
+
+				_variables = inst.getVariableNumber();
+				_clauses = inst.getClauseNumber();
+
+				if(not ret) {
+					std::cerr << "ERROR: El fichero no se pudo abrir.\n";
+					exit(1);
+				}
+			}
+
+			return inst_v;
+		}
 /*
 		void print_instance(std::vector<problem_element> &inst_v) {
 				std::cout << "\nInstancia :\n";// << instance.inst_num << " de " << instance.fileName << endl;
