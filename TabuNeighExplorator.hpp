@@ -98,7 +98,7 @@ class TabuNeighExplorator {
 
 			if(not insertMemory(changed)) {
 				cout << "elemento ya insertado en memoria" << endl;
-				exit(1);
+				exit(-1);
 			}
 
 			return bestCurrent;
