@@ -1,3 +1,6 @@
+
+#define DATA_AUTOMATIZATION
+
 #include "Interfaz.hpp"
 #include "Instance.hpp"
 #include "InstanceMSP.hpp"
