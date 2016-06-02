@@ -195,7 +195,9 @@ void TabuSearchMain(const vector <vector <int> > &clauses, const int &numVar, co
 
 	//initialSolution.setAptitude(clauses);
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
+	#endif
 	//cout << "bestFitness (Inicio): " << initialSolution.getFitness() << endl;
 
 	initialSolution = randSolGen.randomSolutionGenerator(numVar);
@@ -203,7 +205,9 @@ void TabuSearchMain(const vector <vector <int> > &clauses, const int &numVar, co
 
 	finalSolution = TS.apply(initialSolution);
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << "bestFitness (Final): " << finalSolution.getFitness() << endl;
+	#endif
 
 }
 
