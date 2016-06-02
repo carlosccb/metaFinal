@@ -13,6 +13,10 @@ DEBUG = -g
 all:
 	$(CC) -o main main.cpp $(FLAGS)
 
+auto: FLAGS := $(FLAGS) -O3
+auto:
+	$(CC) -o main_auto main_auto.cpp $(FLAGS)
+
 debug: FLAGS := $(FLAGS) -g
 debug: all
 
