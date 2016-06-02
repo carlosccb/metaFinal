@@ -27,13 +27,13 @@ do
 
 	for algo in {1..5};
 	do
-		echo " #  * Algorithm $algo:"
+		echo " #  * Algoritmo $algo:"
 		dat_file=$(echo "datFiles/data_${inst_name}_Algoritmo-${algo}_$(date +%s).dat")
 		echo " #     dat file -> $dat_file"
 		./main_auto $inst $algo > $dat_file
 	done
 
-	echo "  #"
+	echo " #"
 	echo "  #################################################"
 	echo
 	num=$((num + 1))
