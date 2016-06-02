@@ -3,4 +3,5 @@
 *.swp
 main
 main_auto
+datFiles/
 *dSYM
