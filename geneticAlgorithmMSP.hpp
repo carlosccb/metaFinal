@@ -67,15 +67,12 @@ class geneticAlgorithmMSP{
 			_population = initializePopulation(POP_SIZE2);	//Inicializamos la poblacion
 			evaluatePopulation(_population);
 			
-			clock_t time = clock();
-			double tiempo = 0;
-			double hora = 3600.0;
 
 			//Tras ordenar, el primer elemento de la poblacion es el mejor
 			bestSolution = _population[_population.size() - 1];
 
                        
-			while(contador < 100000 && tiempo < (1 * hora)){
+			while(contador < 1000){
 
 
 			  vector <SolutionMSP> auxiliarPopulation;
@@ -83,10 +80,9 @@ class geneticAlgorithmMSP{
 //				instancia.saveResults(contador, bestSolution, _population[_population.size() - 1]);
 
 				//Creamos la nueva poblacion por completo
-				while(auxiliarPopulation.size() < _population.size())
+				while(auxiliarPopulation.size() < POP_SIZE2)
 
 					evolvePopulation(auxiliarPopulation);
-
 
 				evaluatePopulation(auxiliarPopulation);
 				_population = auxiliarPopulation;
@@ -95,11 +91,11 @@ class geneticAlgorithmMSP{
 				if(bestSolution.getFitness() < _population[_population.size() - 1].getFitness())
 					bestSolution = _population[_population.size() - 1];
 
-				cout << "Iteracion: " << contador << "  --> " << bestSolution.getFitness() << endl;
+
+				cout << "Tamaño Poblacion: " << _population.size() << " | bestFitness (Iteracion " << contador << "): " << bestSolution.getFitness() << " | currentFitness --> " << _population[_population.size() - 1].getFitness() << endl;
 
 
 				contador++;
-				tiempo = ((clock() - time) / (double) CLOCKS_PER_SEC);
 			}
 
 
@@ -151,7 +147,7 @@ class geneticAlgorithmMSP{
 
 				}
 
-				cout << "Añadido individuo: " << i << endl;
+//				cout << "Añadido individuo: " << i << endl;
 				auxiliarPopulation.push_back(newIndividual);
 
 			}
@@ -255,6 +251,7 @@ class geneticAlgorithmMSP{
 		  int pA, pB;	//Posiciones de los padres dentro del vector de la poblacion
 		  SolutionMSP child;
 
+
 			selectParents(pA, pB);
 
 			//Obtenemos una subpoblacion con los padres y los hijos que estos generan
@@ -279,14 +276,12 @@ class geneticAlgorithmMSP{
 		void selectParents(int &pA, int &pB){
 
 
-
-		  vector <SolutionMSP> potentialParents;
 		  vector <int> aux;
 		  int numAux;
 
 
 			//Obtenemos padres potenciales de forma aleatoria de la poblacion
-			while(potentialParents.size() < 5){
+			while(aux.size() < 5){
 
 				numAux = rand() % _population.size();
 				bool valid = true;
@@ -299,7 +294,6 @@ class geneticAlgorithmMSP{
 				}
 
 				if(valid)
-
 					aux.push_back(numAux);
 
 			}
@@ -320,7 +314,7 @@ class geneticAlgorithmMSP{
 
 
 			//Hacemos el torneo para escoger al SEGUNDO padre
-			while(potentialParents.size() < 5){
+			while(aux.size() < 5){
 
 				numAux = rand() % _population.size();
 				bool valid = true;

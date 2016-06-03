@@ -11,7 +11,7 @@
 #include "TabuSearch.hpp"
 #include "TabuNeighExplorator.hpp"
 #include "TabuSearch.hpp"
-//#include "geneticAlgorithmMSP.hpp"
+#include "geneticAlgorithmMSP.hpp"
 
 /*------------------------------------------------------------------------------------
 
@@ -185,6 +185,7 @@ void GRASPexplorator(const vector <vector <int> > &clauses, const int &numVar, c
 }
 
 void TabuSearchMain(const vector <vector <int> > &clauses, const int &numVar, const int &numCla){
+
 	neighborOperatorMSP operador(clauses);
 	firstImprovementMSP explorador(operador);
 	TabuNeighExplorator ts_exp(&operador);
@@ -211,6 +212,19 @@ void TabuSearchMain(const vector <vector <int> > &clauses, const int &numVar, co
 
 }
 
-void algoritmoGenetico();
+void algoritmoGenetico(const vector <vector <int> > &clauses, const int &numVar, const int &numCla){
+
+
+  geneticAlgorithmMSP aReproducirse(clauses, numVar);
+  SolutionMSP finalSolution;
+
+	finalSolution = aReproducirse.GA();
+	cout << "bestFitness (Final): " << finalSolution.getFitness() << endl;
+
+}
+
+
+
+
 
 #endif

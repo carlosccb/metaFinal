@@ -49,7 +49,7 @@ class Interfaz {
 				cin >> opt;
 
 
-			} while(0 > opt || opt > 5);
+			} while(0 > opt || opt > 6);
 
 			cout << endl << "__________________________" << endl << endl;
 

@@ -11,7 +11,7 @@
 #include "GRASPExploratorMSP.hpp"
 #include "TabuSearch.hpp"
 #include "TabuNeighExplorator.hpp"
-//#include "geneticAlgorithmMSP.hpp"
+#include "geneticAlgorithmMSP.hpp"
 
 #include "funciones.hpp"
 
@@ -84,7 +84,10 @@ int main() {
 			case 5:
 				GRASPexplorator(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 				break;
-;
+
+			case 6:
+				algoritmoGenetico(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
+				break;
 
 			case 0:
 			
