@@ -80,7 +80,7 @@ class geneticAlgorithmMSP{
 
 			  vector <SolutionMSP> auxiliarPopulation;
 
-				instancia.saveResults(contador, bestSolution, _population[_population.size() - 1]);
+//				instancia.saveResults(contador, bestSolution, _population[_population.size() - 1]);
 
 				//Creamos la nueva poblacion por completo
 				while(auxiliarPopulation.size() < _population.size())
@@ -252,8 +252,8 @@ class geneticAlgorithmMSP{
 		void evolvePopulation(vector <SolutionMSP> &newPopulation){
 
 
-		  SolutionMSP pA, pB;
-		  vector <SolutionMSP> subPopulation;
+		  int pA, pB;	//Posiciones de los padres dentro del vector de la poblacion
+		  SolutionMSP child;
 
 			selectParents(pA, pB);
 
@@ -261,11 +261,7 @@ class geneticAlgorithmMSP{
 			subPopulation = geneticOperator(pA, pB);
 
 			//Dejamos en el vector solo a los dos mejores individuos
-			selectIndividuals(subPopulation);
-
-
-			newPopulation.push_back(subPopulation[0]);
-			newPopulation.push_back(subPopulation[1]);
+			selectIndividuals(newPopulation, child, pA, pB);
 		}
 
 
@@ -280,7 +276,7 @@ class geneticAlgorithmMSP{
 
 		------------------------------------------------------------------------*/
 
-		void selectParents(SolutionMSP &pA, SolutionMSP &pB){
+		void selectParents(int &pA, int &pB){
 
 
 
@@ -302,20 +298,24 @@ class geneticAlgorithmMSP{
 
 				}
 
-				if(valid){
+				if(valid)
 
-					potentialParents.push_back(_population[numAux]);
 					aux.push_back(numAux);
-				}
 
 			}
 
+
 			//Escogemos al mejor individuo de todos para ser uno de los padres
-			evaluatePopulation(potentialParents);
-			pA = potentialParents[potentialParents.size() - 1];
+
+			pA = aux[0];
+			for(int i = 1; i < aux.size(); i++){
+
+				if(_population[aux[i]].getFitness() > _population[pA].getFitness())
+
+					pA = aux[i];
+			}
 
 
-			potentialParents.clear();
 			aux.clear();
 
 
@@ -332,16 +332,23 @@ class geneticAlgorithmMSP{
 
 				}
 
-				if(valid){
+				if(valid)
 
-					potentialParents.push_back(_population[numAux]);
 					aux.push_back(numAux);
-				}
+
 
 			}
 
-			evaluatePopulation(potentialParents);
-			pB = potentialParents[potentialParents.size() - 1];
+
+			//Escogemos al segundo padre
+
+			pB = aux[0];
+			for(int i = 1; i < aux.size(); i++){
+
+				if(_population[aux[i]].getFitness() > _population[pB].getFitness())
+
+					pB = aux[i];
+			}
 
 		}
 
@@ -356,54 +363,109 @@ class geneticAlgorithmMSP{
 		------------------------------------------------------------------------*/
 
 
-		vector <SolutionMSP> geneticOperator(const SolutionMSP &pA, const SolutionMSP &pB){
+		SolutionMSP geneticOperator(const int &pA, const int &pB){
 
-		  vector <SolutionMSP> naturalOrder;
 		  vector <bool> solucion;
 		  SolutionMSP hijo;
 		  int numAux;
 
-			naturalOrder.push_back(pA);
-			naturalOrder.push_back(pB);
 
-			for(int i = 0; i < pA.getSolution().size(); i++){
+			for(int i = 0; i < _population[pA].getSolution().size(); i++){
 
-				if(pA.getSolution(i) == pB.getSolution(i))
-					solucion.push_back(pA.getSolution(i));
+				if(_population[pA].getSolution(i) == _population[pB].getSolution(i))
+					solucion.push_back(_population[pA].getSolution(i));
 
 				else{
 
 					numAux = rand() % 2;
 
 					if(numAux == 0)
-						solucion.push_back(pA.getSolution(i));
+						solucion.push_back(_population[pA].getSolution(i));
 
 					else
-						solucion.push_back(pB.getSolution(i));
+						solucion.push_back(_population[pB].getSolution(i));
 
 				}
 			}
 
 			hijo.setSolution(solucion);
 			hijo.setAptitude(_clauses);
-			naturalOrder.push_back(hijo);
 
-		  return naturalOrder;
+		  return hijo;
 		}
 
 
 
 
 		//Funcion que escoge entre los dos mejores individuos despues de un cruce
-		void selectIndividuals(vector <SolutionMSP> &naturalOrder){
+		void selectIndividuals(vector <SolutionMSP> &newPopulation, const SolutionMSP &child, const int &pA, const int &pB){
 
 
-			evaluatePopulation(naturalOrder);
+			//El hijo es mejor que los dos padres
+			if(child.getFitness() > _population[pA].getFitness() && child.getFitness() > _population[pB].getFitness()){
 
-			while(naturalOrder.size() > 2)
-				naturalOrder.erase( naturalOrder.begin());
+				//Añadimos al hijo a la nueva poblacion
+				newPopulation.push_back(child);
 
-		}
+				//Añadimos a uno de los dos padres
+				if(_population[pA].getFitness() > _population[pB].getFitness()){
+
+					newPopulation.push_back(_population[pA]);
+					_population.erase(_population.begin() + pA);
+				}
+
+				else{
+
+					newPopulation.push_back(_population[pB]);
+					_population.erase(_population.begin() + pB);
+				}
+			}
+
+
+			//El padre A es mejor que el hijo y el padre B
+			else if(_population[pA].getFitness() > child.getFitness() && _population[pA].getFitness() > _population[pB].getFitness()){
+
+
+				newPopulation.push_back(_population[pA]);
+				_population.erase(_population.begin() + pA);
+
+
+				if(child > _population[pB].getFitness()){
+
+					newPopulation.push_back(child);
+				}
+
+				else{
+
+					newPopulation.push_back(_population[pB]);
+					_population.erase(_population.begin() + pB);
+				}
+			}
+
+
+
+			//El mejor individuo de todos es el segundo padre
+			else{
+
+
+				newPopulation.push_back(_population[pB]);
+				_population.erase(_population.begin() + pB);
+
+
+				if(child > _population[pA].getFitness()){
+
+					newPopulation.push_back(child);
+				}
+
+				else{
+
+					newPopulation.push_back(_population[pA]);
+					_population.erase(_population.begin() + pA);
+				}
+			}
+
+
+		}	//FIN DE LA FUNCION
 
 
 
