@@ -135,7 +135,7 @@ class geneticAlgorithmMSP{
 				while(! valid){
 
 					valid = true;
-					newIndividual = solGenerator.randomSolutionGenerator(_MSPSize);
+					newIndividual = solGenerator.randomSolutionGenerator(_solutionSize);
 					newIndividual.setAptitude(_clauses);
 
 					//Comprobamos que este lo suficientemente separado del resto de individuos
@@ -258,7 +258,7 @@ class geneticAlgorithmMSP{
 			selectParents(pA, pB);
 
 			//Obtenemos una subpoblacion con los padres y los hijos que estos generan
-			subPopulation = geneticOperator(pA, pB);
+			child = geneticOperator(pA, pB);
 
 			//Dejamos en el vector solo a los dos mejores individuos
 			selectIndividuals(newPopulation, child, pA, pB);
@@ -430,7 +430,7 @@ class geneticAlgorithmMSP{
 				_population.erase(_population.begin() + pA);
 
 
-				if(child > _population[pB].getFitness()){
+				if(child.getFitness() > _population[pB].getFitness()){
 
 					newPopulation.push_back(child);
 				}
@@ -452,7 +452,7 @@ class geneticAlgorithmMSP{
 				_population.erase(_population.begin() + pB);
 
 
-				if(child > _population[pA].getFitness()){
+				if(child.getFitness() > _population[pA].getFitness()){
 
 					newPopulation.push_back(child);
 				}
