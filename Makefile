@@ -13,8 +13,8 @@ DEBUG = -g
 all:
 	$(CC) -o main main.cpp $(FLAGS)
 
-automat: FLAGS := $(FLAGS) -O3
-automat:
+auto_dat: FLAGS := $(FLAGS) -O3
+auto_dat:
 	$(CC) -o main_auto main_auto.cpp $(FLAGS)
 
 debug: FLAGS := $(FLAGS) -g
@@ -28,7 +28,7 @@ uco: all
 
 clean:
 	if [ -f main ]; then rm main;fi;
-	if [ -f main ]; then rm main_auto;fi;
+	if [ -f main_auto ]; then rm main_auto;fi;
 	if [ -d main.dSYM ]; then rm -r main.dSYM; fi;
 
 update: clean
