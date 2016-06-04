@@ -91,7 +91,7 @@ int main() {
 				break;
 			
 			case 7:
-				beeColonyOptmization(clauses);
+				beeColonyOptimization(clauses);
 				break;
 
 			case 0:
