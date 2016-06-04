@@ -12,6 +12,7 @@
 #include "TabuSearch.hpp"
 #include "TabuNeighExplorator.hpp"
 #include "geneticAlgorithmMSP.hpp"
+#include "BCO.hpp"
 
 #include "funciones.hpp"
 
@@ -87,6 +88,10 @@ int main() {
 
 			case 6:
 				algoritmoGenetico(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
+				break;
+			
+			case 7:
+				beeColonyOptmization(clauses);
 				break;
 
 			case 0:
