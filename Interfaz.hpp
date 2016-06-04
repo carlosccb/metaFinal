@@ -44,12 +44,13 @@ class Interfaz {
 				cout << "  4. Busqueda Tabu" << endl;
 				cout << "  5. GRASP" << endl;
 				cout << "  6. Algoritmo Genetico" << endl;
+				cout << "  7. Colonia de abejas" << endl;
 
 				cout << endl << "Opcion: ";
 				cin >> opt;
 
 
-			} while(0 > opt || opt > 6);
+			} while(0 > opt || opt > 7);
 
 			cout << endl << "__________________________" << endl << endl;
 
