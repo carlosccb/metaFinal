@@ -226,7 +226,10 @@ void algoritmoGenetico(const vector <vector <int> > &clauses, const int &numVar,
 void beeColonyOptimization(vector< vector<int> > &clauses){
 	
 	BCO metodo(clauses);
-	cout << "Fitness final: " << metodo.beeColony.getFitness() << endl;
+	SolutionMSP solucion;
+
+	solucion = metodo.beeColony();
+	cout << endl << "bestFitness (Final): " << solucion.getFitness() << endl;
 	
 	
 }
