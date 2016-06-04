@@ -17,7 +17,7 @@
 
 #include <iostream>
 
-#define POP_SIZE2 50
+#define POP_SIZE2 400
 #define MAX 128
 
 using namespace std;
@@ -72,7 +72,7 @@ class geneticAlgorithmMSP{
 			bestSolution = _population[_population.size() - 1];
 
                        
-			while(contador < 1000){
+			while(contador < 10000){
 
 
 			  vector <SolutionMSP> auxiliarPopulation;
@@ -92,7 +92,7 @@ class geneticAlgorithmMSP{
 					bestSolution = _population[_population.size() - 1];
 
 
-				cout << "Tamaño Poblacion: " << _population.size() << " | bestFitness (Iteracion " << contador << "): " << bestSolution.getFitness() << " | currentFitness --> " << _population[_population.size() - 1].getFitness() << endl;
+				cout << "bestFitness (Iteracion " << contador << "): " << bestSolution.getFitness() << " | currentFitness --> " << _population[_population.size() - 1].getFitness() << endl;
 
 
 				contador++;
@@ -147,7 +147,7 @@ class geneticAlgorithmMSP{
 
 				}
 
-//				cout << "Añadido individuo: " << i << endl;
+				cout << "Añadido individuo: " << i << endl;
 				auxiliarPopulation.push_back(newIndividual);
 
 			}
@@ -251,7 +251,6 @@ class geneticAlgorithmMSP{
 		  int pA, pB;	//Posiciones de los padres dentro del vector de la poblacion
 		  SolutionMSP child;
 
-
 			selectParents(pA, pB);
 
 			//Obtenemos una subpoblacion con los padres y los hijos que estos generan
@@ -277,11 +276,18 @@ class geneticAlgorithmMSP{
 
 
 		  vector <int> aux;
-		  int numAux;
+		  int numAux, tamTorneo;
+
+
+			if(_population.size() < 5)
+				tamTorneo = _population.size();
+
+			else
+				tamTorneo = 5;
 
 
 			//Obtenemos padres potenciales de forma aleatoria de la poblacion
-			while(aux.size() < 5){
+			while(aux.size() < tamTorneo){
 
 				numAux = rand() % _population.size();
 				bool valid = true;
@@ -313,15 +319,22 @@ class geneticAlgorithmMSP{
 			aux.clear();
 
 
+			if(_population.size() <= 5)
+				tamTorneo = _population.size() - 1;		//Ya hemos escogido uno
+
+			else
+				tamTorneo = 5;
+
+
 			//Hacemos el torneo para escoger al SEGUNDO padre
-			while(aux.size() < 5){
+			while(aux.size() < tamTorneo){
 
 				numAux = rand() % _population.size();
 				bool valid = true;
 
 				for(int i = 0; i < aux.size(); i++){
 
-					if(numAux == aux[i])
+					if(numAux == aux[i] || numAux == pA)
 						valid = false;
 
 				}
