@@ -67,7 +67,7 @@ SolutionMSP beeColony() {
 		for(int i = 0; i < BeeMax; i++){
 			_workers[i].work(_operador);
 			}
-	sort(_workers.begin(), _workers.end());
+	sort(_workers.begin(), _workers.end(), comparar);
 
 		for(int i = 0; i < BeeMax; i++){
 			_supervisors[i].supervision(_operador, _workers);
