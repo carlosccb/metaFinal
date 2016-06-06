@@ -1,8 +1,7 @@
 OS := $(shell uname)
 
 ifeq ($(OS),Darwin)
-   #CC = clang++
-   CC = g++-5
+   CC = clang++
    FLAGS = -Wall  -lm -std=c++14# -I/usr/local/include/  -L /usr/local/lib/ -lgsl -lgslcblas -lm -std=c++14
 else ifeq ($(OS),Linux)
    CC = g++-5
