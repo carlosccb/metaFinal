@@ -132,7 +132,11 @@ class GRASPExploratorMSP{
 					bestFitness = actualFitness;
 				}
 
+				#ifndef DATA_AUTOMATIZATION
 				cout << "bestFitness (Iteracion " << i << "): " << bestFitness << " | currentFitness --> " << currentSolution.getFitness() << endl;
+				#else
+				cout << i  << "  " << currentSolution.getFitness() << " " << bestFitness << endl;
+				#endif
 			}
 
 		  return bestSolution;

@@ -14,6 +14,8 @@
 #include "GRASPExploratorMSP.hpp"
 #include "TabuSearch.hpp"
 #include "TabuNeighExplorator.hpp"
+#include "geneticAlgorithmMSP.hpp"
+#include "BCO.hpp"
 //#include "geneticAlgorithmMSP.hpp"
 
 #include "funciones.hpp"

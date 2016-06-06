@@ -28,8 +28,8 @@ uco: CC = g++
 uco: all
 
 clean:
-	if [ -f main ]; then rm main;fi;
-	if [ -f main_auto ]; then rm main_auto;fi;
+	if [ -f main ]; then rm main; fi;
+	if [ -f main_auto ]; then rm main_auto; fi;
 	if [ -d main.dSYM ]; then rm -r main.dSYM; fi;
 
 update: clean

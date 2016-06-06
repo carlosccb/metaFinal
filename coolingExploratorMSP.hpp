@@ -156,7 +156,11 @@ class coolingExploratorMSP{
 					actualFitness = newFitness;
 				}
 
+				#ifndef DATA_AUTOMATIZATION
 				cout << "bestFitness (Iteracion " << k << "): " << bestFitness << " | currentFitness --> " << actualFitness << endl;
+				#else
+				cout << k << " " << actualFitness << " " << bestFitness << endl;
+				#endif
 
 
 

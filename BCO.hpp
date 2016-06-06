@@ -60,6 +60,8 @@ SolutionMSP beeColony() {
 
 	float time_max = 300.0;
 
+	int iter = 0;
+
 	while(time_max > ((clock() - time)/CLOCKS_PER_SEC)){
 		
 		for(int i = 0; i < BeeMax; i++){
@@ -77,6 +79,10 @@ SolutionMSP beeColony() {
 			if (_supervisors[i].getSolution().getFitness() > _best.getFitness())
 				_best = _supervisors[i].getSolution();
 			}
+
+		//#ifndef DATA_AUTOMATIZATION
+		//cout << "i: " << iter << " " << _best.getFitness()  << endl;
+		//++iter;
 	}
 
 	return _best;

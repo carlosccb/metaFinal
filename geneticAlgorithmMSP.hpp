@@ -92,7 +92,11 @@ class geneticAlgorithmMSP{
 					bestSolution = _population[_population.size() - 1];
 
 
+				#ifndef DATA_AUTOMATIZATION
 				cout << "bestFitness (Iteracion " << contador << "): " << bestSolution.getFitness() << " | currentFitness --> " << _population[_population.size() - 1].getFitness() << endl;
+				#else
+				cout << contador  << "  " <<  _population[_population.size() - 1].getFitness() << " " <<  bestSolution.getFitness() << endl;
+				#endif
 
 
 				contador++;
