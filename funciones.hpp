@@ -43,8 +43,10 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 	bestSolution.setAptitude(clauses);
 	bestFitness = bestSolution.getFitness();
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
 	cout << "bestFitness (Inicio): " << bestFitness << endl;
+	#endif
 
 	for(int i = 0; i < 10000; i++){
 
@@ -59,7 +61,9 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 			bestFitness = currentFitness;
 		}
 
+		#ifndef DATA_AUTOMATIZATION
 		cout << "bestFitness (Iteracion " << i << "): " << bestFitness << " | currentFitness --> " << currentFitness << endl;
+		#endif
 
 
 	}
@@ -67,7 +71,9 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 
 	//Guardamos / imprimimos los resultados obtenidos
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << "bestFitness (Final): " << bestFitness << endl;
+	#endif
 
 }
 
@@ -93,8 +99,10 @@ void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
 	bestSolution.setAptitude(LS.getClauses());
 	bestFitness = bestSolution.getFitness();
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
 	cout << "bestFitness (Inicio): " << bestFitness << endl;
+	#endif
 
 	for(int i = 0; i < 1000; i++){
 
@@ -113,12 +121,16 @@ void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
 			bestFitness = currentFitness;
 		}
 
+		#ifndef DATA_AUTOMATIZATION
 		cout << "bestFitness (Iteracion " << i << "): " << bestFitness << " | currentFitness --> " << currentFitness << endl;
+		#endif
 
 
 	}
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << "bestFitness (Final): " << bestFitness << endl;
+	#endif
 
 }
 
@@ -147,15 +159,19 @@ void enfriamientoSimulado(const vector <vector <int> > &clauses, const int &numV
 	initialSolution.setAptitude(clauses);
 
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
 	cout << "bestFitness (Inicio): " << initialSolution.getFitness() << endl;
+	#endif
 
 
   coolingExploratorMSP SA(operador);
 
 	finalSolution = SA.enfriamientoSimuladoMSP(numVar, initialSolution);
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << "bestFitness (Final): " << finalSolution.getFitness() << endl;
+	#endif
 
 
 
@@ -171,15 +187,19 @@ void GRASPexplorator(const vector <vector <int> > &clauses, const int &numVar, c
   SolutionMSP initialSolution, finalSolution;
 
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << endl << "numero Variables = " << numVar << ", numero Clausulas = " << numCla << endl;
 //	cout << "bestFitness (Inicio): " << initialSolution.getFitness() << endl;
+	#endif
 
 
   GRASPExploratorMSP G(LS);
 
 	finalSolution = G.GRASP(numVar);
 
+	#ifndef DATA_AUTOMATIZATION
 	cout << "bestFitness (Final): " << finalSolution.getFitness() << endl;
+	#endif
 
 
 }
@@ -219,7 +239,9 @@ void algoritmoGenetico(const vector <vector <int> > &clauses, const int &numVar,
   SolutionMSP finalSolution;
 
 	finalSolution = aReproducirse.GA();
+	#ifndef DATA_AUTOMATIZATION
 	cout << "bestFitness (Final): " << finalSolution.getFitness() << endl;
+	#endif
 
 }
 
@@ -229,7 +251,9 @@ void beeColonyOptimization(vector< vector<int> > &clauses){
 	SolutionMSP solucion;
 
 	solucion = metodo.beeColony();
+	#ifndef DATA_AUTOMATIZATION
 	cout << endl << "bestFitness (Final): " << solucion.getFitness() << endl;
+	#endif
 	
 	
 }
