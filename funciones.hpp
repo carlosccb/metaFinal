@@ -64,7 +64,7 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 		#ifndef DATA_AUTOMATIZATION
 		cout << "bestFitness (Iteracion " << i << "): " << bestFitness << " | currentFitness --> " << currentFitness << endl;
 		#else
-		cout << i  << "  " << currentFitness << " " << bestFitness << endl;
+		cout << i  << " " << currentFitness << " " << bestFitness << endl;
 		#endif
 
 
@@ -126,7 +126,7 @@ void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
 		#ifndef DATA_AUTOMATIZATION
 		cout << "bestFitness (Iteracion " << i << "): " << bestFitness << " | currentFitness --> " << currentFitness << endl;
 		#else
-		cout << i  << "  " << currentFitness << " " << bestFitness << endl;
+		cout << i  << " " << currentFitness << " " << bestFitness << endl;
 		#endif
 
 
