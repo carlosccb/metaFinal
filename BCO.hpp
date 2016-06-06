@@ -47,6 +47,7 @@ BCO(vector < vector <int> > &clauses){
 		BeeSupervisor supervisor;
 		_supervisors.push_back(supervisor);
 		_best = generator.randomSolutionGenerator(clauses[0].size());
+		_best.setAptitude(clauses);
 
 		}
 
