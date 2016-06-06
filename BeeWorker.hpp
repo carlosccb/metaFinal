@@ -47,11 +47,12 @@ void work(neighborOperatorMSP operador){
 }
 
 SolutionMSP getSolution(){return _solution;}
+};
 
 
-bool operator<(BeeWorker &b){
+bool comparar(BeeWorker &b, BeeWorker &B){
 
-	if (this->_solution.getFitness() < b.getSolution().getFitness()) return true;
+	if (b.getSolution().getFitness() > B.getSolution().getFitness()) return true;
 		else return false;
 
 
@@ -60,5 +61,4 @@ bool operator<(BeeWorker &b){
 
 
 
-};
 #endif
