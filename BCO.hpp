@@ -42,7 +42,9 @@ BCO(vector < vector <int> > &clauses){
 	for (int i = 0; i < BeeMax; i++){
 
 		SolGeneratorMSP generator;
-		BeeWorker worker(generator.randomSolutionGenerator(clauses[0].size()));
+		SolutionMSP solucion = generator.randomSolutionGenerator(clauses[0].size());
+		solucion.setAptitude(clauses);
+		BeeWorker worker(solucion, clauses);
 		_workers.push_back(worker);
 		BeeSupervisor supervisor;
 		_supervisors.push_back(supervisor);
@@ -59,7 +61,7 @@ SolutionMSP beeColony() {
 
 	clock_t time = clock();
 
-	float time_max = 300.0;
+	float time_max = 600.0;
 
 	int iter = 0;
 
@@ -81,10 +83,11 @@ SolutionMSP beeColony() {
 				_best = _supervisors[i].getSolution();
 			}
 
-		//#ifndef DATA_AUTOMATIZATION
-		//cout << "i: " << iter << " " << _best.getFitness()  << endl;
-		//++iter;
-		//#endif
+		#ifndef DATA_AUTOMATIZATION
+		cout << "i: " << iter << " " << _best.getFitness()  << endl;
+		++iter;
+		#endif
+
 	}
 
 	return _best;

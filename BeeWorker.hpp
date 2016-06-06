@@ -14,6 +14,8 @@ private:
 
 SolutionMSP _solution;
 
+vector < vector <int> > _clauses;
+
 int _works;
 
 int worksMAX = 100;
@@ -21,9 +23,10 @@ int worksMAX = 100;
 public:
 
 
-BeeWorker(SolutionMSP solution){
+BeeWorker(SolutionMSP solution, vector < vector <int> > &clauses){
 	_solution = solution;
 	_works = 0;
+	_clauses = clauses;
 }
 
 
@@ -41,6 +44,7 @@ void work(neighborOperatorMSP operador){
 	}	else{
 		SolGeneratorMSP generador;
 		_solution = generador.randomSolutionGenerator(_solution.getSolution().size());
+		_solution.setAptitude(_clauses);
 		_works = 0;
 		}
 
