@@ -76,6 +76,14 @@ int main(int argc, char **argv) {
 			GRASPexplorator(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 			break;
 
+		case 6:
+			algoritmoGenetico(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
+			break;
+
+		case 7:
+			beeColonyOptimization(clauses);
+			break;
+
 		case 0:		
 			cout << "Saliendo" << endl << endl;
 			break;

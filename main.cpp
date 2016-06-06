@@ -40,43 +40,32 @@ int main() {
 		switch(opcion){
 
 			case 1:
-				
 				busquedaAleatoria(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
-
-			break;
+				break;
 
 			case 2:
-
 				//Se ha elegido primera mejora
-				if(interfaz.getOptLS() == 1){
-
+				if(interfaz.getOptLS() == 1) {
 				  neighborOperatorMSP operador(clauses);
 				  firstImprovementMSP explorador(operador);
 				  localSearchMSP LS(operador, explorador);
 
 					busquedaLocal(LS, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
-
 				}
-
 				//Se ha escogido mejor mejora
 				else{
-
-
 				  neighborOperatorMSP operador(clauses);
 				  bestImprovementMSP explorador(operador);
 				  localSearchMSP LS(operador, explorador);
 
 					busquedaLocal(LS, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
-
 				}
 
 			break;
 
 			case 3:
-
 				enfriamientoSimulado(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
-
-			break;
+				break;
 
 			case 4:
 				TabuSearchMain(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
@@ -89,7 +78,7 @@ int main() {
 			case 6:
 				algoritmoGenetico(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 				break;
-			
+
 			case 7:
 				beeColonyOptimization(clauses);
 				break;
