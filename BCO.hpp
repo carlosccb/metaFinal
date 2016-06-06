@@ -83,6 +83,7 @@ SolutionMSP beeColony() {
 		//#ifndef DATA_AUTOMATIZATION
 		//cout << "i: " << iter << " " << _best.getFitness()  << endl;
 		//++iter;
+		//#endif
 	}
 
 	return _best;
