@@ -8,20 +8,18 @@ else ifeq ($(OS),Linux)
    FLAGS = -lm -std=c++14
 endif
 
+FLAGS := $(FLAGS) -O3
+
 DEBUG = -g
 
 all:
 	$(CC) -o main main.cpp $(FLAGS)
 
-auto_dat: FLAGS := $(FLAGS) -O3
-auto_dat:
+auto:
 	$(CC) -o main_auto main_auto.cpp $(FLAGS)
 
 debug: FLAGS := $(FLAGS) -g
 debug: all
-
-optimize: FLAGS := $(FLAGS) -O3
-optimize: all
 
 uco: CC = g++
 uco: all
