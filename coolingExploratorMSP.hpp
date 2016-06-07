@@ -90,7 +90,7 @@ class coolingExploratorMSP{
 
 
 			//La constante de enfriamiento geometrica debe estar entre 0.5 y 0.99
-			_temperature = 0.99 * _temperature;
+			_temperature = 0.990025 * _temperature;
 		}
 
 
@@ -105,7 +105,8 @@ class coolingExploratorMSP{
 			int incE = actualFitness - newFitness;
 			int k = 1;	//De donde carajo sale esta constante ????????
 
-			if(exp(-incE/(k * _temperature)) > 0.5)		//0.5 puede ser cambiado (Es el limite para probabilidades binarias)
+			float val = (float)rand()/RAND_MAX;
+			if(exp(-incE/(k * _temperature)) > val)		//0.5 puede ser cambiado (Es el limite para probabilidades binarias)
 				return true;
 
 
@@ -132,7 +133,7 @@ class coolingExploratorMSP{
 			actualFitness = bestFitness = bestSolution.getFitness();
 
 
-			for(unsigned int k = 0; k < 1000; k++){
+			for(unsigned int k = 0; k < 10000; k++){
 
 //				cout << "Iteracion: " << k << endl;
 

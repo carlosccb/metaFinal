@@ -10,8 +10,6 @@ endif
 
 FLAGS := $(FLAGS) -O3
 
-DEBUG = -g
-
 all:
 	$(CC) -o main main.cpp $(FLAGS)
 
@@ -19,7 +17,9 @@ auto:
 	$(CC) -o main_auto main_auto.cpp $(FLAGS)
 
 debug: FLAGS := $(FLAGS) -g
-debug: all
+debug:
+	$(CC) -o main main.cpp $(FLAGS)
+	$(CC) -o main_auto main_auto.cpp $(FLAGS)
 
 uco: CC = g++
 uco: all
