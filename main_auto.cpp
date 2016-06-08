@@ -1,6 +1,6 @@
 
 #define DATA_AUTOMATIZATION
-#define _TIME_MAX_ 10
+#define _TIME_MAX_ 120
 
 #include "Interfaz.hpp"
 #include "Instance.hpp"
