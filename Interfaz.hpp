@@ -43,8 +43,8 @@ class Interfaz {
 				cout << "  3. Enfriamiento Simulado" << endl;
 				cout << "  4. Busqueda Tabu" << endl;
 				cout << "  5. GRASP" << endl;
-				cout << "  6. Algoritmo Genetico" << endl;
-				cout << "  7. Colonia de abejas" << endl;
+				cout << "  6. Colonia de abejas" << endl;
+				cout << "  7. Algoritmo Genetico" << endl;
 
 				cout << endl << "Opcion: ";
 				cin >> opt;
