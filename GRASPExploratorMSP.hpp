@@ -119,8 +119,10 @@ class GRASPExploratorMSP{
 			int actualFitness, bestFitness = bestSolution.getFitness();
 
 
-			for(int i = 0; i < 1000; i++){
+			clock_t time = clock();
+			int i = 0;
 
+			while(_TIME_MAX_ > ((clock() - time)/CLOCKS_PER_SEC)) {
 //				cout << "Iteracion: " << i << endl;
 				currentSolution = greedyConstructor(problemSize);
 				actualSolution = _busquedaLocal.localOptimum(currentSolution);
@@ -137,6 +139,7 @@ class GRASPExploratorMSP{
 				#else
 				cout << i  << " " << currentSolution.getFitness() << " " << bestFitness << endl;
 				#endif
+				++i;
 			}
 
 		  return bestSolution;

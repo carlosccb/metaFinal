@@ -12,7 +12,7 @@
 #include "neighborOperatorMSP.hpp"
 #include <iostream>
 
-#define TAM_TORNEO 5
+#define TAM_TORNEO 5.0
 
 
 using namespace std;
@@ -76,13 +76,13 @@ class coolingExploratorMSP{
 				SolutionMSP vecino = getOperator().generateNeighbor(original, pos1);
 				int fitness2 = vecino.getFitness();
 
-
 				media += fabs(fitness2 - fitness1);
 
 			}
 
+			media /= TAM_TORNEO;
 			//Dependiendo de si se quiere maximizar o minimizar, sera o no negativa la diferencia
-			_temperature = (-media) / log(0.9);
+			_temperature = (double) (-media) / log(0.9);
 
 		}
 
@@ -133,9 +133,12 @@ class coolingExploratorMSP{
 			actualFitness = bestFitness = bestSolution.getFitness();
 
 
-			for(unsigned int k = 0; k < 10000; k++){
+			clock_t time = clock();
+			int k = 0;
 
-//				cout << "Iteracion: " << k << endl;
+			while(_TIME_MAX_ > ((clock() - time)/CLOCKS_PER_SEC)) {
+
+				//cout << "Iteracion: " << k << endl;
 
 				int pos1 = random() % problemSize;
 				newSolution = getOperator().generateNeighbor(actualSolution, pos1);
@@ -166,7 +169,7 @@ class coolingExploratorMSP{
 
 
 				coolingDown();	//Descendemos la temperatura
-
+				k++;
 			}
 
 

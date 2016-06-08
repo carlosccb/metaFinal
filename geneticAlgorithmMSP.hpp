@@ -72,12 +72,10 @@ class geneticAlgorithmMSP{
 			bestSolution = _population[_population.size() - 1];
 
                        
-			while(contador < 10000){
+			clock_t time = clock();
 
-
+			while(_TIME_MAX_ > ((clock() - time)/CLOCKS_PER_SEC)) {
 			  vector <SolutionMSP> auxiliarPopulation;
-
-//				instancia.saveResults(contador, bestSolution, _population[_population.size() - 1]);
 
 				//Creamos la nueva poblacion por completo
 				while(auxiliarPopulation.size() < POP_SIZE2)
@@ -93,9 +91,9 @@ class geneticAlgorithmMSP{
 
 
 				#ifndef DATA_AUTOMATIZATION
-				cout << "bestFitness (Iteracion " << contador << "): " << bestSolution.getFitness() << " | currentFitness --> " << _population[_population.size() - 1].getFitness() << endl;
+				cout << "bestFitness (Iteracion " << contador - 1 << "): " << bestSolution.getFitness() << " | currentFitness --> " << _population[_population.size() - 1].getFitness() << endl;
 				#else
-				cout << contador  << " " <<  _population[_population.size() - 1].getFitness() << " " <<  bestSolution.getFitness() << endl;
+				cout << contador - 1  << " " <<  _population[_population.size() - 1].getFitness() << " " <<  bestSolution.getFitness() << endl;
 				#endif
 
 

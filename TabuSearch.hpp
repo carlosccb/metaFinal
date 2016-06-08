@@ -10,6 +10,8 @@
 #include <list>
 #include <set>
 #include <vector>
+#include <ctime>
+#include <cstdlib>
 
 class TabuSearch {
 	private:
@@ -35,7 +37,10 @@ class TabuSearch {
 				cout << endl;
 			*/
 
-			for(unsigned int i = 0; i < 1'000; i++) {
+			clock_t time = clock();
+			int i = 0;
+
+			while(_TIME_MAX_ > ((clock() - time)/CLOCKS_PER_SEC)) {
 				currSol = _explorator->exploreNg(currSol);
 
 				currSol.setAptitude(_neighOp->getClauses());
@@ -50,6 +55,7 @@ class TabuSearch {
 					bestRet = currSol;
 					bestRet.setAptitude(_neighOp->getClauses());
 				}
+				i++;
 			}
 
 			return bestRet;

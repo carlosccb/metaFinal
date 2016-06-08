@@ -48,7 +48,11 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 	cout << "bestFitness (Inicio): " << bestFitness << endl;
 	#endif
 
-	for(int i = 0; i < 10000; i++){
+	clock_t time = clock();
+	int i = 0;
+
+	while(_TIME_MAX_ > ((clock() - time)/CLOCKS_PER_SEC)) {
+	//for(int i = 0; i < 10000; i++){
 
 		currentSolution = g.randomSolutionGenerator(numVar);
 		currentSolution.setAptitude(clauses);
@@ -67,7 +71,7 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 		cout << i  << " " << currentFitness << " " << bestFitness << endl;
 		#endif
 
-
+		i++;
 	}
 
 
@@ -106,8 +110,10 @@ void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
 	cout << "bestFitness (Inicio): " << bestFitness << endl;
 	#endif
 
-	for(int i = 0; i < 1000; i++){
+	clock_t time = clock();
+	int i = 0;
 
+	while(_TIME_MAX_ > ((clock() - time)/CLOCKS_PER_SEC)) {
 		//Generamos la solucion aleatoria
 		currentSolution = g.randomSolutionGenerator(numVar);
 		currentSolution.setAptitude(LS.getClauses());
@@ -129,7 +135,7 @@ void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
 		cout << i  << " " << currentFitness << " " << bestFitness << endl;
 		#endif
 
-
+		++i;
 	}
 
 	#ifndef DATA_AUTOMATIZATION
