@@ -61,11 +61,9 @@ SolutionMSP beeColony() {
 
 	clock_t time = clock();
 
-	float time_max = 600.0;
-
 	int iter = 0;
 
-	while(time_max > ((clock() - time)/CLOCKS_PER_SEC)){
+	while(_TIME_MAX_ > ((clock() - time)/CLOCKS_PER_SEC)){
 		
 		for(int i = 0; i < BeeMax; i++){
 			_workers[i].work(_operador);
