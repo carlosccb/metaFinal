@@ -75,12 +75,12 @@ class SolutionMSP{
 
 
 		//Funcion que devuelve la bondad de una solucion COMPLETA
-		void setAptitude(const vector < vector <int> > &clauses){
+		void setAptitude(const vector < vector <int> > &clauses) {
 			int contador = 0, numVar;
 			bool clauseVar, valid;
 
 			for(int i = 0; i < clauses.size(); i++) {
-				valid = true;
+				valid = false;
 				for(int j = 0; j < clauses[i].size(); j++) {
 					numVar = abs(clauses[i][j]) - 1;
 
@@ -91,8 +91,8 @@ class SolutionMSP{
 						clauseVar = true;
 
 					//Comprobamos si alguna de las clausulas termina siendo negativa
-					if(_solution[numVar] != clauseVar) {
-						valid=false;
+					if(_solution[numVar] == clauseVar) {
+						valid=true;
 						break;
 					}
 				}
