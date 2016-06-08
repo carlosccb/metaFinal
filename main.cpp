@@ -1,5 +1,5 @@
 
-#define _TIME_MAX_ 120
+#define _TIME_MAX_ 10
 
 #include "Interfaz.hpp"
 #include "Instance.hpp"
@@ -21,6 +21,9 @@
 
 #include <iostream>
 #include <vector>
+#include <ctime>
+#include <cstdlib>
+
 
 using namespace std;
 
@@ -79,11 +82,11 @@ int main() {
 				break;
 
 			case 6:
-				algoritmoGenetico(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
+				beeColonyOptimization(clauses);
 				break;
 
 			case 7:
-				beeColonyOptimization(clauses);
+				algoritmoGenetico(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 				break;
 
 			case 0:

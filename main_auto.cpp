@@ -1,6 +1,6 @@
 
 #define DATA_AUTOMATIZATION
-#define _TIME_MAX_ 120
+#define _TIME_MAX_ 10
 
 #include "Interfaz.hpp"
 #include "Instance.hpp"
@@ -77,11 +77,11 @@ int main(int argc, char **argv) {
 			GRASPexplorator(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 			break;
 
-		case 6:
+		case 7:
 			algoritmoGenetico(clauses, interfaz.getVariablesNumber(), interfaz.getClausesNumber());
 			break;
 
-		case 7:
+		case 6:
 			beeColonyOptimization(clauses);
 			break;
 
