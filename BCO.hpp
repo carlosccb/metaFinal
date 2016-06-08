@@ -23,6 +23,8 @@ vector<BeeWorker> _workers;
 
 vector<BeeSupervisor> _supervisors;
 
+int _globalOptimum;
+
 int BeeMax = 5; //usad siempre minimo 3, o habría que cambiar la forma en la que mandas a las supervisoras
 
 SolutionMSP _best;
@@ -38,6 +40,8 @@ BCO(vector < vector <int> > &clauses){
 	neighborOperatorMSP operador(clauses);
 
 	_operador = operador;
+
+	_globalOptimum = clauses.size();
 
 	for (int i = 0; i < BeeMax; i++){
 
@@ -67,25 +71,30 @@ SolutionMSP beeColony() {
 		
 		for(int i = 0; i < BeeMax; i++){
 			_workers[i].work(_operador);
-			}
+		}
 	sort(_workers.begin(), _workers.end(), comparar);
 
 		for(int i = 0; i < BeeMax; i++){
 			_supervisors[i].supervision(_operador, _workers);
-			}
+		}
 
 		for(int i = 0; i < BeeMax; i++){
 			if (_workers[i].getSolution().getFitness() > _best.getFitness())
 				_best = _workers[i].getSolution();
 			if (_supervisors[i].getSolution().getFitness() > _best.getFitness())
 				_best = _supervisors[i].getSolution();
-			}
+		}
 
 		#ifndef DATA_AUTOMATIZATION
 		cout << "i: " << iter << " " << _best.getFitness()  << endl;
-		++iter;
+		#else
+		cout  << iter << " " << _best.getFitness()  << endl;
 		#endif
 
+		if(_globalOptimum == _best.getFitness())
+			break;
+
+		++iter;
 	}
 
 	return _best;

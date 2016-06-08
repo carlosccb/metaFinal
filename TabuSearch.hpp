@@ -17,6 +17,7 @@ class TabuSearch {
 	private:
 		neighborOperatorMSP *_neighOp;
 		TabuNeighExplorator *_explorator;
+		int _globalOptimum;
 
 	public:
 		TabuSearch(TabuNeighExplorator &exp) {_explorator = &exp;}
@@ -28,6 +29,9 @@ class TabuSearch {
 
 		//Explores the current neighbourhood with the explorator with which the class was instantiated
 		SolutionMSP apply(SolutionMSP &initialSol) {
+
+			_globalOptimum = _neighOp->getClauses().size();
+
 			SolutionMSP currSol = initialSol;
 			SolutionMSP bestRet = currSol;
 
@@ -55,6 +59,10 @@ class TabuSearch {
 					bestRet = currSol;
 					bestRet.setAptitude(_neighOp->getClauses());
 				}
+
+				if(bestRet.getFitness() == _globalOptimum)
+					break;
+
 				i++;
 			}
 

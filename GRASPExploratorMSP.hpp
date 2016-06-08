@@ -29,6 +29,7 @@ class GRASPExploratorMSP{
 	private:
 
 		localSearchMSP _busquedaLocal;
+		int _globalOptimum;
 
 
 	public:
@@ -94,6 +95,7 @@ class GRASPExploratorMSP{
 
 
 			prob = variableProbabilities(problemSize, _busquedaLocal.getOperator().getClauses());
+			_globalOptimum = _busquedaLocal.getOperator().getClauses().size();
 
 			for(int i = 0; i < problemSize; i++){
 
@@ -139,6 +141,10 @@ class GRASPExploratorMSP{
 				#else
 				cout << i  << " " << currentSolution.getFitness() << " " << bestFitness << endl;
 				#endif
+
+				if(bestFitness == _globalOptimum)
+					break;
+
 				++i;
 			}
 

@@ -33,6 +33,7 @@ class geneticAlgorithmMSP{
 		vector <SolutionMSP> _population;
 		vector < vector <int> > _clauses;
 		int _solutionSize;
+		int _globalOptimum;
 
 	public:
 
@@ -41,6 +42,8 @@ class geneticAlgorithmMSP{
 
 			_solutionSize = solutionSize;
 			_clauses = clauses;
+
+			_globalOptimum = clauses.size();
 		};
 
 		~geneticAlgorithmMSP(){};
@@ -96,6 +99,8 @@ class geneticAlgorithmMSP{
 				cout << contador - 1  << " " <<  _population[_population.size() - 1].getFitness() << " " <<  bestSolution.getFitness() << endl;
 				#endif
 
+				if(bestSolution.getFitness() == _globalOptimum)
+					break;
 
 				contador++;
 			}

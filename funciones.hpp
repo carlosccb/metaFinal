@@ -38,6 +38,9 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
   int bestFitness, currentFitness;
 
 
+	int _globalOptimum = clauses.size();
+
+
 	//Llevamos a cabo el metodo
 	bestSolution = g.randomSolutionGenerator(numVar);
 	bestSolution.setAptitude(clauses);
@@ -71,6 +74,9 @@ void busquedaAleatoria(const vector <vector <int> > &clauses, const int &numVar,
 		cout << i  << " " << currentFitness << " " << bestFitness << endl;
 		#endif
 
+		if(bestFitness == _globalOptimum)
+			break;
+
 		i++;
 	}
 
@@ -100,6 +106,7 @@ void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
   int currentFitness, bestFitness;
   SolGeneratorMSP g;
 
+	int _globalOptimum = numCla; 
 
 	bestSolution = g.randomSolutionGenerator(numVar);
 	bestSolution.setAptitude(LS.getClauses());
@@ -134,6 +141,9 @@ void busquedaLocal(localSearchMSP &LS, const int &numVar, const int &numCla){
 		#else
 		cout << i  << " " << currentFitness << " " << bestFitness << endl;
 		#endif
+
+		if(bestFitness == _globalOptimum)
+			break;
 
 		++i;
 	}

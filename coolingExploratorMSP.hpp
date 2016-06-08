@@ -26,6 +26,7 @@ class coolingExploratorMSP{
 
 		neighborOperatorMSP _operador;
 		double _temperature;		//Hay que darle una temperatura inicial
+		int _globalOptimum;
 
 
 	public:
@@ -122,6 +123,8 @@ class coolingExploratorMSP{
 
 		SolutionMSP enfriamientoSimuladoMSP(const int &problemSize, SolutionMSP &initialSolution){
 
+			_globalOptimum = _operador.getClauses().size();
+
 
 			temperatureRestart(problemSize);
 
@@ -166,7 +169,8 @@ class coolingExploratorMSP{
 				cout << k << " " << actualFitness << " " << bestFitness << endl;
 				#endif
 
-
+				if(bestFitness == _globalOptimum)
+					break;
 
 				coolingDown();	//Descendemos la temperatura
 				k++;
