@@ -112,7 +112,7 @@ class Instance {
 			//Llegamos a la linea con p
 			if(line[0] != 'p'){
 
-				cout << endl << "¡¿Que cojones esta pasando?!" << endl << endl;
+				cout << endl << "¡¿Que esta pasando?!" << endl << endl;
 				exit(0);
 			}
 
