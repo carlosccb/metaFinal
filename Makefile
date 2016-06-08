@@ -2,7 +2,7 @@ OS := $(shell uname)
 
 ifeq ($(OS),Darwin)
    CC = clang++
-   FLAGS = -Wall  -lm -std=c++14# -I/usr/local/include/  -L /usr/local/lib/ -lgsl -lgslcblas -lm -std=c++14
+   FLAGS = -Wall  -lm -std=c++14
 else ifeq ($(OS),Linux)
    CC = g++-5
    FLAGS = -lm -std=c++14
@@ -28,6 +28,7 @@ clean:
 	if [ -f main ]; then rm main; fi;
 	if [ -f main_auto ]; then rm main_auto; fi;
 	if [ -d main.dSYM ]; then rm -r main.dSYM; fi;
+	if [ -d main_auto.dSYM ]; then rm -r main_auto.dSYM; fi;
 
 update: clean
 update: all
