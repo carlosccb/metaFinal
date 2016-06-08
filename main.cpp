@@ -1,3 +1,6 @@
+
+#define _TIME_MAX_ 120
+
 #include "Interfaz.hpp"
 #include "Instance.hpp"
 #include "InstanceMSP.hpp"
