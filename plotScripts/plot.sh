@@ -96,18 +96,6 @@ main() {
 	fi
 	
 	currentBest_vs_bestOverall
-
-	#for i in $(ls ../datFiles/*);
-	#do
-	#	file_name=$(echo $i | sed "s/.*data_\(.*\)_Algo.*/\1/")
-	#	echo " * The file name is $file_name"
-
-	#	algorithm=$(echo $i | sed "s/.*data.*\(Algo.*\)_.*/\1/")
-	#	#algorithm=$(echo $i | sed "s/.*data_.*_\(Algo.*\)_.*/ * algo -> \1/")
-	#	echo "   The algorithm used with this file is -> $algorithm"
-	#	echo
-	#done
-
 }
 
 main "$@"
