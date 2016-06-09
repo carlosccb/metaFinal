@@ -15,7 +15,7 @@ plot "../datFiles/ben-weight_Best_EvenLines.txt" using 1:2 title "Best" w p pt 1
 _end_
 }
 
-currentBest_vs_BestOverall() {
+currentBest_vs_bestOverall() {
 #Extract file name and algorithm
 for i in $(ls ../datFiles/*);
 do
@@ -95,7 +95,7 @@ main() {
 		mkdir ../graphics;
 	fi
 	
-	currentBest_vs_BestOverall
+	currentBest_vs_bestOverall
 
 	#for i in $(ls ../datFiles/*);
 	#do
