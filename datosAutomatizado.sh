@@ -32,7 +32,7 @@ do
 		#Asi seria mas intuitivo al leer el nombre (not really)
 		#dat_file=$(echo "datFiles/data_${inst_name}-Algoritmo_${algo}-$(date +%s).dat")
 		echo " #     dat file -> $dat_file"
-		echo "iter current_best overall_best"
+		echo "iter \"mejor iteracion actual\" \"mejor encontrado\"" >> $dat_file
 		nice -n -15 ./main_auto $inst $algo >> $dat_file
 	done
 
