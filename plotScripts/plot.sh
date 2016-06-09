@@ -28,6 +28,8 @@ do
 	echo
 cat << _end_ | gnuplot
 set terminal png giant font arial 12 size 800,600 
+set xlabel "Iteraciones"
+set ylabel "Fitness"
 set key outside
 set output "$graph_name"
 
