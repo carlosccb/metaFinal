@@ -88,7 +88,7 @@ SolutionMSP beeColony() {
 		#ifndef DATA_AUTOMATIZATION
 		cout << "i: " << iter << " " << _best.getFitness()  << endl;
 		#else
-		cout  << iter << " " << _best.getFitness()  << endl;
+		cout  << iter << " 0 "  << _best.getFitness()  << endl;
 		#endif
 
 		if(_globalOptimum == _best.getFitness())
