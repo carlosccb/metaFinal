@@ -29,6 +29,8 @@ do
 	do
 		echo " #  * Algoritmo $algo:"
 		dat_file=$(echo "datFiles/data_${inst_name}_Algoritmo-${algo}_$(date +%s).dat")
+		#Asi seria mas intuitivo al leer el nombre (not really)
+		#dat_file=$(echo "datFiles/data_${inst_name}-Algoritmo_${algo}-$(date +%s).dat")
 		echo " #     dat file -> $dat_file"
 		echo "iter current_best overall_best"
 		nice -n -15 ./main_auto $inst $algo >> $dat_file
