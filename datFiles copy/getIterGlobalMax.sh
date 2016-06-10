@@ -44,7 +44,7 @@ for i in $(ls); do
 			getAlgoName $algo
 			echo " $algo : $algo_name" # >> ../${file_name}
 			printf "$algo_name " >> ../${file_name}
-			tail -n +2 $j | awk 'BEGIN { max=0 } $2 > max { max=$2; iter=$1 } END { print iter " " max }' FS=" " >> ../${file_name}
+			tail -n +2 $j | awk 'BEGIN { max=0 } $2 > max { max=$2; iter=$1 } END { print  max }' FS=" " >> ../${file_name}
 		done
 		echo
 		echo "$file_name max" >> ../test_prueba_I.txt
