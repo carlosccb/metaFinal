@@ -23,7 +23,7 @@ do
 		set output \"${graph_name}_csplines.png\"
 		plot for [col=2:3] '$i' using col smooth csplines title columnheader"
 	elif [ $lines -lt 5000 ];then
-		plot_line="set samples 2000
+		plot_line="set samples 5000
 		plot for [col=2:3] '$i' using col smooth csplines title columnheader"
 	elif [ $lines -lt 70000 ]; then
 		plot_line="plot for [col=2:3] '$i' using col w l title columnheader"
@@ -33,7 +33,7 @@ do
 
 cat << _end_ | gnuplot
 set lt 1 lc rgb "forest-green" lw 1
-set lt 2 lc rgb "midnight-blue" lw 1
+set lt 2 lc rgb "midnight-blue" lw 2
 
 set terminal png giant font arial 12 size 800,600 enhanced background rgb 'beige'
 set xlabel "Iteraciones"
