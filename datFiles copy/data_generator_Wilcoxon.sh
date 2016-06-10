@@ -47,13 +47,15 @@ for i in $(ls);do
 		for j in $(ls *.dat);do
 			#extrae el numero de algoritmo
 			algo=$(echo $j | grep -o "Algoritmo-[$iter_num$jter_num]" | grep -o "[$iter_num-$jter_num]")
-			getAlgoName $algo
-			echo " $algo : $algo_name"
-			printf "$algo_name " >> ../${file_name}
-			tail -n +2 $j | awk 'BEGIN { max=0 } $2 > max { max=$2; iter=$1 } END { print max }' FS=" " >> ../${file_name}
+			if [ ! -z "$algo" ]; then 
+				getAlgoName $algo
+				echo " $algo : $algo_name"
+				printf "$algo_name " >> ../${file_name}
+				tail -n +2 $j | awk 'BEGIN { max=0 } $2 > max { max=$2; iter=$1 } END { print max }' FS=" " >> ../${file_name}
+			fi
 		done
 		echo
-		echo "$file_name max" >> ../test_prueba_I.txt
+		echo "$file_name max" >> ../test_prueba_Wilcoxon.txt
 		cd ..
 	fi
 done

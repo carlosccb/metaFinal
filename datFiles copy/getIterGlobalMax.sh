@@ -38,16 +38,16 @@ for i in $(ls); do
 		cd $i
 		instance=$(pwd | sed "s/.*\/\(.*\)/\1/")
 		echo "Getting best results of algorithms for instace $instance"
-		file_name="${instance}-comp_algo.dat"
+		file_name="${instance}-iter_global.dat"
 		for j in $(ls *.dat);do
 			algo=$(echo $j | grep -o "Algoritmo-[0-7]" | grep -o "[0-9]")
 			getAlgoName $algo
 			echo " $algo : $algo_name" # >> ../${file_name}
 			printf "$algo_name " >> ../${file_name}
-			tail -n +2 $j | awk 'BEGIN { max=0 } $2 > max { max=$2; iter=$1 } END { print  max }' FS=" " >> ../${file_name}
+			tail -n +2 $j | awk 'BEGIN { max=0 } $2 > max { max=$2; iter=$1 } END { print iter max }' FS=" " >> ../${file_name}
 		done
 		echo
-		echo "$file_name max" >> ../test_prueba_I.txt
+		echo "$file_name max" >> ../test_prueba_Iter_Max_Global.txt
 		cd ..
 	fi
 done
