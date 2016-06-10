@@ -47,6 +47,7 @@ for i in $(ls); do
 			tail -n +2 $j | awk 'BEGIN { max=0 } $2 > max { max=$2; iter=$1 } END { print iter " " max }' FS=" " >> ../${file_name}
 		done
 		echo
+		echo "$file_name max" >> test_prueba_I.txt
 		cd ..
 	fi
 done
