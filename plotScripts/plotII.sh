@@ -14,19 +14,20 @@ do
 	echo "    -> Current file has $lines lines. "
 	echo
 
-	if [ $lines -lt 10  ]; then
+	if [ $lines -lt 5  ]; then
 		plot_line="plot for [col=2:3] '$i' using col w p title columnheader"
+	elif [ $lines -lt 10 ];then
+		#plot_line="plot for [col=2:3] '$i' using col w l title columnheader	"
+		plot_line="plot '$i' using 1:2 w l lc rgb \"forest-green\" title columnheader, '$i' using 1:3 w l lc rgb \"midnight-blue\" title columnheader"
+	elif [ $lines -lt 5000 ];then
+		plot_line="plot '$i' using 1:2 w l lc rgb \"forest-green\" title columnheader, '$i' using 1:3 w l lc rgb \"midnight-blue\" title columnheader"
+	elif [ $lines -lt 70000 ]; then
+		plot_line="plot for [col=2:3] '$i' using col w l title columnheader"
 	elif [ $lines -gt 100000  ];then
-		#plot_line="plot for [col=2:3] '$i' using col w l title columnheader"
 		plot_line="plot '$i' using 1:2 w l lc rgb \"forest-green\" title columnheader, '$i' using 1:3 w l lc rgb \"midnight-blue\" title columnheader
 		set samples 10000
 		set output \"${graph_name}_csplines.png\"
 		plot for [col=2:3] '$i' using col smooth csplines title columnheader"
-	elif [ $lines -lt 5000 ];then
-		plot_line="set samples 5000
-		plot for [col=2:3] '$i' using col smooth csplines title columnheader"
-	elif [ $lines -lt 70000 ]; then
-		plot_line="plot for [col=2:3] '$i' using col w l title columnheader"
 	else
 		plot_line="plot for [col=2:3] '$i' using col smooth csplines title columnheader	"
 	fi
