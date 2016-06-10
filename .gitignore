@@ -5,3 +5,9 @@ main
 main_auto
 datFiles/
 *dSYM
+/tests/BonferroniSalva/nbproject/private/
+/tests/BonferroniSalva/build/
+/tests/BonferroniSalva/dist/
+/tests/Wilcoxon/nbproject/private/
+/tests/Wilcoxon/dist/
+/tests/Wilcoxon/build/
